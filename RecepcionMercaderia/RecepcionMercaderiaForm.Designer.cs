@@ -1,4 +1,4 @@
-﻿namespace GrupoC.RecepcionMercaderia
+﻿namespace GrupoE.RecepcionMercaderia
 {
     partial class RecepcionMercaderiaForm
     {

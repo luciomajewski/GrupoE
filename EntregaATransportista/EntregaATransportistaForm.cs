@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Drawing.Printing;
 
-namespace GrupoC.EntregaATransportista
+namespace GrupoE.EntregaATransportista
 {
     public partial class EntregaATransportistaForm : Form
     {

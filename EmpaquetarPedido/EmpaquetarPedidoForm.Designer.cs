@@ -1,4 +1,4 @@
-﻿namespace GrupoC.EmpaquetarPedido
+﻿namespace GrupoE.EmpaquetarPedido
 {
     partial class EmpaquetarPedidoForm
     {

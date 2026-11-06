@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace GrupoC.RecepcionMercaderia
+namespace GrupoE.RecepcionMercaderia
 {
     public partial class RecepcionMercaderiaForm : Form
     {

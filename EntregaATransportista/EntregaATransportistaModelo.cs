@@ -1,5 +1,5 @@
 #nullable enable
-namespace GrupoC.EntregaATransportista;
+namespace GrupoE.EntregaATransportista;
 
 internal class EntregaATransportistaModelo
 {

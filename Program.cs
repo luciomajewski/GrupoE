@@ -1,4 +1,4 @@
-namespace GrupoC
+namespace GrupoE
 {
     internal static class Program
     {

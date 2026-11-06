@@ -1,10 +1,10 @@
-using GrupoC.EmpaquetarPedido;
-using GrupoC.EntregaATransportista;
-using GrupoC.IngresoStock;
-using GrupoC.RecepcionMercaderia;
-using GrupoC.RegistrarOrdenDePreparacion;
+using GrupoE.EmpaquetarPedido;
+using GrupoE.EntregaATransportista;
+using GrupoE.IngresoStock;
+using GrupoE.RecepcionMercaderia;
+using GrupoE.RegistrarOrdenDePreparacion;
 
-namespace GrupoC
+namespace GrupoE
 {
     public partial class Form1 : Form
     {
@@ -33,7 +33,7 @@ namespace GrupoC
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var cumplir = new GrupoC.CumplirOrdenSeleccion.CumplirOrdenSeleccionForm();
+            var cumplir = new GrupoE.CumplirOrdenSeleccion.CumplirOrdenSeleccionForm();
             cumplir.Show();
         }
 

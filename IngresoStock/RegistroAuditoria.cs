@@ -1,6 +1,6 @@
 using System;
 
-namespace GrupoC.IngresoStock
+namespace GrupoE.IngresoStock
 {
     public class RegistroAuditoria
     {

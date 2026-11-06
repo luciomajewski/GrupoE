@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GrupoC.IngresoStock
+namespace GrupoE.IngresoStock
 {
     public class IngresoStockModelo
     {

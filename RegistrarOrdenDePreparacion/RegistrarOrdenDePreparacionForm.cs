@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace GrupoC.RegistrarOrdenDePreparacion
+namespace GrupoE.RegistrarOrdenDePreparacion
 {
     public partial class RegistrarOrdenDePreparacionForm : Form
     {

@@ -1,4 +1,4 @@
-namespace GrupoC.IngresoStock
+namespace GrupoE.IngresoStock
 {
     // Existencia "Disponible en Guarda" de un SKU en una posición del depósito
     public class Mercaderia

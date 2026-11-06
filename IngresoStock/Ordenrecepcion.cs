@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GrupoC.IngresoStock
+namespace GrupoE.IngresoStock
 {
     public class OrdenRecepcion
     {

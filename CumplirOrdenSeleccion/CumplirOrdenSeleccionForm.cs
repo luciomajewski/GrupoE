@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace GrupoC.CumplirOrdenSeleccion
+namespace GrupoE.CumplirOrdenSeleccion
 {
     public partial class CumplirOrdenSeleccionForm : Form
     {

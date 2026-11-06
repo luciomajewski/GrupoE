@@ -1,4 +1,4 @@
-namespace GrupoC.RegistrarOrdenDePreparacion;
+namespace GrupoE.RegistrarOrdenDePreparacion;
 
 internal class StockProducto
 {

@@ -1,4 +1,4 @@
-namespace GrupoC.CumplirOrdenSeleccion;
+namespace GrupoE.CumplirOrdenSeleccion;
 
 internal class RenglonOrdenSeleccion
 {

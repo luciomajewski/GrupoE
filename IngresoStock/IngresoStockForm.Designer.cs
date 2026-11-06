@@ -1,4 +1,4 @@
-﻿namespace GrupoC.IngresoStock
+﻿namespace GrupoE.IngresoStock
 {
     partial class IngresoStockForm
     {

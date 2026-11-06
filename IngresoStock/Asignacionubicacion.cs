@@ -1,4 +1,4 @@
-namespace GrupoC.IngresoStock
+namespace GrupoE.IngresoStock
 {
     // Ubicación temporal agregada con "Agregar Ubicación", antes de confirmar el ingreso
     public class AsignacionUbicacion

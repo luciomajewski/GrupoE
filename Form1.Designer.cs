@@ -1,4 +1,4 @@
-﻿namespace GrupoC
+﻿namespace GrupoE
 {
     partial class Form1
     {

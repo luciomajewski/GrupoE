@@ -1,4 +1,4 @@
-namespace GrupoC.EntregaATransportista;
+namespace GrupoE.EntregaATransportista;
 
 internal enum EstadoOrdenEntrega
 {

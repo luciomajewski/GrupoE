@@ -1,0 +1,204 @@
+[
+  {
+    "Numero": 1048,
+    "CodigoCliente": "CLI-001",
+    "NumeroRemito": "00001-00004521",
+    "FechaRemito": "2026-11-02T00:00:00",
+    "Transportista": "Transportes del Sur",
+    "Chofer": "Carlos Méndez",
+    "Patente": "AB123CD",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "AND-1001",
+        "CantidadContada": 50,
+        "CantidadRemito": 50,
+        "Asignaciones": [
+          {
+            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "1" },
+            "Cantidad": 30
+          },
+          {
+            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "2" },
+            "Cantidad": 20
+          }
+        ],
+        "CantidadAUbicar": 50,
+        "Descripcion": "Yerba mate 1 kg",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "AND-1002",
+        "CantidadContada": 30,
+        "CantidadRemito": 30,
+        "Asignaciones": [
+          {
+            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "3" },
+            "Cantidad": 30
+          }
+        ],
+        "CantidadAUbicar": 30,
+        "Descripcion": "Aceite girasol 1,5 L",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "jperez"
+  },
+  {
+    "Numero": 1049,
+    "CodigoCliente": "CLI-002",
+    "NumeroRemito": "00003-00001187",
+    "FechaRemito": "2026-11-03T00:00:00",
+    "Transportista": "Logística Pampeana",
+    "Chofer": "Raúl Fernández",
+    "Patente": "AC456EF",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "ELS-2001",
+        "CantidadContada": 20,
+        "CantidadRemito": 20,
+        "Asignaciones": [],
+        "CantidadAUbicar": 20,
+        "Descripcion": "Licuadora 600 W",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "ELS-2002",
+        "CantidadContada": 15,
+        "CantidadRemito": 15,
+        "Asignaciones": [],
+        "CantidadAUbicar": 15,
+        "Descripcion": "Pava eléctrica 1,7 L",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "PendienteDeUbicacion",
+    "Usuario": "mgomez"
+  },
+  {
+    "Numero": 1050,
+    "CodigoCliente": "CLI-003",
+    "NumeroRemito": "00002-00000915",
+    "FechaRemito": "2026-11-04T00:00:00",
+    "Transportista": "Expreso Litoral",
+    "Chofer": "Diego Sosa",
+    "Patente": "AD789GH",
+    "Observaciones": "Faltan 20 remeras respecto del remito. Se entregó nota de diferencias al transportista.",
+    "Items": [
+      {
+        "Sku": "TXP-3001",
+        "CantidadContada": 80,
+        "CantidadRemito": 100,
+        "Asignaciones": [],
+        "CantidadAUbicar": 80,
+        "Descripcion": "Remera algodón talle M",
+        "Diferencia": -20
+      },
+      {
+        "Sku": "TXP-3002",
+        "CantidadContada": 40,
+        "CantidadRemito": 40,
+        "Asignaciones": [],
+        "CantidadAUbicar": 40,
+        "Descripcion": "Jean clásico talle 42",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "RecibidaConDiferencias",
+    "Usuario": "jperez"
+  },
+  {
+    "Numero": 1051,
+    "CodigoCliente": "CLI-001",
+    "NumeroRemito": "00001-00004522",
+    "FechaRemito": "2026-11-05T00:00:00",
+    "Transportista": "Transportes del Sur",
+    "Chofer": "Martín Acosta",
+    "Patente": "AB123CD",
+    "Observaciones": "Llegaron 10 unidades de más. Se hizo firmar la orden de espacio insuficiente.",
+    "Items": [
+      {
+        "Sku": "AND-1003",
+        "CantidadContada": 130,
+        "CantidadRemito": 120,
+        "Asignaciones": [],
+        "CantidadAUbicar": 130,
+        "Descripcion": "Arroz largo fino 1 kg",
+        "Diferencia": 10
+      }
+    ],
+    "Estado": "PendienteExcedente",
+    "Usuario": "lrodriguez"
+  },
+  {
+    "Numero": 1052,
+    "CodigoCliente": "CLI-002",
+    "NumeroRemito": "00003-00001188",
+    "FechaRemito": "2026-11-06T00:00:00",
+    "Transportista": "Logística Pampeana",
+    "Chofer": "Raúl Fernández",
+    "Patente": "AC456EF",
+    "Observaciones": "Ubicación parcial: resta ubicar la mercadería sin asignar.",
+    "Items": [
+      {
+        "Sku": "ELS-2001",
+        "CantidadContada": 25,
+        "CantidadRemito": 25,
+        "Asignaciones": [
+          {
+            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "4" },
+            "Cantidad": 25
+          }
+        ],
+        "CantidadAUbicar": 25,
+        "Descripcion": "Licuadora 600 W",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "ELS-2002",
+        "CantidadContada": 10,
+        "CantidadRemito": 10,
+        "Asignaciones": [],
+        "CantidadAUbicar": 10,
+        "Descripcion": "Pava eléctrica 1,7 L",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "PendienteDeUbicacion",
+    "Usuario": "mgomez"
+  },
+  {
+    "Numero": 1053,
+    "CodigoCliente": "CLI-003",
+    "NumeroRemito": "00002-00000916",
+    "FechaRemito": "2026-11-06T00:00:00",
+    "Transportista": "Expreso Litoral",
+    "Chofer": "Diego Sosa",
+    "Patente": "AD789GH",
+    "Observaciones": "Sobran 10 remeras y faltan 5 jeans. Prevalece el excedente.",
+    "Items": [
+      {
+        "Sku": "TXP-3001",
+        "CantidadContada": 60,
+        "CantidadRemito": 50,
+        "Asignaciones": [],
+        "CantidadAUbicar": 60,
+        "Descripcion": "Remera algodón talle M",
+        "Diferencia": 10
+      },
+      {
+        "Sku": "TXP-3002",
+        "CantidadContada": 35,
+        "CantidadRemito": 40,
+        "Asignaciones": [],
+        "CantidadAUbicar": 35,
+        "Descripcion": "Jean clásico talle 42",
+        "Diferencia": -5
+      }
+    ],
+    "Estado": "PendienteExcedente",
+    "Usuario": "lrodriguez"
+  }
+]

@@ -1,0 +1,266 @@
+[
+  {
+    "Codigo": "GBA",
+    "Nombre": "Gran Buenos Aires",
+    "Posiciones": [
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "4"
+      }
+    ]
+  },
+  {
+    "Codigo": "ROS",
+    "Nombre": "Rosario",
+    "Posiciones": [
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "4"
+      }
+    ]
+  },
+  {
+    "Codigo": "CBA",
+    "Nombre": "Córdoba",
+    "Posiciones": [
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "4"
+      }
+    ]
+  },
+  {
+    "Codigo": "MDZ",
+    "Nombre": "Mendoza",
+    "Posiciones": [
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "01",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "A",
+        "Fila": "02",
+        "Nivel": "4"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "1"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "2"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "3"
+      },
+      {
+        "Pasillo": "B",
+        "Fila": "01",
+        "Nivel": "4"
+      }
+    ]
+  }
+]

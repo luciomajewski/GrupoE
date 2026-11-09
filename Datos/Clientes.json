@@ -1,0 +1,39 @@
+[
+  {
+    "Codigo": "CLI-001",
+    "RazonSocial": "Distribuidora Andina",
+    "CodigoDeposito": "GBA",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00001-00004521",
+      "00001-00004522"
+    ]
+  },
+  {
+    "Codigo": "CLI-002",
+    "RazonSocial": "ElectroSur",
+    "CodigoDeposito": "GBA",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00003-00001187",
+      "00003-00001188"
+    ]
+  },
+  {
+    "Codigo": "CLI-003",
+    "RazonSocial": "Textil Pampa",
+    "CodigoDeposito": "GBA",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00002-00000915",
+      "00002-00000916"
+    ]
+  },
+  {
+    "Codigo": "CLI-004",
+    "RazonSocial": "Juguetería Mundo Feliz",
+    "CodigoDeposito": "GBA",
+    "ContratoVigente": false,
+    "RemitosRegistrados": []
+  }
+]

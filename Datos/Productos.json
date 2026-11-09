@@ -1,0 +1,50 @@
+[
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1001",
+    "Descripcion": "Yerba mate 1 kg",
+    "StockMinimoContratado": 50
+  },
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1002",
+    "Descripcion": "Aceite girasol 1,5 L",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1003",
+    "Descripcion": "Arroz largo fino 1 kg",
+    "StockMinimoContratado": 30
+  },
+  {
+    "CodigoCliente": "CLI-002",
+    "Sku": "ELS-2001",
+    "Descripcion": "Licuadora 600 W",
+    "StockMinimoContratado": 10
+  },
+  {
+    "CodigoCliente": "CLI-002",
+    "Sku": "ELS-2002",
+    "Descripcion": "Pava eléctrica 1,7 L",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-003",
+    "Sku": "TXP-3001",
+    "Descripcion": "Remera algodón talle M",
+    "StockMinimoContratado": 100
+  },
+  {
+    "CodigoCliente": "CLI-003",
+    "Sku": "TXP-3002",
+    "Descripcion": "Jean clásico talle 42",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-004",
+    "Sku": "JMF-5001",
+    "Descripcion": "Pelota de fútbol N°5",
+    "StockMinimoContratado": 20
+  }
+]

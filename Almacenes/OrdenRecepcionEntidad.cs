@@ -6,9 +6,7 @@ internal class OrdenRecepcionEntidad
     public string CodigoCliente { get; set; } = string.Empty;
     public string NumeroRemito { get; set; } = string.Empty;
     public DateTime FechaRemito { get; set; }
-    public DateTime FechaHoraRecepcion { get; set; }
     public string Transportista { get; set; } = string.Empty;
-    public string Chofer { get; set; } = string.Empty;
     public string Patente { get; set; } = string.Empty;
     public string Observaciones { get; set; } = string.Empty;
     public List<ItemRecepcion> Items { get; set; } = new();

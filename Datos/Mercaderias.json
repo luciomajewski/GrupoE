@@ -1,0 +1,64 @@
+[
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1001",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 30
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 20
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 50,
+    "CantidadDisponible": 50
+  },
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1002",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 30
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 30,
+    "CantidadDisponible": 30
+  },
+  {
+    "CodigoCliente": "CLI-002",
+    "Sku": "ELS-2001",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 25
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 25,
+    "CantidadDisponible": 25
+  }
+]

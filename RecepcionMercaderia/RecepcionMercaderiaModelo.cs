@@ -362,7 +362,8 @@ internal class RecepcionMercaderiaModelo
             Numero = orden.Numero,
             CodigoCliente = clienteEntidad.Codigo,
             NumeroRemito = orden.NumeroRemito,
-            FechaRemito = orden.FechaRemito,
+            // Sin zona horaria, igual que el resto de las fechas guardadas ("2026-11-09T00:00:00").
+            FechaRemito = DateTime.SpecifyKind(orden.FechaRemito, DateTimeKind.Unspecified),
             Transportista = orden.Transportista,
             Chofer = orden.Chofer,
             Patente = orden.Patente,

@@ -91,5 +91,108 @@
     "FechaHoraCumplida": null,
     "UsuarioCumplida": null,
     "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1003,
+    "OrdenesPreparacion": [
+      2007,
+      2008
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Licuadora 600 W"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 10,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1004,
+    "OrdenesPreparacion": [
+      2009
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 3,
+        "Descripcion": "Yerba mate 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1005,
+    "OrdenesPreparacion": [
+      2010
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 5,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
   }
 ]

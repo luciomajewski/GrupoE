@@ -32,58 +32,17 @@ namespace GrupoE.IngresoStock
 
         public List<AsignacionUbicacion> Ubicaciones { get; } = new List<AsignacionUbicacion>();
 
-        public List<string> Pasillos { get; } = new List<string> { "Pasillo 1", "Pasillo 2", "Pasillo 3" };
-        public List<string> Filas { get; } = new List<string> { "Fila 1", "Fila 2", "Fila 3" };
-        public List<string> Niveles { get; } = new List<string> { "Nivel 1", "Nivel 2", "Nivel 3" };
+        // Coordenadas de las posiciones de los depósitos (Depositos.json).
+        public List<string> Pasillos { get; } = Almacenes.DepositosAlmacen.Depositos
+            .SelectMany(d => d.Posiciones).Select(p => p.Pasillo).Distinct().OrderBy(p => p).ToList();
+        public List<string> Filas { get; } = Almacenes.DepositosAlmacen.Depositos
+            .SelectMany(d => d.Posiciones).Select(p => p.Fila).Distinct().OrderBy(p => p).ToList();
+        public List<string> Niveles { get; } = Almacenes.DepositosAlmacen.Depositos
+            .SelectMany(d => d.Posiciones).Select(p => p.Nivel).Distinct().OrderBy(p => p).ToList();
 
         #endregion
-
-        #region Datos de prueba
-
-        // Al.9 Órdenes de Recepción
-        private readonly List<OrdenRecepcion> ordenesRecepcion = new List<OrdenRecepcion>
-        {
-            new OrdenRecepcion(1001, "Distribuidora del Sur S.A.", EstadoOrdenRecepcion.PendienteDeUbicacion,
-                new List<ItemOrdenRecepcion>
-                {
-                    new ItemOrdenRecepcion("ELE-0001", "Auriculares inalámbricos Bluetooth", 40),
-                    new ItemOrdenRecepcion("ELE-0002", "Cargador USB-C 20W", 60),
-                    new ItemOrdenRecepcion("HOG-0010", "Juego de sábanas 2 plazas", 25)
-                }),
-
-            new OrdenRecepcion(1002, "Textil Pampeana S.R.L.", EstadoOrdenRecepcion.PendienteDeUbicacion,
-                new List<ItemOrdenRecepcion>
-                {
-                    new ItemOrdenRecepcion("IND-0101", "Remera de algodón talle M", 80),
-                    new ItemOrdenRecepcion("IND-0102", "Buzo de frisa talle L", 35)
-                }),
-
-            new OrdenRecepcion(1003, "Librería Belgrano", EstadoOrdenRecepcion.PendienteDeUbicacion,
-                new List<ItemOrdenRecepcion>
-                {
-                    new ItemOrdenRecepcion("LIB-0201", "Cuaderno A4 rayado", 150),
-                    new ItemOrdenRecepcion("LIB-0202", "Resma A4 500 hojas", 50)
-                }),
-
-            // Orden ya cumplida: sirve para probar la excepción del paso 5
-            new OrdenRecepcion(1004, "Ferretería Los Andes", EstadoOrdenRecepcion.Cumplida,
-                new List<ItemOrdenRecepcion>
-                {
-                    new ItemOrdenRecepcion("FER-0301", "Taladro percutor 650W", 10)
-                })
-        };
-
-        // Al.2 Mercaderías: stock que ya existe en el depósito
-        private readonly List<Mercaderia> mercaderias = new List<Mercaderia>
-        {
-            new Mercaderia("ELE-0001", "Pasillo 1", "Fila 1", "Nivel 1", 15),
-            new Mercaderia("IND-0101", "Pasillo 2", "Fila 1", "Nivel 2", 50),
-            new Mercaderia("LIB-0202", "Pasillo 3", "Fila 3", "Nivel 1", 12)
-        };
 
         private readonly List<RegistroAuditoria> historialAuditoria = new List<RegistroAuditoria>();
-
-        #endregion
 
         private OrdenRecepcion? ordenActual;
 
@@ -99,21 +58,27 @@ namespace GrupoE.IngresoStock
                 return "El número de orden debe ser un valor numérico";
             }
 
-            // Paso 5
-            OrdenRecepcion? orden = ordenesRecepcion.FirstOrDefault(o =>
-                o.Numero == numero && o.Estado == EstadoOrdenRecepcion.PendienteDeUbicacion);
+            // Paso 5. Se pueden ubicar las órdenes pendientes, con diferencias o con excedente.
+            var ordenEntidad = Almacenes.OrdenesRecepcionAlmacen.OrdenesRecepcion.FirstOrDefault(o => o.Numero == numero);
+            var clienteEntidad = ordenEntidad == null
+                ? null
+                : Almacenes.ClientesAlmacen.Clientes.FirstOrDefault(c => c.Codigo == ordenEntidad.CodigoCliente);
 
-            if (orden == null)
+            if (ordenEntidad == null || clienteEntidad == null || ordenEntidad.Estado == Almacenes.EstadoOrdenRecepcionEnum.Cumplida)
             {
                 Restablecer();
                 return "No se encontró ninguna orden pendiente de ubicación con ese número";
             }
 
-            // Paso 6
+            var orden = new OrdenRecepcion(ordenEntidad.Numero, clienteEntidad.RazonSocial, EstadoOrdenRecepcion.PendienteDeUbicacion,
+                ordenEntidad.Items.Select(i => new ItemOrdenRecepcion(i.Sku, i.Descripcion, i.CantidadContada)).ToList());
+
+            // Paso 6. Lo que ya se ubicó en un ingreso anterior no se vuelve a ubicar.
             ordenActual = orden;
             foreach (ItemOrdenRecepcion item in orden.Items)
             {
-                item.CantidadAUbicar = item.CantidadRecepcionada;
+                int yaUbicada = ordenEntidad.Items.First(i => i.Sku == item.Sku).Asignaciones.Sum(a => a.Cantidad);
+                item.CantidadAUbicar = item.CantidadRecepcionada - yaUbicada;
             }
             Ubicaciones.Clear();
             UbicacionSeleccionada = null;
@@ -136,7 +101,12 @@ namespace GrupoE.IngresoStock
 
             // Paso 8
             bool cantidadValida = int.TryParse(Cantidad.Trim(), out int cantidad) && cantidad > 0;
-            bool coordenadasValidas = Pasillos.Contains(Pasillo) && Filas.Contains(Fila) && Niveles.Contains(Nivel);
+            // La posición tiene que existir en el depósito del cliente de la orden.
+            var ordenEntidad = Almacenes.OrdenesRecepcionAlmacen.OrdenesRecepcion.First(o => o.Numero == ordenActual!.Numero);
+            var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.Codigo == ordenEntidad.CodigoCliente);
+            var deposito = Almacenes.DepositosAlmacen.Depositos.FirstOrDefault(d => d.Codigo == clienteEntidad.CodigoDeposito);
+            bool coordenadasValidas = deposito != null
+                && deposito.Posiciones.Any(p => p.Pasillo == Pasillo && p.Fila == Fila && p.Nivel == Nivel);
 
             if (!cantidadValida || !coordenadasValidas)
             {
@@ -148,6 +118,15 @@ namespace GrupoE.IngresoStock
             {
                 Cantidad = string.Empty;
                 return "La cantidad a ubicar no puede ser mayor a la cantidad pendiente recepcionada";
+            }
+
+            // Solo se ubica en posiciones libres o con mercadería del mismo cliente.
+            bool ocupadaPorOtroCliente = Almacenes.MercaderiasAlmacen.Mercaderias.Any(m =>
+                m.CodigoDeposito == clienteEntidad.CodigoDeposito && m.CodigoCliente != clienteEntidad.Codigo
+                && m.Ubicaciones.Any(u => u.Cantidad > 0 && u.Posicion.Pasillo == Pasillo && u.Posicion.Fila == Fila && u.Posicion.Nivel == Nivel));
+            if (ocupadaPorOtroCliente)
+            {
+                return $"La posición {Pasillo}-{Fila}-{Nivel} ya está ocupada con mercadería de otro cliente";
             }
 
             // Si el SKU ya tiene esa misma posición, se suma la cantidad
@@ -204,23 +183,58 @@ namespace GrupoE.IngresoStock
 
         public string ConfirmarIngreso()
         {
-            // Paso 13
+            var ordenEntidad = Almacenes.OrdenesRecepcionAlmacen.OrdenesRecepcion.First(o => o.Numero == ordenActual!.Numero);
+            var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.Codigo == ordenEntidad.CodigoCliente);
+
+            // Paso 13: el stock suma en cada posición y la orden guarda dónde quedó cada SKU.
             foreach (AsignacionUbicacion ubicacion in Ubicaciones)
             {
-                Mercaderia? mercaderia = mercaderias.FirstOrDefault(m =>
-                    m.Sku == ubicacion.Item.Sku && m.Pasillo == ubicacion.Pasillo && m.Fila == ubicacion.Fila && m.Nivel == ubicacion.Nivel);
-
+                var mercaderia = Almacenes.MercaderiasAlmacen.Mercaderias.FirstOrDefault(m => m.CodigoCliente == clienteEntidad.Codigo
+                    && m.Sku == ubicacion.Item.Sku && m.CodigoDeposito == clienteEntidad.CodigoDeposito);
                 if (mercaderia == null)
                 {
-                    mercaderia = new Mercaderia(ubicacion.Item.Sku, ubicacion.Pasillo, ubicacion.Fila, ubicacion.Nivel, 0);
-                    mercaderias.Add(mercaderia);
+                    mercaderia = new Almacenes.MercaderiaEntidad
+                    {
+                        CodigoCliente = clienteEntidad.Codigo,
+                        Sku = ubicacion.Item.Sku,
+                        CodigoDeposito = clienteEntidad.CodigoDeposito
+                    };
+                    Almacenes.MercaderiasAlmacen.Mercaderias.Add(mercaderia);
                 }
 
-                mercaderia.Cantidad += ubicacion.Cantidad;
+                var enPosicion = mercaderia.Ubicaciones.FirstOrDefault(u =>
+                    u.Posicion.Pasillo == ubicacion.Pasillo && u.Posicion.Fila == ubicacion.Fila && u.Posicion.Nivel == ubicacion.Nivel);
+                if (enPosicion == null)
+                {
+                    enPosicion = new Almacenes.UbicacionMercaderia
+                    {
+                        Posicion = new Almacenes.Posicion { Pasillo = ubicacion.Pasillo, Fila = ubicacion.Fila, Nivel = ubicacion.Nivel }
+                    };
+                    mercaderia.Ubicaciones.Add(enPosicion);
+                }
+                enPosicion.Cantidad += ubicacion.Cantidad;
+                mercaderia.CantidadFisica = mercaderia.Ubicaciones.Sum(u => u.Cantidad);
+                mercaderia.CantidadDisponible = mercaderia.CantidadFisica - mercaderia.CantidadComprometida;
+
+                var itemEntidad = ordenEntidad.Items.First(i => i.Sku == ubicacion.Item.Sku);
+                var asignacion = itemEntidad.Asignaciones.FirstOrDefault(a =>
+                    a.EnPosicion.Pasillo == ubicacion.Pasillo && a.EnPosicion.Fila == ubicacion.Fila && a.EnPosicion.Nivel == ubicacion.Nivel);
+                if (asignacion == null)
+                {
+                    asignacion = new Almacenes.AsignacionUbicacion
+                    {
+                        EnPosicion = new Almacenes.Posicion { Pasillo = ubicacion.Pasillo, Fila = ubicacion.Fila, Nivel = ubicacion.Nivel }
+                    };
+                    itemEntidad.Asignaciones.Add(asignacion);
+                }
+                asignacion.Cantidad += ubicacion.Cantidad;
             }
 
             // Paso 14
             ordenActual!.Estado = EstadoOrdenRecepcion.Cumplida;
+            ordenEntidad.Estado = Almacenes.EstadoOrdenRecepcionEnum.Cumplida;
+            Almacenes.MercaderiasAlmacen.Guardar();
+            Almacenes.OrdenesRecepcionAlmacen.Guardar();
 
             // Paso 15
             historialAuditoria.Add(new RegistroAuditoria("operario.almacen", DateTime.Now, ordenActual.Numero));

@@ -22,48 +22,35 @@ internal class RegistrarOrdenDePreparacionModelo
 
     public RegistrarOrdenDePreparacionModelo()
     {
-        NombreCliente = "Distribuidora Del Plata S.A.";
+        // La pantalla registra órdenes para un único cliente: CLI-001.
+        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.Codigo == "CLI-001");
+        NombreCliente = clienteEntidad.RazonSocial;
 
-        var yerba = new Producto { Sku = "YER-500-001", Nombre = "Yerba mate 500 g", StockMinimoContratado = 500, UnidadesPorPalet = 480 };
-        var cafe = new Producto { Sku = "CAF-250-002", Nombre = "Café molido 250 g", UnidadesPorPalet = 600 };
-        var azucar = new Producto { Sku = "AZU-1000-003", Nombre = "Azúcar 1 kg", StockMinimoContratado = 400, UnidadesPorPalet = 400 };
-        var aceite = new Producto { Sku = "ACE-900-004", Nombre = "Aceite de girasol 900 ml", UnidadesPorPalet = 360 };
-        var harina = new Producto { Sku = "HAR-1000-005", Nombre = "Harina 000 1 kg", StockMinimoContratado = 400, UnidadesPorPalet = 400 };
+        // Los palets todavía no se manejan: todo el stock se toma como unidades sueltas.
+        var productos = Almacenes.ProductosAlmacen.Productos
+            .Where(p => p.CodigoCliente == clienteEntidad.Codigo)
+            .Select(p => new Producto { Sku = p.Sku, Nombre = p.Descripcion, StockMinimoContratado = p.StockMinimoContratado, UnidadesPorPalet = 0 })
+            .ToList();
 
-        Depositos = new List<Deposito>
+        // Solo los depósitos donde el cliente tiene mercadería, con su stock disponible (físico - comprometido).
+        Depositos = new List<Deposito>();
+        foreach (var depositoEntidad in Almacenes.DepositosAlmacen.Depositos)
         {
-            new Deposito
-            {
-                Nombre = "Depósito Avellaneda",
-                Stock = new List<StockProducto>
+            var stock = Almacenes.MercaderiasAlmacen.Mercaderias
+                .Where(m => m.CodigoCliente == clienteEntidad.Codigo && m.CodigoDeposito == depositoEntidad.Codigo)
+                .Select(m => new StockProducto
                 {
-                    new StockProducto { Producto = yerba, CantidadPalets = 3, UnidadesSueltas = 120 },
-                    new StockProducto { Producto = cafe, CantidadPalets = 2, UnidadesSueltas = 0 },
-                    new StockProducto { Producto = azucar, CantidadPalets = 1, UnidadesSueltas = 200 },
-                    new StockProducto { Producto = aceite, CantidadPalets = 4, UnidadesSueltas = 90 }
-                }
-            },
-            new Deposito
+                    Producto = productos.First(p => p.Sku == m.Sku),
+                    CantidadPalets = 0,
+                    UnidadesSueltas = m.CantidadDisponible
+                })
+                .ToList();
+
+            if (stock.Count > 0)
             {
-                Nombre = "Depósito Pilar",
-                Stock = new List<StockProducto>
-                {
-                    new StockProducto { Producto = yerba, CantidadPalets = 2, UnidadesSueltas = 40 },
-                    new StockProducto { Producto = harina, CantidadPalets = 3, UnidadesSueltas = 150 },
-                    new StockProducto { Producto = aceite, CantidadPalets = 1, UnidadesSueltas = 0 }
-                }
-            },
-            new Deposito
-            {
-                Nombre = "Depósito Córdoba",
-                Stock = new List<StockProducto>
-                {
-                    new StockProducto { Producto = cafe, CantidadPalets = 5, UnidadesSueltas = 300 },
-                    new StockProducto { Producto = azucar, CantidadPalets = 6, UnidadesSueltas = 0 },
-                    new StockProducto { Producto = harina, CantidadPalets = 1, UnidadesSueltas = 50 }
-                }
+                Depositos.Add(new Deposito { Nombre = depositoEntidad.Nombre, Stock = stock });
             }
-        };
+        }
     }
 
     public bool RequiereDatosEtiquetado => Modalidad == ModalidadEmpaquetado.Fullfilment;
@@ -127,6 +114,11 @@ internal class RegistrarOrdenDePreparacionModelo
         if (Modalidad == null)
         {
             return "Error: seleccione una modalidad de empaquetado antes de agregar productos";
+        }
+
+        if (Modalidad == ModalidadEmpaquetado.PaletCerrado)
+        {
+            return "La funcionalidad de pallets aún no está implementada";
         }
 
         if (DepositoSeleccionado == null || producto == null || cantidad == null || cantidad <= 0)
@@ -209,6 +201,48 @@ internal class RegistrarOrdenDePreparacionModelo
                 mensajes.Add($"Advertencia: El producto {item.Producto.Nombre} ha quedado por debajo del límite establecido, por favor generar un nuevo ingreso de este");
             }
         }
+
+        // Se guarda la orden en Datos y lo pedido queda comprometido en el stock del cliente.
+        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.RazonSocial == NombreCliente);
+        var depositoEntidad = Almacenes.DepositosAlmacen.Depositos.First(d => d.Nombre == DepositoSeleccionado!.Nombre);
+        var ordenesEntidad = Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion;
+        var ordenEntidad = new Almacenes.OrdenPreparacionEntidad
+        {
+            Numero = ordenesEntidad.Count > 0 ? ordenesEntidad.Max(o => o.Numero) + 1 : 1,
+            CodigoCliente = clienteEntidad.Codigo,
+            CodigoDeposito = depositoEntidad.Codigo,
+            Modalidad = Modalidad == ModalidadEmpaquetado.PaletCerrado
+                ? Almacenes.ModalidadEmpaquetadoEnum.PaletCerrado
+                : Almacenes.ModalidadEmpaquetadoEnum.Fulfillment,
+            FechaRetiro = DateTime.SpecifyKind(FechaRetiro.Date, DateTimeKind.Unspecified),
+            NombreDestinatario = RequiereDatosEtiquetado ? NombreDestinatario.Trim() : "",
+            DireccionDestino = RequiereDatosEtiquetado ? DireccionDestino.Trim() : "",
+            NombreTransportista = NombreTransportista.Trim(),
+            DniTransportista = DniTransportista!.Value,
+            EmpresaTransporte = EmpresaTransportista.Trim(),
+            Estado = Almacenes.EstadoOrdenPreparacionEnum.Pendiente,
+            OrdenSeleccionCumplida = false,
+            RequiereDatosEtiquetado = RequiereDatosEtiquetado
+        };
+
+        foreach (ItemOrden item in ItemsOrden)
+        {
+            ordenEntidad.Renglones.Add(new Almacenes.RenglonOrdenPreparacion
+            {
+                Sku = item.Producto.Sku,
+                Cantidad = item.Cantidad,
+                Producto = item.Producto.Nombre
+            });
+
+            var mercaderia = Almacenes.MercaderiasAlmacen.Mercaderias.First(m => m.CodigoCliente == clienteEntidad.Codigo
+                && m.CodigoDeposito == depositoEntidad.Codigo && m.Sku == item.Producto.Sku);
+            mercaderia.CantidadComprometida += item.Cantidad;
+            mercaderia.CantidadDisponible = mercaderia.CantidadFisica - mercaderia.CantidadComprometida;
+        }
+
+        ordenesEntidad.Add(ordenEntidad);
+        Almacenes.OrdenesPreparacionAlmacen.Guardar();
+        Almacenes.MercaderiasAlmacen.Guardar();
 
         mensajes.Add("Orden de preparación guardada con éxito");
 

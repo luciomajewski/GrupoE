@@ -21,9 +21,9 @@
         "Cantidad": 20
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 18,
     "CantidadFisica": 50,
-    "CantidadDisponible": 50
+    "CantidadDisponible": 32
   },
   {
     "CodigoCliente": "CLI-001",
@@ -39,9 +39,9 @@
         "Cantidad": 30
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 6,
     "CantidadFisica": 30,
-    "CantidadDisponible": 30
+    "CantidadDisponible": 24
   },
   {
     "CodigoCliente": "CLI-002",
@@ -57,8 +57,8 @@
         "Cantidad": 25
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 9,
     "CantidadFisica": 25,
-    "CantidadDisponible": 25
+    "CantidadDisponible": 16
   }
 ]

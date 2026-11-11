@@ -1,0 +1,146 @@
+[
+  {
+    "Numero": 2001,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-14T00:00:00",
+    "NombreDestinatario": "María López",
+    "DireccionDestino": "Av. Corrientes 1234, CABA",
+    "NombreTransportista": "Luis Martínez",
+    "DniTransportista": 30123456,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "Pendiente",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AND-1001",
+        "Cantidad": 10,
+        "Producto": "Yerba mate 1 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2002,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-13T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Carlos Gómez",
+    "DniTransportista": 27888999,
+    "EmpresaTransporte": "Logística Pampeana",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "ELS-2001",
+        "Cantidad": 5,
+        "Producto": "Licuadora 600 W"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2003,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-12T00:00:00",
+    "NombreDestinatario": "María López",
+    "DireccionDestino": "Av. Corrientes 1234, CABA",
+    "NombreTransportista": "Ana Sosa",
+    "DniTransportista": 28555111,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AND-1002",
+        "Cantidad": 6,
+        "Producto": "Aceite girasol 1,5 L"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2004,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-11T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Luis Martínez",
+    "DniTransportista": 30123456,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "Preparada",
+    "FechaPreparada": "2026-11-07T14:40:00",
+    "PreparadaPor": "operario",
+    "Renglones": [
+      {
+        "Sku": "AND-1001",
+        "Cantidad": 8,
+        "Producto": "Yerba mate 1 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2005,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-10T00:00:00",
+    "NombreDestinatario": "Jorge Ramírez",
+    "DireccionDestino": "Calle 50 N° 742, La Plata",
+    "NombreTransportista": "Carlos Gómez",
+    "DniTransportista": 27888999,
+    "EmpresaTransporte": "Logística Pampeana",
+    "Estado": "Preparada",
+    "FechaPreparada": "2026-11-08T11:00:00",
+    "PreparadaPor": "operario",
+    "Renglones": [
+      {
+        "Sku": "ELS-2001",
+        "Cantidad": 4,
+        "Producto": "Licuadora 600 W"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2006,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-04T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Ana Sosa",
+    "DniTransportista": 28555111,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "Cumplida",
+    "FechaPreparada": "2026-11-03T15:30:00",
+    "PreparadaPor": "operario",
+    "Renglones": [
+      {
+        "Sku": "TXP-3002",
+        "Cantidad": 20,
+        "Producto": "Jean clásico talle 42"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": false
+  }
+]

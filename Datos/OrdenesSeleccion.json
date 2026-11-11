@@ -1,0 +1,95 @@
+[
+  {
+    "Numero": 1000,
+    "OrdenesPreparacion": [
+      2006
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3002",
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 20,
+        "Descripcion": "Jean clásico talle 42"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-03T09:30:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1001,
+    "OrdenesPreparacion": [
+      2003,
+      2004,
+      2005
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Yerba mate 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 4,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-07T10:15:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1002,
+    "OrdenesPreparacion": [
+      2002
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 5,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  }
+]

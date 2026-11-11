@@ -1,0 +1,44 @@
+[
+  {
+    "Numero": 5000,
+    "FechaHora": "2026-11-08T09:00:00",
+    "OrdenesEntrega": [
+      3001
+    ],
+    "CodigoUsuario": "operario",
+    "Estado": "Anulado",
+    "FechaHoraCumplido": null,
+    "CodigoUsuarioCumplido": null,
+    "CodigoDeposito": "GBA",
+    "NombreTransportista": "Luis Martínez",
+    "DniTransportista": 30123456
+  },
+  {
+    "Numero": 5001,
+    "FechaHora": "2026-11-09T10:00:00",
+    "OrdenesEntrega": [
+      3002
+    ],
+    "CodigoUsuario": "operario",
+    "Estado": "Emitido",
+    "FechaHoraCumplido": null,
+    "CodigoUsuarioCumplido": null,
+    "CodigoDeposito": "GBA",
+    "NombreTransportista": "Carlos Gómez",
+    "DniTransportista": 27888999
+  },
+  {
+    "Numero": 5002,
+    "FechaHora": "2026-11-04T09:30:00",
+    "OrdenesEntrega": [
+      3003
+    ],
+    "CodigoUsuario": "operario",
+    "Estado": "Firmado",
+    "FechaHoraCumplido": "2026-11-04T09:45:00",
+    "CodigoUsuarioCumplido": "operario",
+    "CodigoDeposito": "GBA",
+    "NombreTransportista": "Ana Sosa",
+    "DniTransportista": 28555111
+  }
+]

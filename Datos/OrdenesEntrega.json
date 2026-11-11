@@ -1,0 +1,35 @@
+[
+  {
+    "Numero": 3001,
+    "NumeroOrdenPreparacion": 2004,
+    "FechaHora": "2026-11-07T15:00:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 1,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Luis Martínez",
+    "DniTransportista": 30123456
+  },
+  {
+    "Numero": 3002,
+    "NumeroOrdenPreparacion": 2005,
+    "FechaHora": "2026-11-08T11:20:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 2,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Carlos Gómez",
+    "DniTransportista": 27888999
+  },
+  {
+    "Numero": 3003,
+    "NumeroOrdenPreparacion": 2006,
+    "FechaHora": "2026-11-03T16:00:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 1,
+    "Estado": "Despachada",
+    "FechaHoraDespacho": "2026-11-04T09:45:00",
+    "NombreTransportista": "Ana Sosa",
+    "DniTransportista": 28555111
+  }
+]

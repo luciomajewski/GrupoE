@@ -243,5 +243,82 @@
     ],
     "OrdenSeleccionCumplida": false,
     "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2011,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-13T00:00:00",
+    "NombreDestinatario": "María López",
+    "DireccionDestino": "Av. Corrientes 1234, CABA",
+    "NombreTransportista": "Ana Sosa",
+    "DniTransportista": 28555111,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AND-1002",
+        "Cantidad": 5,
+        "Producto": "Aceite girasol 1,5 L"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2012,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-13T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Carlos Gómez",
+    "DniTransportista": 27888999,
+    "EmpresaTransporte": "Logística Pampeana",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "ELS-2001",
+        "Cantidad": 3,
+        "Producto": "Licuadora 600 W"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2013,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-14T00:00:00",
+    "NombreDestinatario": "María López",
+    "DireccionDestino": "Av. Corrientes 1234, CABA",
+    "NombreTransportista": "Luis Martínez",
+    "DniTransportista": 30123456,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AND-1001",
+        "Cantidad": 4,
+        "Producto": "Yerba mate 1 kg"
+      },
+      {
+        "Sku": "AND-1002",
+        "Cantidad": 3,
+        "Producto": "Aceite girasol 1,5 L"
+      }
+    ],
+    "OrdenSeleccionCumplida": true,
+    "RequiereDatosEtiquetado": true
   }
 ]

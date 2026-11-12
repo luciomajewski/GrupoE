@@ -4,7 +4,11 @@ namespace GrupoE.CumplirOrdenSeleccion;
 internal class CumplirOrdenSeleccionModelo
 {
     public string UsuarioActual { get; }
-    public string DepositoActual { get; }
+
+    // Excepción autorizada: el depósito es el de la orden en pantalla (OrdenesSeleccion.json).
+    public string DepositoActual => OrdenActual == null
+        ? ""
+        : Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion.First(o => o.Numero == OrdenActual.Numero).CodigoDeposito;
     public List<OrdenSeleccion> OrdenesSeleccion { get; }
     public List<ItemInventario> Inventario { get; }
     public OrdenSeleccion? OrdenActual { get; private set; }
@@ -13,9 +17,8 @@ internal class CumplirOrdenSeleccionModelo
 
     public CumplirOrdenSeleccionModelo()
     {
-        // No hay login: el operario de Almacenamiento trabaja en el depósito GBA.
-        UsuarioActual = "operario";
-        DepositoActual = "GBA";
+        // Operario identificado en el sistema: el usuario de Windows con el que se abrió el programa.
+        UsuarioActual = Environment.UserName;
 
         // Órdenes de selección guardadas. Las posiciones se muestran como "A-01-1" (pasillo, fila y nivel).
         OrdenesSeleccion = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion
@@ -37,8 +40,23 @@ internal class CumplirOrdenSeleccionModelo
             })
             .ToList();
 
-        // Stock en guarda del depósito, por cliente, SKU y posición.
-        Inventario = Almacenes.MercaderiasAlmacen.Mercaderias
+        // El inventario es el del depósito de la orden: se carga al buscarla.
+        Inventario = new List<ItemInventario>();
+    }
+
+    // Paso 2: toma la orden del depósito del usuario en estado Pendiente con el número más bajo.
+    // Devuelve el mensaje a mostrar, o null si encontró una orden.
+    public string? BuscarOrdenPendiente()
+    {
+        // Selección pendiente de número más bajo, de cualquier depósito.
+        OrdenActual = OrdenesSeleccion
+            .Where(o => o.Estado == EstadoOrdenSeleccion.Pendiente)
+            .OrderBy(o => o.Numero)
+            .FirstOrDefault();
+
+        // Stock en guarda del depósito de la orden, por cliente, SKU y posición.
+        Inventario.Clear();
+        Inventario.AddRange(Almacenes.MercaderiasAlmacen.Mercaderias
             .Where(m => m.CodigoDeposito == DepositoActual)
             .SelectMany(m => m.Ubicaciones.Select(u => new ItemInventario
             {
@@ -46,18 +64,7 @@ internal class CumplirOrdenSeleccionModelo
                 Sku = m.Sku,
                 Posicion = $"{u.Posicion.Pasillo}-{u.Posicion.Fila}-{u.Posicion.Nivel}",
                 Cantidad = u.Cantidad
-            }))
-            .ToList();
-    }
-
-    // Paso 2: toma la orden del depósito del usuario en estado Pendiente con el número más bajo.
-    // Devuelve el mensaje a mostrar, o null si encontró una orden.
-    public string? BuscarOrdenPendiente()
-    {
-        OrdenActual = OrdenesSeleccion
-            .Where(o => o.Deposito == DepositoActual && o.Estado == EstadoOrdenSeleccion.Pendiente)
-            .OrderBy(o => o.Numero)
-            .FirstOrDefault();
+            })));
 
         // Excepción 2.1
         if (OrdenActual == null)

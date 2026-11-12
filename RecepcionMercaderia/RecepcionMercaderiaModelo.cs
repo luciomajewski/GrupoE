@@ -374,7 +374,7 @@ internal class RecepcionMercaderiaModelo
                 "Pendiente - Excedente" => Almacenes.EstadoOrdenRecepcionEnum.PendienteExcedente,
                 _ => Almacenes.EstadoOrdenRecepcionEnum.PendienteDeUbicacion
             },
-            Usuario = "operario"
+            Usuario = Environment.UserName
         };
 
         foreach (ItemRecepcion item in orden.Items)

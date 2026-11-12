@@ -22,9 +22,16 @@ internal class RegistrarOrdenDePreparacionModelo
 
     public RegistrarOrdenDePreparacionModelo()
     {
-        // La pantalla registra órdenes para un único cliente: CLI-001.
-        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.Codigo == "CLI-001");
-        NombreCliente = clienteEntidad.RazonSocial;
+        // La pantalla registra órdenes para un único cliente: el primero de Clientes.json con contrato
+        // vigente y stock disponible en Mercaderias.json.
+        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.FirstOrDefault(c => c.ContratoVigente
+            && Almacenes.MercaderiasAlmacen.Mercaderias.Any(m => m.CodigoCliente == c.Codigo && m.CantidadDisponible > 0));
+        NombreCliente = clienteEntidad?.RazonSocial ?? "";
+        Depositos = new List<Deposito>();
+        if (clienteEntidad == null)
+        {
+            return;
+        }
 
         // Los palets todavía no se manejan: todo el stock se toma como unidades sueltas.
         var productos = Almacenes.ProductosAlmacen.Productos
@@ -33,7 +40,6 @@ internal class RegistrarOrdenDePreparacionModelo
             .ToList();
 
         // Solo los depósitos donde el cliente tiene mercadería, con su stock disponible (físico - comprometido).
-        Depositos = new List<Deposito>();
         foreach (var depositoEntidad in Almacenes.DepositosAlmacen.Depositos)
         {
             var stock = Almacenes.MercaderiasAlmacen.Mercaderias

@@ -237,7 +237,7 @@ namespace GrupoE.IngresoStock
             Almacenes.OrdenesRecepcionAlmacen.Guardar();
 
             // Paso 15
-            historialAuditoria.Add(new RegistroAuditoria("operario.almacen", DateTime.Now, ordenActual.Numero));
+            historialAuditoria.Add(new RegistroAuditoria(Environment.UserName, DateTime.Now, ordenActual.Numero));
 
             // Paso 16
             Restablecer();

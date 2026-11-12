@@ -194,5 +194,52 @@
     "FechaHoraCumplida": null,
     "UsuarioCumplida": null,
     "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1006,
+    "OrdenesPreparacion": [
+      2011,
+      2012,
+      2013
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 3,
+        "Descripcion": "Licuadora 600 W"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 4,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-11T09:00:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
   }
 ]

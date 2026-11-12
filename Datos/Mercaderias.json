@@ -10,7 +10,7 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 22
+        "Cantidad": 18
       },
       {
         "Posicion": {
@@ -22,8 +22,8 @@
       }
     ],
     "CantidadComprometida": 35,
-    "CantidadFisica": 42,
-    "CantidadDisponible": 7
+    "CantidadFisica": 38,
+    "CantidadDisponible": 3
   },
   {
     "CodigoCliente": "CLI-001",
@@ -36,12 +36,12 @@
           "Fila": "01",
           "Nivel": "3"
         },
-        "Cantidad": 24
+        "Cantidad": 16
       }
     ],
     "CantidadComprometida": 8,
-    "CantidadFisica": 24,
-    "CantidadDisponible": 16
+    "CantidadFisica": 16,
+    "CantidadDisponible": 8
   },
   {
     "CodigoCliente": "CLI-002",
@@ -54,11 +54,11 @@
           "Fila": "01",
           "Nivel": "4"
         },
-        "Cantidad": 21
+        "Cantidad": 18
       }
     ],
     "CantidadComprometida": 16,
-    "CantidadFisica": 21,
-    "CantidadDisponible": 5
+    "CantidadFisica": 18,
+    "CantidadDisponible": 2
   }
 ]

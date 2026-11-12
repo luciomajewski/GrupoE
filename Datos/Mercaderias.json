@@ -10,7 +10,7 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 30
+        "Cantidad": 18
       },
       {
         "Posicion": {
@@ -21,9 +21,9 @@
         "Cantidad": 20
       }
     ],
-    "CantidadComprometida": 0,
-    "CantidadFisica": 50,
-    "CantidadDisponible": 50
+    "CantidadComprometida": 35,
+    "CantidadFisica": 38,
+    "CantidadDisponible": 3
   },
   {
     "CodigoCliente": "CLI-001",
@@ -36,12 +36,12 @@
           "Fila": "01",
           "Nivel": "3"
         },
-        "Cantidad": 30
+        "Cantidad": 16
       }
     ],
-    "CantidadComprometida": 0,
-    "CantidadFisica": 30,
-    "CantidadDisponible": 30
+    "CantidadComprometida": 8,
+    "CantidadFisica": 16,
+    "CantidadDisponible": 8
   },
   {
     "CodigoCliente": "CLI-002",
@@ -54,11 +54,83 @@
           "Fila": "01",
           "Nivel": "4"
         },
-        "Cantidad": 25
+        "Cantidad": 18
+      }
+    ],
+    "CantidadComprometida": 16,
+    "CantidadFisica": 18,
+    "CantidadDisponible": 2
+  },
+  {
+    "CodigoCliente": "CLI-001",
+    "Sku": "AND-1003",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 58
       }
     ],
     "CantidadComprometida": 0,
-    "CantidadFisica": 25,
-    "CantidadDisponible": 25
+    "CantidadFisica": 58,
+    "CantidadDisponible": 58
+  },
+  {
+    "CodigoCliente": "CLI-002",
+    "Sku": "ELS-2002",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 30
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 30,
+    "CantidadDisponible": 30
+  },
+  {
+    "CodigoCliente": "CLI-003",
+    "Sku": "TXP-3001",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 62
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 62,
+    "CantidadDisponible": 62
+  },
+  {
+    "CodigoCliente": "CLI-003",
+    "Sku": "TXP-3002",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "4"
+        },
+        "Cantidad": 65
+      }
+    ],
+    "CantidadComprometida": 0,
+    "CantidadFisica": 65,
+    "CantidadDisponible": 65
   }
 ]

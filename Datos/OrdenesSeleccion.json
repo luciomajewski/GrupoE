@@ -1,0 +1,351 @@
+[
+  {
+    "Numero": 1000,
+    "OrdenesPreparacion": [
+      2006
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3002",
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 20,
+        "Descripcion": "Jean clásico talle 42"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-03T09:30:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1001,
+    "OrdenesPreparacion": [
+      2003,
+      2004,
+      2005
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Yerba mate 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 4,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-07T10:15:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1002,
+    "OrdenesPreparacion": [
+      2002
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 5,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1003,
+    "OrdenesPreparacion": [
+      2007,
+      2008
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Licuadora 600 W"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 10,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1004,
+    "OrdenesPreparacion": [
+      2009
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 3,
+        "Descripcion": "Yerba mate 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1005,
+    "OrdenesPreparacion": [
+      2010
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 5,
+        "Descripcion": "Licuadora 600 W"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1006,
+    "OrdenesPreparacion": [
+      2011,
+      2012,
+      2013
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Aceite girasol 1,5 L"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 3,
+        "Descripcion": "Licuadora 600 W"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 4,
+        "Descripcion": "Yerba mate 1 kg"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-11T09:00:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1007,
+    "OrdenesPreparacion": [
+      2014,
+      2015,
+      2016
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1003",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Arroz largo fino 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 40,
+        "Descripcion": "Remera algodón talle M"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 10,
+        "Descripcion": "Pava eléctrica 1,7 L"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-09T15:00:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1008,
+    "OrdenesPreparacion": [
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "4"
+        },
+        "Cantidad": 15,
+        "Descripcion": "Jean clásico talle 42"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 18,
+        "Descripcion": "Remera algodón talle M"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1003",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 30,
+        "Descripcion": "Arroz largo fino 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 20,
+        "Descripcion": "Pava eléctrica 1,7 L"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-10T08:30:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  }
+]

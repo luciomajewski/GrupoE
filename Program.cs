@@ -19,6 +19,10 @@ namespace GrupoE
             Almacenes.DepositosAlmacen.Guardar();
             Almacenes.MercaderiasAlmacen.Guardar();
             Almacenes.OrdenesRecepcionAlmacen.Guardar();
+            Almacenes.OrdenesPreparacionAlmacen.Guardar();
+            Almacenes.OrdenesSeleccionAlmacen.Guardar();
+            Almacenes.OrdenesEntregaAlmacen.Guardar();
+            Almacenes.RemitosEntregaAlmacen.Guardar();
         }
     }
 }

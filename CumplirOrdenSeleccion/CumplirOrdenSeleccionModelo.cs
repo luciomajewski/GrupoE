@@ -4,7 +4,11 @@ namespace GrupoE.CumplirOrdenSeleccion;
 internal class CumplirOrdenSeleccionModelo
 {
     public string UsuarioActual { get; }
-    public string DepositoActual { get; }
+
+    // El depósito es el de la orden en pantalla (OrdenesSeleccion.json).
+    public string DepositoActual => OrdenActual == null
+        ? ""
+        : Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion.First(o => o.Numero == OrdenActual.Numero).CodigoDeposito;
     public List<OrdenSeleccion> OrdenesSeleccion { get; }
     public List<ItemInventario> Inventario { get; }
     public OrdenSeleccion? OrdenActual { get; private set; }
@@ -13,75 +17,54 @@ internal class CumplirOrdenSeleccionModelo
 
     public CumplirOrdenSeleccionModelo()
     {
-        // Usuario identificado en el sistema: operario de Almacenamiento del depósito DEP01.
-        UsuarioActual = "OPA01";
-        DepositoActual = "DEP01";
+        // Operario identificado en el sistema: el usuario de Windows con el que se abrió el programa.
+        UsuarioActual = Environment.UserName;
 
-        OrdenesSeleccion = new List<OrdenSeleccion>
-        {
-            // Ya cumplida: no se muestra.
-            new OrdenSeleccion
+        // Órdenes de selección guardadas. Las posiciones se muestran como "A-01-1" (pasillo, fila y nivel).
+        OrdenesSeleccion = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion
+            .Select(o => new OrdenSeleccion
             {
-                Numero = 1000, Deposito = "DEP01", Estado = EstadoOrdenSeleccion.Cumplida,
-                FechaHoraCumplida = new DateTime(2026, 10, 21, 9, 30, 0), UsuarioCumplida = "OPA01",
-                Renglones = new List<RenglonOrdenSeleccion>
+                Numero = o.Numero,
+                Deposito = o.CodigoDeposito,
+                Estado = o.Estado == Almacenes.EstadoOrdenSeleccionEnum.Cumplida ? EstadoOrdenSeleccion.Cumplida : EstadoOrdenSeleccion.Pendiente,
+                FechaHoraCumplida = o.FechaHoraCumplida,
+                UsuarioCumplida = o.UsuarioCumplida,
+                Renglones = o.Renglones.Select(r => new RenglonOrdenSeleccion
                 {
-                    new RenglonOrdenSeleccion { Cliente = "CLI001", Posicion = "5-1-1", Sku = "AUR-200", Descripcion = "Auriculares inalámbricos BT-200", Cantidad = 2 }
-                }
-            },
-            // Pendiente de DEP01. Está antes que la 1001, pero se muestra después porque tiene número más alto.
-            new OrdenSeleccion
-            {
-                Numero = 1002, Deposito = "DEP01", Estado = EstadoOrdenSeleccion.Pendiente,
-                Renglones = new List<RenglonOrdenSeleccion>
-                {
-                    new RenglonOrdenSeleccion { Cliente = "CLI003", Posicion = "7-15-2", Sku = "CAB-001", Descripcion = "Cable HDMI 2 m", Cantidad = 8 },
-                    new RenglonOrdenSeleccion { Cliente = "CLI003", Posicion = "7-2-1", Sku = "TEC-300", Descripcion = "Teclado inalámbrico K300", Cantidad = 3 }
-                }
-            },
-            // Pendiente de DEP01 con el número más bajo: es la primera que se muestra.
-            // Las posiciones están desordenadas a propósito para probar el orden del paso 4.
-            new OrdenSeleccion
-            {
-                Numero = 1001, Deposito = "DEP01", Estado = EstadoOrdenSeleccion.Pendiente,
-                Renglones = new List<RenglonOrdenSeleccion>
-                {
-                    new RenglonOrdenSeleccion { Cliente = "CLI001", Posicion = "12-43-2", Sku = "AUR-200", Descripcion = "Auriculares inalámbricos BT-200", Cantidad = 4 },
-                    new RenglonOrdenSeleccion { Cliente = "CLI002", Posicion = "3-10-1", Sku = "CAR-020", Descripcion = "Cargador USB-C 20W", Cantidad = 10 },
-                    new RenglonOrdenSeleccion { Cliente = "CLI001", Posicion = "12-5-3", Sku = "FUN-015", Descripcion = "Funda de silicona para celular", Cantidad = 6 },
-                    new RenglonOrdenSeleccion { Cliente = "CLI002", Posicion = "3-10-4", Sku = "MOU-100", Descripcion = "Mouse óptico M100", Cantidad = 2 }
-                }
-            },
-            // Pendiente pero de otro depósito: no se muestra.
-            new OrdenSeleccion
-            {
-                Numero = 1003, Deposito = "DEP02", Estado = EstadoOrdenSeleccion.Pendiente,
-                Renglones = new List<RenglonOrdenSeleccion>
-                {
-                    new RenglonOrdenSeleccion { Cliente = "CLI001", Posicion = "1-1-1", Sku = "AUR-200", Descripcion = "Auriculares inalámbricos BT-200", Cantidad = 1 }
-                }
-            }
-        };
+                    Cliente = r.CodigoCliente,
+                    Posicion = $"{r.Posicion.Pasillo}-{r.Posicion.Fila}-{r.Posicion.Nivel}",
+                    Sku = r.Sku,
+                    Descripcion = r.Descripcion,
+                    Cantidad = r.Cantidad
+                }).ToList()
+            })
+            .ToList();
 
-        Inventario = new List<ItemInventario>
-        {
-            new ItemInventario { Cliente = "CLI001", Sku = "AUR-200", Posicion = "12-43-2", Cantidad = 20 },
-            new ItemInventario { Cliente = "CLI002", Sku = "CAR-020", Posicion = "3-10-1", Cantidad = 50 },
-            new ItemInventario { Cliente = "CLI001", Sku = "FUN-015", Posicion = "12-5-3", Cantidad = 30 },
-            new ItemInventario { Cliente = "CLI002", Sku = "MOU-100", Posicion = "3-10-4", Cantidad = 12 },
-            new ItemInventario { Cliente = "CLI003", Sku = "TEC-300", Posicion = "7-2-1", Cantidad = 9 },
-            new ItemInventario { Cliente = "CLI003", Sku = "CAB-001", Posicion = "7-15-2", Cantidad = 40 }
-        };
+        // El inventario es el del depósito de la orden: se carga al buscarla.
+        Inventario = new List<ItemInventario>();
     }
 
     // Paso 2: toma la orden del depósito del usuario en estado Pendiente con el número más bajo.
     // Devuelve el mensaje a mostrar, o null si encontró una orden.
     public string? BuscarOrdenPendiente()
     {
+        // Selección pendiente de número más bajo, de cualquier depósito.
         OrdenActual = OrdenesSeleccion
-            .Where(o => o.Deposito == DepositoActual && o.Estado == EstadoOrdenSeleccion.Pendiente)
+            .Where(o => o.Estado == EstadoOrdenSeleccion.Pendiente)
             .OrderBy(o => o.Numero)
             .FirstOrDefault();
+
+        // Stock en guarda del depósito de la orden, por cliente, SKU y posición.
+        Inventario.Clear();
+        Inventario.AddRange(Almacenes.MercaderiasAlmacen.Mercaderias
+            .Where(m => m.CodigoDeposito == DepositoActual)
+            .SelectMany(m => m.Ubicaciones.Select(u => new ItemInventario
+            {
+                Cliente = m.CodigoCliente,
+                Sku = m.Sku,
+                Posicion = $"{u.Posicion.Pasillo}-{u.Posicion.Fila}-{u.Posicion.Nivel}",
+                Cantidad = u.Cantidad
+            })));
 
         // Excepción 2.1
         if (OrdenActual == null)
@@ -130,14 +113,57 @@ internal class CumplirOrdenSeleccionModelo
             }
         }
 
+        // Se guarda en Datos: la orden queda cumplida, la mercadería sale de su posición (ya no está en guarda,
+        // así que deja de estar comprometida) y sus órdenes de preparación quedan listas para empaquetar.
+        var ordenEntidad = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion.First(o => o.Numero == OrdenActual.Numero);
+        DateTime cumplida = OrdenActual.FechaHoraCumplida!.Value;
+        ordenEntidad.Estado = Almacenes.EstadoOrdenSeleccionEnum.Cumplida;
+        ordenEntidad.FechaHoraCumplida = new DateTime(cumplida.Year, cumplida.Month, cumplida.Day, cumplida.Hour, cumplida.Minute, cumplida.Second);
+        ordenEntidad.UsuarioCumplida = UsuarioActual;
+
+        foreach (var renglonEntidad in ordenEntidad.Renglones)
+        {
+            var mercaderia = Almacenes.MercaderiasAlmacen.Mercaderias.FirstOrDefault(m => m.CodigoCliente == renglonEntidad.CodigoCliente
+                && m.Sku == renglonEntidad.Sku && m.CodigoDeposito == ordenEntidad.CodigoDeposito);
+            var ubicacion = mercaderia?.Ubicaciones.FirstOrDefault(u => u.Posicion.Pasillo == renglonEntidad.Posicion.Pasillo
+                && u.Posicion.Fila == renglonEntidad.Posicion.Fila && u.Posicion.Nivel == renglonEntidad.Posicion.Nivel);
+            if (mercaderia == null || ubicacion == null)
+            {
+                continue;
+            }
+
+            ubicacion.Cantidad -= renglonEntidad.Cantidad;
+            if (ubicacion.Cantidad <= 0)
+            {
+                mercaderia.Ubicaciones.Remove(ubicacion);
+            }
+            mercaderia.CantidadFisica = mercaderia.Ubicaciones.Sum(u => u.Cantidad);
+            mercaderia.CantidadComprometida = Math.Max(0, mercaderia.CantidadComprometida - renglonEntidad.Cantidad);
+            mercaderia.CantidadDisponible = mercaderia.CantidadFisica - mercaderia.CantidadComprometida;
+        }
+
+        foreach (var ordenPreparacion in Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion
+                     .Where(p => ordenEntidad.OrdenesPreparacion.Contains(p.Numero)))
+        {
+            ordenPreparacion.OrdenSeleccionCumplida = true;
+        }
+
+        Almacenes.OrdenesSeleccionAlmacen.Guardar();
+        Almacenes.MercaderiasAlmacen.Guardar();
+        Almacenes.OrdenesPreparacionAlmacen.Guardar();
+
         // Paso 11
         return $"Orden de selección N° {OrdenActual.Numero} cumplida";
     }
 
-    // Convierte "12-43-2" en (12, 43, 2) para ordenar por número y no como texto.
+    // Convierte "A-01-2" en (1, 1, 2) para ordenar por número y no como texto.
+    // El pasillo es una letra (A = 1, B = 2, ...); fila y nivel son números.
     private (int Sector, int Posicion, int Fila) ClaveDePosicion(string posicion)
     {
         var partes = posicion.Split('-');
-        return (int.Parse(partes[0]), int.Parse(partes[1]), int.Parse(partes[2]));
+        int pasillo = int.TryParse(partes[0], out int numero)
+            ? numero
+            : partes[0].ToUpper().Aggregate(0, (total, letra) => total * 26 + (letra - 'A' + 1));
+        return (pasillo, int.Parse(partes[1]), int.Parse(partes[2]));
     }
 }

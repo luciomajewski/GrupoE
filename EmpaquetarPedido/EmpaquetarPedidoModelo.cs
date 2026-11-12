@@ -5,7 +5,7 @@ internal class EmpaquetarPedidoModelo
     // Operario identificado en el sistema: el usuario de Windows con el que se abrió el programa.
     public string Usuario { get; } = Environment.UserName;
 
-    // Excepción autorizada: el depósito es el código de la orden en pantalla (OrdenesPreparacion.json).
+    // El depósito es el código de la orden en pantalla (OrdenesPreparacion.json).
     public string Deposito => OrdenActual == null
         ? ""
         : Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion.First(o => o.Numero == OrdenActual.Numero).CodigoDeposito;

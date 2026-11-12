@@ -3,40 +3,18 @@ namespace GrupoE.EntregaATransportista;
 
 internal class EntregaATransportistaModelo
 {
-    // Usuario identificado en el sistema y su depósito.
-    public string CodigoUsuario { get; } = "OPD01";
-    public string CodigoDeposito { get; } = "DEP01";
+    // Usuario identificado en el sistema: el usuario de Windows con el que se abrió el programa.
+    public string CodigoUsuario { get; } = Environment.UserName;
 
-    // Datos de prueba de la planilla "Prueba - Entregar mercadería al transportista".
-    // 99999999 no figura en ninguna orden a propósito (excepción "no autorizado").
-    public List<OrdenPreparacion> OrdenesPreparacion { get; } = new()
-    {
-        // Martínez, Luis: dos órdenes listas para retirar en DEP01.
-        new OrdenPreparacion { Numero = 2001, CodigoCliente = "CLI001", CodigoDeposito = "DEP01", TransportistaNombre = "Martínez, Luis", TransportistaDni = 30123456, Estado = EstadoOrdenPreparacion.Preparada },
-        new OrdenPreparacion { Numero = 2005, CodigoCliente = "CLI002", CodigoDeposito = "DEP01", TransportistaNombre = "Martínez, Luis", TransportistaDni = 30123456, Estado = EstadoOrdenPreparacion.Preparada },
-        // Martínez, Luis en otro depósito: no debe aparecer en la grilla.
-        new OrdenPreparacion { Numero = 2006, CodigoCliente = "CLI003", CodigoDeposito = "DEP02", TransportistaNombre = "Martínez, Luis", TransportistaDni = 30123456, Estado = EstadoOrdenPreparacion.Preparada },
-        // Gómez, Carlos: otro transportista con una orden lista.
-        new OrdenPreparacion { Numero = 2002, CodigoCliente = "CLI001", CodigoDeposito = "DEP01", TransportistaNombre = "Gómez, Carlos", TransportistaDni = 27888999, Estado = EstadoOrdenPreparacion.Preparada },
-        // Sosa, Ana: autorizada, pero una orden ya fue despachada y la otra todavía no está preparada.
-        new OrdenPreparacion { Numero = 2003, CodigoCliente = "CLI002", CodigoDeposito = "DEP01", TransportistaNombre = "Sosa, Ana", TransportistaDni = 28555111, Estado = EstadoOrdenPreparacion.Cumplida, NumeroRemito = 5000 },
-        new OrdenPreparacion { Numero = 2004, CodigoCliente = "CLI003", CodigoDeposito = "DEP01", TransportistaNombre = "Sosa, Ana", TransportistaDni = 28555111, Estado = EstadoOrdenPreparacion.Pendiente }
-    };
+    // El depósito es el de las órdenes que se van a entregar (OrdenesPreparacion.json).
+    public string CodigoDeposito => OrdenesAEntregar.Count == 0
+        ? ""
+        : Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion.First(p => p.Numero == OrdenesAEntregar[0].NumeroOrdenPreparacion).CodigoDeposito;
 
-    public List<OrdenEntrega> OrdenesEntrega { get; } = new()
-    {
-        new OrdenEntrega { NumeroOrdenPreparacion = 2001, CodigoDeposito = "DEP01", CantidadPaquetes = 3, Estado = EstadoOrdenEntrega.Pendiente },
-        new OrdenEntrega { NumeroOrdenPreparacion = 2002, CodigoDeposito = "DEP01", CantidadPaquetes = 1, Estado = EstadoOrdenEntrega.Pendiente },
-        new OrdenEntrega { NumeroOrdenPreparacion = 2003, CodigoDeposito = "DEP01", CantidadPaquetes = 4, Estado = EstadoOrdenEntrega.Despachada, FechaHoraDespacho = new DateTime(2026, 10, 1, 10, 30, 0) },
-        new OrdenEntrega { NumeroOrdenPreparacion = 2005, CodigoDeposito = "DEP01", CantidadPaquetes = 2, Estado = EstadoOrdenEntrega.Pendiente },
-        new OrdenEntrega { NumeroOrdenPreparacion = 2006, CodigoDeposito = "DEP02", CantidadPaquetes = 4, Estado = EstadoOrdenEntrega.Pendiente }
-    };
-
-    // Último remito registrado: el próximo será el 5001.
-    public List<RemitoEntrega> RemitosEntrega { get; } = new()
-    {
-        new RemitoEntrega { Numero = 5000, FechaHora = new DateTime(2026, 10, 1, 10, 15, 0), CodigoDeposito = "DEP01", TransportistaNombre = "Sosa, Ana", TransportistaDni = 28555111, CodigoUsuario = "OPD01", Estado = EstadoRemito.Firmado, FechaHoraCumplido = new DateTime(2026, 10, 1, 10, 30, 0), CodigoUsuarioCumplido = "OPD01" }
-    };
+    // Órdenes y remitos guardados en Datos: se cargan desde los almacenes en cada búsqueda.
+    public List<OrdenPreparacion> OrdenesPreparacion { get; } = new();
+    public List<OrdenEntrega> OrdenesEntrega { get; } = new();
+    public List<RemitoEntrega> RemitosEntrega { get; } = new();
 
     public List<DetalleRemitoEntrega> DetallesRemitoEntrega { get; } = new();
     public List<MovimientoMercaderia> MovimientosMercaderia { get; } = new();
@@ -64,38 +42,99 @@ internal class EntregaATransportistaModelo
             return "Ingrese un DNI válido";
         }
 
-        // Autorizado: el DNI figura en alguna orden de preparación del depósito.
-        List<OrdenPreparacion> ordenesDelTransportista = OrdenesPreparacion
-            .Where(op => op.CodigoDeposito == CodigoDeposito && op.TransportistaDni == dni)
-            .OrderBy(op => op.Numero)
+        // Órdenes y remitos guardados, convertidos a las clases de la pantalla.
+        var preparacionesEntidad = Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion;
+        var entregasEntidad = Almacenes.OrdenesEntregaAlmacen.OrdenesEntrega;
+        var remitosEntidad = Almacenes.RemitosEntregaAlmacen.RemitosEntrega;
+
+        OrdenesPreparacion.Clear();
+        OrdenesPreparacion.AddRange(preparacionesEntidad.Select(p => new OrdenPreparacion
+        {
+            Numero = p.Numero,
+            CodigoCliente = p.CodigoCliente,
+            CodigoDeposito = p.CodigoDeposito,
+            TransportistaNombre = p.NombreTransportista,
+            TransportistaDni = p.DniTransportista,
+            Estado = p.Estado switch
+            {
+                Almacenes.EstadoOrdenPreparacionEnum.Preparada => EstadoOrdenPreparacion.Preparada,
+                Almacenes.EstadoOrdenPreparacionEnum.Cumplida => EstadoOrdenPreparacion.Cumplida,
+                _ => EstadoOrdenPreparacion.Pendiente
+            },
+            NumeroRemito = remitosEntidad
+                .Where(r => r.Estado == Almacenes.EstadoRemitoEnum.Firmado
+                            && entregasEntidad.Any(oe => oe.NumeroOrdenPreparacion == p.Numero && r.OrdenesEntrega.Contains(oe.Numero)))
+                .Select(r => (int?)r.Numero)
+                .FirstOrDefault()
+        }));
+
+        OrdenesEntrega.Clear();
+        OrdenesEntrega.AddRange(entregasEntidad.Select(oe => new OrdenEntrega
+        {
+            NumeroOrdenPreparacion = oe.NumeroOrdenPreparacion,
+            CodigoDeposito = preparacionesEntidad.First(p => p.Numero == oe.NumeroOrdenPreparacion).CodigoDeposito,
+            CantidadPaquetes = oe.CantidadPaquetes,
+            Estado = oe.Estado == Almacenes.EstadoOrdenEntregaEnum.Despachada ? EstadoOrdenEntrega.Despachada : EstadoOrdenEntrega.Pendiente,
+            FechaHoraDespacho = oe.FechaHoraDespacho
+        }));
+
+        RemitosEntrega.Clear();
+        RemitosEntrega.AddRange(remitosEntidad.Select(r => new RemitoEntrega
+        {
+            Numero = r.Numero,
+            FechaHora = r.FechaHora,
+            CodigoDeposito = r.CodigoDeposito,
+            TransportistaNombre = r.NombreTransportista,
+            TransportistaDni = r.DniTransportista,
+            CodigoUsuario = r.CodigoUsuario,
+            Estado = r.Estado switch
+            {
+                Almacenes.EstadoRemitoEnum.Firmado => EstadoRemito.Firmado,
+                Almacenes.EstadoRemitoEnum.Anulado => EstadoRemito.Anulado,
+                _ => EstadoRemito.Emitido
+            },
+            FechaHoraCumplido = r.FechaHoraCumplido,
+            CodigoUsuarioCumplido = r.CodigoUsuarioCumplido
+        }));
+
+        // Autorizado: el DNI figura en alguna orden de preparación.
+        var preparacionesDelTransportista = preparacionesEntidad
+            .Where(p => p.DniTransportista == dni)
+            .OrderBy(p => p.Numero)
             .ToList();
 
-        if (ordenesDelTransportista.Count == 0)
+        if (preparacionesDelTransportista.Count == 0)
         {
             return "El transportista no está autorizado a retirar mercadería en este depósito";
         }
 
-        TransportistaNombre = ordenesDelTransportista[0].TransportistaNombre;
+        TransportistaNombre = preparacionesDelTransportista[0].NombreTransportista;
         TransportistaDni = dni;
 
-        foreach (OrdenPreparacion op in ordenesDelTransportista)
-        {
-            OrdenEntrega? oe = OrdenesEntrega.Find(oe => oe.NumeroOrdenPreparacion == op.Numero
-                                                      && oe.CodigoDeposito == CodigoDeposito
-                                                      && oe.Estado == EstadoOrdenEntrega.Pendiente);
-            if (oe != null)
-            {
-                OrdenesAEntregar.Add(oe);
-            }
-        }
+        // Órdenes de entrega pendientes que no estén ya en un remito emitido. El remito es de un solo
+        // depósito: el de la primera orden lista del transportista.
+        var enRemitoEmitido = remitosEntidad
+            .Where(r => r.Estado == Almacenes.EstadoRemitoEnum.Emitido)
+            .SelectMany(r => r.OrdenesEntrega)
+            .ToHashSet();
+        var listas = preparacionesDelTransportista
+            .Where(p => entregasEntidad.Any(oe => oe.NumeroOrdenPreparacion == p.Numero
+                                                  && oe.Estado == Almacenes.EstadoOrdenEntregaEnum.Pendiente
+                                                  && !enRemitoEmitido.Contains(oe.Numero)))
+            .ToList();
 
-        if (OrdenesAEntregar.Count == 0)
+        if (listas.Count == 0)
         {
             return "El transportista no tiene órdenes listas para retirar";
         }
 
+        foreach (var preparacion in listas.Where(p => p.CodigoDeposito == listas[0].CodigoDeposito))
+        {
+            OrdenesAEntregar.Add(OrdenesEntrega.First(oe => oe.NumeroOrdenPreparacion == preparacion.Numero));
+        }
+
         // Se muestra el nombre registrado en las órdenes que se van a entregar.
-        TransportistaNombre = BuscarOrdenPreparacion(OrdenesAEntregar[0]).TransportistaNombre;
+        TransportistaNombre = listas[0].NombreTransportista;
         return null;
     }
 
@@ -107,12 +146,15 @@ internal class EntregaATransportistaModelo
             throw new InvalidOperationException("No hay órdenes para generar el remito, o el remito ya fue generado.");
         }
 
-        int numero = RemitosEntrega.Count == 0 ? 1 : RemitosEntrega.Max(r => r.Numero) + 1;
+        var remitosEntidad = Almacenes.RemitosEntregaAlmacen.RemitosEntrega;
+        int numero = remitosEntidad.Count == 0 ? 1 : remitosEntidad.Max(r => r.Numero) + 1;
+        DateTime ahora = DateTime.Now;
+        var fechaHora = new DateTime(ahora.Year, ahora.Month, ahora.Day, ahora.Hour, ahora.Minute, ahora.Second);
 
         Remito = new RemitoEntrega
         {
             Numero = numero,
-            FechaHora = DateTime.Now,
+            FechaHora = fechaHora,
             CodigoDeposito = CodigoDeposito,
             TransportistaNombre = TransportistaNombre!,
             TransportistaDni = TransportistaDni!.Value,
@@ -120,6 +162,22 @@ internal class EntregaATransportistaModelo
             Estado = EstadoRemito.Emitido
         };
         RemitosEntrega.Add(Remito);
+
+        // Se guarda el remito Emitido con sus órdenes de entrega.
+        remitosEntidad.Add(new Almacenes.RemitoEntregaEntidad
+        {
+            Numero = numero,
+            FechaHora = fechaHora,
+            OrdenesEntrega = OrdenesAEntregar
+                .Select(oe => Almacenes.OrdenesEntregaAlmacen.OrdenesEntrega.First(e => e.NumeroOrdenPreparacion == oe.NumeroOrdenPreparacion).Numero)
+                .ToList(),
+            CodigoUsuario = CodigoUsuario,
+            Estado = Almacenes.EstadoRemitoEnum.Emitido,
+            CodigoDeposito = CodigoDeposito,
+            NombreTransportista = TransportistaNombre!,
+            DniTransportista = TransportistaDni!.Value
+        });
+        Almacenes.RemitosEntregaAlmacen.Guardar();
 
         foreach (OrdenEntrega oe in OrdenesAEntregar)
         {
@@ -142,7 +200,8 @@ internal class EntregaATransportistaModelo
             throw new InvalidOperationException("El remito tiene que estar generado y firmado para confirmar el despacho.");
         }
 
-        DateTime ahora = DateTime.Now;
+        DateTime momento = DateTime.Now;
+        var ahora = new DateTime(momento.Year, momento.Month, momento.Day, momento.Hour, momento.Minute, momento.Second);
 
         Remito.Estado = EstadoRemito.Firmado;
         Remito.FechaHoraCumplido = ahora;
@@ -165,6 +224,25 @@ internal class EntregaATransportistaModelo
                 Fecha = ahora.Date
             });
         }
+
+        // Se guarda: remito Firmado con el cumplido, órdenes de entrega Despachadas y órdenes de
+        // preparación Cumplidas. El stock ya había salido de su posición al cumplir la selección.
+        var remitoEntidad = Almacenes.RemitosEntregaAlmacen.RemitosEntrega.First(r => r.Numero == Remito.Numero);
+        remitoEntidad.Estado = Almacenes.EstadoRemitoEnum.Firmado;
+        remitoEntidad.FechaHoraCumplido = ahora;
+        remitoEntidad.CodigoUsuarioCumplido = CodigoUsuario;
+
+        foreach (var entregaEntidad in Almacenes.OrdenesEntregaAlmacen.OrdenesEntrega.Where(oe => remitoEntidad.OrdenesEntrega.Contains(oe.Numero)))
+        {
+            entregaEntidad.Estado = Almacenes.EstadoOrdenEntregaEnum.Despachada;
+            entregaEntidad.FechaHoraDespacho = ahora;
+            Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion.First(p => p.Numero == entregaEntidad.NumeroOrdenPreparacion).Estado =
+                Almacenes.EstadoOrdenPreparacionEnum.Cumplida;
+        }
+
+        Almacenes.RemitosEntregaAlmacen.Guardar();
+        Almacenes.OrdenesEntregaAlmacen.Guardar();
+        Almacenes.OrdenesPreparacionAlmacen.Guardar();
     }
 
     // Excepción "Cancelar": si el remito ya se había generado y no se confirmó, queda Anulado.
@@ -174,6 +252,10 @@ internal class EntregaATransportistaModelo
         if (Remito != null && Remito.Estado == EstadoRemito.Emitido)
         {
             Remito.Estado = EstadoRemito.Anulado;
+
+            var remitoEntidad = Almacenes.RemitosEntregaAlmacen.RemitosEntrega.First(r => r.Numero == Remito.Numero);
+            remitoEntidad.Estado = Almacenes.EstadoRemitoEnum.Anulado;
+            Almacenes.RemitosEntregaAlmacen.Guardar();
         }
 
         Reiniciar();

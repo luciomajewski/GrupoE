@@ -15,11 +15,19 @@
         "CantidadRemito": 50,
         "Asignaciones": [
           {
-            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "1" },
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "1"
+            },
             "Cantidad": 30
           },
           {
-            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "2" },
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "2"
+            },
             "Cantidad": 20
           }
         ],
@@ -33,7 +41,11 @@
         "CantidadRemito": 30,
         "Asignaciones": [
           {
-            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "3" },
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "3"
+            },
             "Cantidad": 30
           }
         ],
@@ -148,7 +160,11 @@
         "CantidadRemito": 25,
         "Asignaciones": [
           {
-            "EnPosicion": { "Pasillo": "A", "Fila": "01", "Nivel": "4" },
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "4"
+            },
             "Cantidad": 25
           }
         ],
@@ -200,5 +216,119 @@
     ],
     "Estado": "PendienteExcedente",
     "Usuario": "lrodriguez"
+  },
+  {
+    "Numero": 1054,
+    "CodigoCliente": "CLI-001",
+    "NumeroRemito": "00001-00004523",
+    "FechaRemito": "2026-11-06T00:00:00",
+    "Transportista": "Transportes del Sur",
+    "Chofer": "Carlos Méndez",
+    "Patente": "AB123CD",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "AND-1003",
+        "CantidadContada": 100,
+        "CantidadRemito": 100,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "02",
+              "Nivel": "1"
+            },
+            "Cantidad": 100
+          }
+        ],
+        "CantidadAUbicar": 100,
+        "Descripcion": "Arroz largo fino 1 kg",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "operario"
+  },
+  {
+    "Numero": 1055,
+    "CodigoCliente": "CLI-002",
+    "NumeroRemito": "00003-00001189",
+    "FechaRemito": "2026-11-06T00:00:00",
+    "Transportista": "Logística Pampeana",
+    "Chofer": "Raúl Fernández",
+    "Patente": "AC456EF",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "ELS-2002",
+        "CantidadContada": 60,
+        "CantidadRemito": 60,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "02",
+              "Nivel": "2"
+            },
+            "Cantidad": 60
+          }
+        ],
+        "CantidadAUbicar": 60,
+        "Descripcion": "Pava eléctrica 1,7 L",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "operario"
+  },
+  {
+    "Numero": 1056,
+    "CodigoCliente": "CLI-003",
+    "NumeroRemito": "00002-00000917",
+    "FechaRemito": "2026-11-07T00:00:00",
+    "Transportista": "Expreso Litoral",
+    "Chofer": "Diego Sosa",
+    "Patente": "AD789GH",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "TXP-3001",
+        "CantidadContada": 120,
+        "CantidadRemito": 120,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "02",
+              "Nivel": "3"
+            },
+            "Cantidad": 120
+          }
+        ],
+        "CantidadAUbicar": 120,
+        "Descripcion": "Remera algodón talle M",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "TXP-3002",
+        "CantidadContada": 80,
+        "CantidadRemito": 80,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "02",
+              "Nivel": "4"
+            },
+            "Cantidad": 80
+          }
+        ],
+        "CantidadAUbicar": 80,
+        "Descripcion": "Jean clásico talle 42",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "operario"
   }
 ]

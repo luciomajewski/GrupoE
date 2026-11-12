@@ -31,5 +31,82 @@
     "FechaHoraDespacho": "2026-11-04T09:45:00",
     "NombreTransportista": "Ana Sosa",
     "DniTransportista": 28555111
+  },
+  {
+    "Numero": 3004,
+    "NumeroOrdenPreparacion": 2014,
+    "FechaHora": "2026-11-10T10:05:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 12,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Jorge Pereyra",
+    "DniTransportista": 31555777
+  },
+  {
+    "Numero": 3005,
+    "NumeroOrdenPreparacion": 2015,
+    "FechaHora": "2026-11-10T10:20:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 40,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Jorge Pereyra",
+    "DniTransportista": 31555777
+  },
+  {
+    "Numero": 3006,
+    "NumeroOrdenPreparacion": 2016,
+    "FechaHora": "2026-11-10T10:35:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 10,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Laura Benítez",
+    "DniTransportista": 33222444
+  },
+  {
+    "Numero": 3007,
+    "NumeroOrdenPreparacion": 2017,
+    "FechaHora": "2026-11-10T10:50:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 25,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Marcos Villalba",
+    "DniTransportista": 29444666
+  },
+  {
+    "Numero": 3008,
+    "NumeroOrdenPreparacion": 2018,
+    "FechaHora": "2026-11-10T11:05:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 30,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Marcos Villalba",
+    "DniTransportista": 29444666
+  },
+  {
+    "Numero": 3009,
+    "NumeroOrdenPreparacion": 2019,
+    "FechaHora": "2026-11-10T11:20:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 20,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Sofía Domínguez",
+    "DniTransportista": 35111222
+  },
+  {
+    "Numero": 3010,
+    "NumeroOrdenPreparacion": 2020,
+    "FechaHora": "2026-11-10T11:35:00",
+    "Usuario": "operario",
+    "CantidadPaquetes": 8,
+    "Estado": "Pendiente",
+    "FechaHoraDespacho": null,
+    "NombreTransportista": "Diego Ferreyra",
+    "DniTransportista": 32777888
   }
 ]

@@ -5,7 +5,7 @@ internal class CumplirOrdenSeleccionModelo
 {
     public string UsuarioActual { get; }
 
-    // Excepción autorizada: el depósito es el de la orden en pantalla (OrdenesSeleccion.json).
+    // El depósito es el de la orden en pantalla (OrdenesSeleccion.json).
     public string DepositoActual => OrdenActual == null
         ? ""
         : Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion.First(o => o.Numero == OrdenActual.Numero).CodigoDeposito;

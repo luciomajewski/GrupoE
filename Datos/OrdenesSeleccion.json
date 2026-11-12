@@ -241,5 +241,111 @@
     "FechaHoraCumplida": "2026-11-11T09:00:00",
     "UsuarioCumplida": "operario",
     "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1007,
+    "OrdenesPreparacion": [
+      2014,
+      2015,
+      2016
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1003",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Arroz largo fino 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 40,
+        "Descripcion": "Remera algodón talle M"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 10,
+        "Descripcion": "Pava eléctrica 1,7 L"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-09T15:00:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1008,
+    "OrdenesPreparacion": [
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "4"
+        },
+        "Cantidad": 15,
+        "Descripcion": "Jean clásico talle 42"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 18,
+        "Descripcion": "Remera algodón talle M"
+      },
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1003",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 30,
+        "Descripcion": "Arroz largo fino 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 20,
+        "Descripcion": "Pava eléctrica 1,7 L"
+      }
+    ],
+    "Estado": "Cumplida",
+    "FechaHoraCumplida": "2026-11-10T08:30:00",
+    "UsuarioCumplida": "operario",
+    "CodigoDeposito": "GBA"
   }
 ]

@@ -46,5 +46,53 @@
     "Sku": "JMF-5001",
     "Descripcion": "Pelota de fútbol N°5",
     "StockMinimoContratado": 20
+  },
+  {
+    "CodigoCliente": "CLI-005",
+    "Sku": "BDS-6001",
+    "Descripcion": "Vino Malbec 750 ml",
+    "StockMinimoContratado": 40
+  },
+  {
+    "CodigoCliente": "CLI-005",
+    "Sku": "BDS-6002",
+    "Descripcion": "Aceite de oliva 500 ml",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-006",
+    "Sku": "LSE-7001",
+    "Descripcion": "Dulce de leche 400 g",
+    "StockMinimoContratado": 30
+  },
+  {
+    "CodigoCliente": "CLI-006",
+    "Sku": "LSE-7002",
+    "Descripcion": "Queso cremoso 1 kg",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-007",
+    "Sku": "AGL-8001",
+    "Descripcion": "Alimento balanceado 15 kg",
+    "StockMinimoContratado": 20
+  },
+  {
+    "CodigoCliente": "CLI-007",
+    "Sku": "AGL-8002",
+    "Descripcion": "Semillas de girasol 1 kg",
+    "StockMinimoContratado": null
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9001",
+    "Descripcion": "Taladro percutor 650 W",
+    "StockMinimoContratado": 10
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9002",
+    "Descripcion": "Caja de herramientas 40 piezas",
+    "StockMinimoContratado": null
   }
 ]

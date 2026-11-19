@@ -493,5 +493,308 @@
     ],
     "OrdenSeleccionCumplida": true,
     "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2021,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-21T00:00:00",
+    "NombreDestinatario": "Paula Herrera",
+    "DireccionDestino": "Av. Rivadavia 5320, CABA",
+    "NombreTransportista": "Pablo Gómez",
+    "DniTransportista": 34666111,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AND-1003",
+        "Cantidad": 15,
+        "Producto": "Arroz largo fino 1 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2022,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-21T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Pablo Gómez",
+    "DniTransportista": 34666111,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "TXP-3001",
+        "Cantidad": 20,
+        "Producto": "Remera algodón talle M"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2023,
+    "CodigoCliente": "CLI-008",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-22T00:00:00",
+    "NombreDestinatario": "Paula Herrera",
+    "DireccionDestino": "Av. Rivadavia 5320, CABA",
+    "NombreTransportista": "Sergio Ruiz",
+    "DniTransportista": 36222333,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "FEF-9001",
+        "Cantidad": 6,
+        "Producto": "Taladro percutor 650 W"
+      },
+      {
+        "Sku": "FEF-9002",
+        "Cantidad": 4,
+        "Producto": "Caja de herramientas 40 piezas"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2024,
+    "CodigoCliente": "CLI-007",
+    "CodigoDeposito": "ROS",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-22T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Sergio Ruiz",
+    "DniTransportista": 36222333,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AGL-8001",
+        "Cantidad": 12,
+        "Producto": "Alimento balanceado 15 kg"
+      },
+      {
+        "Sku": "AGL-8002",
+        "Cantidad": 10,
+        "Producto": "Semillas de girasol 1 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2025,
+    "CodigoCliente": "CLI-008",
+    "CodigoDeposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-23T00:00:00",
+    "NombreDestinatario": "Lucía Fernández",
+    "DireccionDestino": "San Martín 455, Rosario",
+    "NombreTransportista": "Sergio Ruiz",
+    "DniTransportista": 36222333,
+    "EmpresaTransporte": "Expreso Litoral",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "FEF-9001",
+        "Cantidad": 8,
+        "Producto": "Taladro percutor 650 W"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2026,
+    "CodigoCliente": "CLI-006",
+    "CodigoDeposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-23T00:00:00",
+    "NombreDestinatario": "Martín Quiroga",
+    "DireccionDestino": "Bv. San Juan 870, Córdoba",
+    "NombreTransportista": "Roberto Díaz",
+    "DniTransportista": 7654321,
+    "EmpresaTransporte": "Transportes Serranos",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "LSE-7001",
+        "Cantidad": 18,
+        "Producto": "Dulce de leche 400 g"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2027,
+    "CodigoCliente": "CLI-007",
+    "CodigoDeposito": "CBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-24T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Roberto Díaz",
+    "DniTransportista": 7654321,
+    "EmpresaTransporte": "Transportes Serranos",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "AGL-8001",
+        "Cantidad": 7,
+        "Producto": "Alimento balanceado 15 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2028,
+    "CodigoCliente": "CLI-006",
+    "CodigoDeposito": "CBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-24T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Roberto Díaz",
+    "DniTransportista": 7654321,
+    "EmpresaTransporte": "Transportes Serranos",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "LSE-7002",
+        "Cantidad": 9,
+        "Producto": "Queso cremoso 1 kg"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2029,
+    "CodigoCliente": "CLI-005",
+    "CodigoDeposito": "MDZ",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-24T00:00:00",
+    "NombreDestinatario": "Carla Videla",
+    "DireccionDestino": "Av. San Martín 1520, Mendoza",
+    "NombreTransportista": "Andrea Molina",
+    "DniTransportista": 30987654,
+    "EmpresaTransporte": "Andes Cargas",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "BDS-6001",
+        "Cantidad": 24,
+        "Producto": "Vino Malbec 750 ml"
+      },
+      {
+        "Sku": "BDS-6002",
+        "Cantidad": 6,
+        "Producto": "Aceite de oliva 500 ml"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2030,
+    "CodigoCliente": "CLI-008",
+    "CodigoDeposito": "MDZ",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-25T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Andrea Molina",
+    "DniTransportista": 30987654,
+    "EmpresaTransporte": "Andes Cargas",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "FEF-9002",
+        "Cantidad": 5,
+        "Producto": "Caja de herramientas 40 piezas"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
+  },
+  {
+    "Numero": 2031,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "FechaRetiro": "2026-11-25T00:00:00",
+    "NombreDestinatario": "Paula Herrera",
+    "DireccionDestino": "Av. Rivadavia 5320, CABA",
+    "NombreTransportista": "Pablo Gómez",
+    "DniTransportista": 34666111,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "ELS-2002",
+        "Cantidad": 8,
+        "Producto": "Pava eléctrica 1,7 L"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": true
+  },
+  {
+    "Numero": 2032,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "Modalidad": "PaletCerrado",
+    "FechaRetiro": "2026-11-26T00:00:00",
+    "NombreDestinatario": "",
+    "DireccionDestino": "",
+    "NombreTransportista": "Pablo Gómez",
+    "DniTransportista": 34666111,
+    "EmpresaTransporte": "Transportes del Sur",
+    "Estado": "EnPreparacion",
+    "FechaPreparada": null,
+    "PreparadaPor": null,
+    "Renglones": [
+      {
+        "Sku": "TXP-3002",
+        "Cantidad": 12,
+        "Producto": "Jean clásico talle 42"
+      }
+    ],
+    "OrdenSeleccionCumplida": false,
+    "RequiereDatosEtiquetado": false
   }
 ]

@@ -347,5 +347,237 @@
     "FechaHoraCumplida": "2026-11-10T08:30:00",
     "UsuarioCumplida": "operario",
     "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1009,
+    "OrdenesPreparacion": [
+      2021,
+      2022,
+      2023
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-001",
+        "Sku": "AND-1003",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 15,
+        "Descripcion": "Arroz largo fino 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "3"
+        },
+        "Cantidad": 20,
+        "Descripcion": "Remera algodón talle M"
+      },
+      {
+        "CodigoCliente": "CLI-008",
+        "Sku": "FEF-9001",
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Taladro percutor 650 W"
+      },
+      {
+        "CodigoCliente": "CLI-008",
+        "Sku": "FEF-9002",
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 4,
+        "Descripcion": "Caja de herramientas 40 piezas"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
+  },
+  {
+    "Numero": 1010,
+    "OrdenesPreparacion": [
+      2024,
+      2025
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-007",
+        "Sku": "AGL-8001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Alimento balanceado 15 kg"
+      },
+      {
+        "CodigoCliente": "CLI-007",
+        "Sku": "AGL-8002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 10,
+        "Descripcion": "Semillas de girasol 1 kg"
+      },
+      {
+        "CodigoCliente": "CLI-008",
+        "Sku": "FEF-9001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Taladro percutor 650 W"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "ROS"
+  },
+  {
+    "Numero": 1011,
+    "OrdenesPreparacion": [
+      2026,
+      2027,
+      2028
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-006",
+        "Sku": "LSE-7001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 18,
+        "Descripcion": "Dulce de leche 400 g"
+      },
+      {
+        "CodigoCliente": "CLI-007",
+        "Sku": "AGL-8001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 7,
+        "Descripcion": "Alimento balanceado 15 kg"
+      },
+      {
+        "CodigoCliente": "CLI-006",
+        "Sku": "LSE-7002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 9,
+        "Descripcion": "Queso cremoso 1 kg"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "CBA"
+  },
+  {
+    "Numero": 1012,
+    "OrdenesPreparacion": [
+      2029,
+      2030
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-005",
+        "Sku": "BDS-6001",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 24,
+        "Descripcion": "Vino Malbec 750 ml"
+      },
+      {
+        "CodigoCliente": "CLI-005",
+        "Sku": "BDS-6002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 6,
+        "Descripcion": "Aceite de oliva 500 ml"
+      },
+      {
+        "CodigoCliente": "CLI-008",
+        "Sku": "FEF-9002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 5,
+        "Descripcion": "Caja de herramientas 40 piezas"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "MDZ"
+  },
+  {
+    "Numero": 1013,
+    "OrdenesPreparacion": [
+      2031,
+      2032
+    ],
+    "Renglones": [
+      {
+        "CodigoCliente": "CLI-002",
+        "Sku": "ELS-2002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "2"
+        },
+        "Cantidad": 8,
+        "Descripcion": "Pava eléctrica 1,7 L"
+      },
+      {
+        "CodigoCliente": "CLI-003",
+        "Sku": "TXP-3002",
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "4"
+        },
+        "Cantidad": 12,
+        "Descripcion": "Jean clásico talle 42"
+      }
+    ],
+    "Estado": "Pendiente",
+    "FechaHoraCumplida": null,
+    "UsuarioCumplida": null,
+    "CodigoDeposito": "GBA"
   }
 ]

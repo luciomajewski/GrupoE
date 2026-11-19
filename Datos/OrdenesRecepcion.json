@@ -330,5 +330,205 @@
     ],
     "Estado": "Cumplida",
     "Usuario": "operario"
+  },
+  {
+    "Numero": 1057,
+    "CodigoCliente": "CLI-005",
+    "NumeroRemito": "00004-00000301",
+    "FechaRemito": "2026-11-08T00:00:00",
+    "Transportista": "Andes Cargas",
+    "Chofer": "Federico Lucero",
+    "Patente": "AE321JK",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "BDS-6001",
+        "CantidadContada": 60,
+        "CantidadRemito": 60,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "1"
+            },
+            "Cantidad": 60
+          }
+        ],
+        "CantidadAUbicar": 60,
+        "Descripcion": "Vino Malbec 750 ml",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "BDS-6002",
+        "CantidadContada": 24,
+        "CantidadRemito": 24,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "2"
+            },
+            "Cantidad": 24
+          }
+        ],
+        "CantidadAUbicar": 24,
+        "Descripcion": "Aceite de oliva 500 ml",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "jperez"
+  },
+  {
+    "Numero": 1058,
+    "CodigoCliente": "CLI-006",
+    "NumeroRemito": "00005-00000122",
+    "FechaRemito": "2026-11-09T00:00:00",
+    "Transportista": "Transportes Serranos",
+    "Chofer": "Hugo Bustos",
+    "Patente": "AF654LM",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "LSE-7001",
+        "CantidadContada": 45,
+        "CantidadRemito": 45,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "1"
+            },
+            "Cantidad": 45
+          }
+        ],
+        "CantidadAUbicar": 45,
+        "Descripcion": "Dulce de leche 400 g",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "LSE-7002",
+        "CantidadContada": 28,
+        "CantidadRemito": 28,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "2"
+            },
+            "Cantidad": 28
+          }
+        ],
+        "CantidadAUbicar": 28,
+        "Descripcion": "Queso cremoso 1 kg",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "mgomez"
+  },
+  {
+    "Numero": 1059,
+    "CodigoCliente": "CLI-007",
+    "NumeroRemito": "00006-00002045",
+    "FechaRemito": "2026-11-10T00:00:00",
+    "Transportista": "Expreso Litoral",
+    "Chofer": "Diego Sosa",
+    "Patente": "AD789GH",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "AGL-8001",
+        "CantidadContada": 50,
+        "CantidadRemito": 50,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "1"
+            },
+            "Cantidad": 50
+          }
+        ],
+        "CantidadAUbicar": 50,
+        "Descripcion": "Alimento balanceado 15 kg",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "AGL-8002",
+        "CantidadContada": 35,
+        "CantidadRemito": 35,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "A",
+              "Fila": "01",
+              "Nivel": "2"
+            },
+            "Cantidad": 35
+          }
+        ],
+        "CantidadAUbicar": 35,
+        "Descripcion": "Semillas de girasol 1 kg",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "lrodriguez"
+  },
+  {
+    "Numero": 1060,
+    "CodigoCliente": "CLI-008",
+    "NumeroRemito": "00007-00000870",
+    "FechaRemito": "2026-11-11T00:00:00",
+    "Transportista": "Transportes del Sur",
+    "Chofer": "Martín Acosta",
+    "Patente": "AB123CD",
+    "Observaciones": "",
+    "Items": [
+      {
+        "Sku": "FEF-9001",
+        "CantidadContada": 40,
+        "CantidadRemito": 40,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "B",
+              "Fila": "01",
+              "Nivel": "1"
+            },
+            "Cantidad": 40
+          }
+        ],
+        "CantidadAUbicar": 40,
+        "Descripcion": "Taladro percutor 650 W",
+        "Diferencia": 0
+      },
+      {
+        "Sku": "FEF-9002",
+        "CantidadContada": 25,
+        "CantidadRemito": 25,
+        "Asignaciones": [
+          {
+            "EnPosicion": {
+              "Pasillo": "B",
+              "Fila": "01",
+              "Nivel": "2"
+            },
+            "Cantidad": 25
+          }
+        ],
+        "CantidadAUbicar": 25,
+        "Descripcion": "Caja de herramientas 40 piezas",
+        "Diferencia": 0
+      }
+    ],
+    "Estado": "Cumplida",
+    "Usuario": "operario"
   }
 ]

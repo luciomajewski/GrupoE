@@ -22,10 +22,14 @@ internal class RegistrarOrdenDePreparacionModelo
 
     public RegistrarOrdenDePreparacionModelo()
     {
-        // La pantalla registra órdenes para un único cliente: el primero de Clientes.json con contrato
-        // vigente y stock disponible en Mercaderias.json.
-        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.FirstOrDefault(c => c.ContratoVigente
-            && Almacenes.MercaderiasAlmacen.Mercaderias.Any(m => m.CodigoCliente == c.Codigo && m.CantidadDisponible > 0));
+        // Mientras no haya login, cada vez que se abre la pantalla se toma al azar uno de los clientes
+        // de Clientes.json con contrato vigente y stock disponible en Mercaderias.json.
+        var clientesHabilitados = Almacenes.ClientesAlmacen.Clientes.Where(c => c.ContratoVigente
+            && Almacenes.MercaderiasAlmacen.Mercaderias.Any(m => m.CodigoCliente == c.Codigo && m.CantidadDisponible > 0))
+            .ToList();
+        var clienteEntidad = clientesHabilitados.Count == 0
+            ? null
+            : clientesHabilitados[Random.Shared.Next(clientesHabilitados.Count)];
         NombreCliente = clienteEntidad?.RazonSocial ?? "";
         Depositos = new List<Deposito>();
         if (clienteEntidad == null)

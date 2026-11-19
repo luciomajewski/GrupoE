@@ -72,6 +72,19 @@ namespace GrupoE.RegistrarOrdenDePreparacion
         {
             int? cantidad = int.TryParse(textcantretirar.Text, out int cantidadIngresada) ? cantidadIngresada : null;
 
+            // Validaciones de datos: modalidad elegida, producto elegido y cantidad mayor a cero.
+            if (!radiocerrado.Checked && !radiofullfilment.Checked)
+            {
+                MessageBox.Show("Error: seleccione una modalidad de empaquetado antes de agregar productos", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (combodepo.SelectedItem == null || comboprodretirar.SelectedItem == null || cantidad == null || cantidad <= 0)
+            {
+                MessageBox.Show("Error: seleccione un producto e ingrese una cantidad mayor a cero", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string? error = modelo.AgregarProducto(comboprodretirar.SelectedItem as Producto, cantidad);
             if (error != null)
             {
@@ -91,6 +104,26 @@ namespace GrupoE.RegistrarOrdenDePreparacion
         private void btnconfirmar_Click(object? sender, EventArgs e)
         {
             int? dni = int.TryParse(textDNI.Text, out int dniIngresado) ? dniIngresado : null;
+
+            // Validaciones de datos: campos obligatorios completos y DNI de 7 u 8 dígitos.
+            // Los datos de etiquetado son obligatorios solo si la modalidad los requiere (regla del modelo).
+            bool faltanDatosEtiquetado = modelo.RequiereDatosEtiquetado
+                && (string.IsNullOrWhiteSpace(textnombre.Text) || string.IsNullOrWhiteSpace(textdireccion.Text));
+
+            if (combodepo.SelectedItem == null || (!radiocerrado.Checked && !radiofullfilment.Checked) || faltanDatosEtiquetado
+                || string.IsNullOrWhiteSpace(textnomtrans.Text)
+                || string.IsNullOrWhiteSpace(textDNI.Text)
+                || string.IsNullOrWhiteSpace(textempresatrans.Text))
+            {
+                MessageBox.Show("Error: por favor rellene todos los campos antes de completar la orden", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (textDNI.Text.Length < 7 || textDNI.Text.Length > 8 || dni == null)
+            {
+                MessageBox.Show("Error: el DNI del transportista debe tener 7 u 8 dígitos", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             modelo.FechaRetiro = datefecha.Value;
             modelo.NombreDestinatario = textnombre.Text;

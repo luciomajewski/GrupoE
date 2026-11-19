@@ -75,9 +75,9 @@
         "Cantidad": 58
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 15,
     "CantidadFisica": 58,
-    "CantidadDisponible": 58
+    "CantidadDisponible": 43
   },
   {
     "CodigoCliente": "CLI-002",
@@ -93,9 +93,9 @@
         "Cantidad": 30
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 8,
     "CantidadFisica": 30,
-    "CantidadDisponible": 30
+    "CantidadDisponible": 22
   },
   {
     "CodigoCliente": "CLI-003",
@@ -111,9 +111,9 @@
         "Cantidad": 62
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 20,
     "CantidadFisica": 62,
-    "CantidadDisponible": 62
+    "CantidadDisponible": 42
   },
   {
     "CodigoCliente": "CLI-003",
@@ -129,8 +129,206 @@
         "Cantidad": 65
       }
     ],
-    "CantidadComprometida": 0,
+    "CantidadComprometida": 12,
     "CantidadFisica": 65,
-    "CantidadDisponible": 65
+    "CantidadDisponible": 53
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9001",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 40
+      }
+    ],
+    "CantidadComprometida": 6,
+    "CantidadFisica": 40,
+    "CantidadDisponible": 34
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9002",
+    "CodigoDeposito": "GBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 25
+      }
+    ],
+    "CantidadComprometida": 4,
+    "CantidadFisica": 25,
+    "CantidadDisponible": 21
+  },
+  {
+    "CodigoCliente": "CLI-007",
+    "Sku": "AGL-8001",
+    "CodigoDeposito": "ROS",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 50
+      }
+    ],
+    "CantidadComprometida": 12,
+    "CantidadFisica": 50,
+    "CantidadDisponible": 38
+  },
+  {
+    "CodigoCliente": "CLI-007",
+    "Sku": "AGL-8002",
+    "CodigoDeposito": "ROS",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 35
+      }
+    ],
+    "CantidadComprometida": 10,
+    "CantidadFisica": 35,
+    "CantidadDisponible": 25
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9001",
+    "CodigoDeposito": "ROS",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 30
+      }
+    ],
+    "CantidadComprometida": 8,
+    "CantidadFisica": 30,
+    "CantidadDisponible": 22
+  },
+  {
+    "CodigoCliente": "CLI-006",
+    "Sku": "LSE-7001",
+    "CodigoDeposito": "CBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 45
+      }
+    ],
+    "CantidadComprometida": 18,
+    "CantidadFisica": 45,
+    "CantidadDisponible": 27
+  },
+  {
+    "CodigoCliente": "CLI-006",
+    "Sku": "LSE-7002",
+    "CodigoDeposito": "CBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 28
+      }
+    ],
+    "CantidadComprometida": 9,
+    "CantidadFisica": 28,
+    "CantidadDisponible": 19
+  },
+  {
+    "CodigoCliente": "CLI-007",
+    "Sku": "AGL-8001",
+    "CodigoDeposito": "CBA",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 20
+      }
+    ],
+    "CantidadComprometida": 7,
+    "CantidadFisica": 20,
+    "CantidadDisponible": 13
+  },
+  {
+    "CodigoCliente": "CLI-005",
+    "Sku": "BDS-6001",
+    "CodigoDeposito": "MDZ",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 60
+      }
+    ],
+    "CantidadComprometida": 24,
+    "CantidadFisica": 60,
+    "CantidadDisponible": 36
+  },
+  {
+    "CodigoCliente": "CLI-005",
+    "Sku": "BDS-6002",
+    "CodigoDeposito": "MDZ",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "2"
+        },
+        "Cantidad": 24
+      }
+    ],
+    "CantidadComprometida": 6,
+    "CantidadFisica": 24,
+    "CantidadDisponible": 18
+  },
+  {
+    "CodigoCliente": "CLI-008",
+    "Sku": "FEF-9002",
+    "CodigoDeposito": "MDZ",
+    "Ubicaciones": [
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "02",
+          "Nivel": "1"
+        },
+        "Cantidad": 15
+      }
+    ],
+    "CantidadComprometida": 5,
+    "CantidadFisica": 15,
+    "CantidadDisponible": 10
   }
 ]

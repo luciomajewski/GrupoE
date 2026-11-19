@@ -34,7 +34,8 @@ sequenceDiagram
     M->>M: UsuarioActual = Environment.UserName
     M->>OA: OrdenesSeleccion
     OA-->>M: List<OrdenSeleccionEntidad>
-    M->>M: OrdenesSeleccion = new OrdenSeleccion(Numero, CodigoDeposito, Estado, FechaHoraCumplida, UsuarioCumplida,<br/>Renglones = new RenglonOrdenSeleccion(CodigoCliente, Posicion, Sku, Descripcion, Cantidad)) por cada orden
+    M->>M: OrdenesSeleccion = new OrdenSeleccion(Numero, CodigoDeposito, Estado, FechaHoraCumplida, UsuarioCumplida,<br/>Renglones = renglones.OrderBy(Posicion.Pasillo, Posicion.Fila, Posicion.Nivel)<br/>.Select(new RenglonOrdenSeleccion(CodigoCliente, Posicion, Sku, Descripcion, Cantidad))) por cada orden
+    Note right of M: Ordena comparando pasillo, fila y nivel de la posición, sin convertir texto a número
     M->>M: Inventario = new List<ItemInventario>()
     F->>F: CumplirOrdenSeleccionForm_Shown(sender, e)
 
@@ -77,10 +78,7 @@ sequenceDiagram
         Note over O,OPE: Paso 4 · El sistema muestra los renglones ordenados por posición (pasillo, fila y nivel)
         F->>M: RenglonesOrdenados
         M->>OS: Renglones
-        OS-->>M: List<RenglonOrdenSeleccion>
-        loop Por cada renglón
-            M->>M: ClaveDePosicion(renglon.Posicion)
-        end
+        OS-->>M: List<RenglonOrdenSeleccion> (ya ordenados por posición al cargar la orden)
         M-->>F: renglones ordenados
         F-->>O: Muestra Posición, SKU, Descripción y Cantidad
 
@@ -102,6 +100,25 @@ sequenceDiagram
             O->>MB: Sí
             MB-->>F: DialogResult.Yes
             F->>M: CumplirOrden()
+
+            %% ---------- Validación de negocio: stock suficiente ----------
+            Note over M,UM: Antes del paso 9 · Validación de negocio: cada posición tiene stock suficiente para su renglón
+            M->>OA: OrdenesSeleccion.First(Numero == OrdenActual.Numero)
+            OA-->>M: ordenAValidar (ordenEntidad)
+            M->>OSE: Renglones
+            OSE-->>M: List<RenglonOrdenSeleccion>
+            loop Por cada renglón a validar
+                M->>MA: Mercaderias.Where(CodigoCliente == renglon.CodigoCliente, Sku == renglon.Sku, CodigoDeposito == orden.CodigoDeposito)
+                MA-->>M: mercaderia
+                M->>ME: Ubicaciones.FirstOrDefault(Posicion == renglon.Posicion)
+                ME-->>M: ubicacion (o null)
+                M->>UM: Cantidad
+                UM-->>M: unidades disponibles en la posición (0 si no existe)
+            end
+            alt 9.1 · En alguna posición no hay stock suficiente
+                M-->>F: "No se puede cumplir la orden de selección N° [nro]: en la posición [posición] hay [cantidad] unidades de [SKU]<br/>y la orden pide [cantidad]. Avise al Jefe de Almacén. La orden sigue Pendiente"
+                Note over M,OA: No se modifica ni se guarda nada
+            else Hay stock suficiente en todas las posiciones
 
             %% ---------- Paso 9: la orden queda cumplida ----------
             Note over M,OS: Paso 9 · La orden queda Cumplida con fecha, hora y usuario
@@ -161,10 +178,11 @@ sequenceDiagram
             M->>PA: Guardar()
             Note right of PA: Escribe Datos/OrdenesPreparacion.json
             M-->>F: "Orden de selección N° [nro] cumplida"
+            end
 
             %% ---------- Paso 12 ----------
             F->>MB: Show(mensaje, Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            MB-->>O: Paso 12 · "Orden de selección N° [nro] cumplida"
+            MB-->>O: Paso 12 · "Orden de selección N° [nro] cumplida" (o el mensaje de 9.1, y la orden vuelve a mostrarse)
             Note over F,M: Inicia la siguiente vuelta del ciclo: btnConfirmar_Click vuelve a invocar MostrarOrdenPendiente()
         end
     end
@@ -183,7 +201,8 @@ sequenceDiagram
 | 1 | Constructor y `CumplirOrdenSeleccionForm_Shown` | `new CumplirOrdenSeleccionModelo()` (lee `OrdenesSeleccionAlmacen` y arma `OrdenSeleccion` / `RenglonOrdenSeleccion`) |
 | 2 · 2.1 | `MostrarOrdenPendiente` (inicia cada vuelta del ciclo) | `BuscarOrdenPendiente()` → `MercaderiasAlmacen.Mercaderias`, `DepositoActual` (→ `OrdenesSeleccionAlmacen` y `OrdenSeleccionEntidad.CodigoDeposito`), arma `Inventario` |
 | 3 | `MostrarOrdenPendiente` | `NumeroOrdenActual`, `Fecha`, `HayOrdenPendiente` |
-| 4 | `MostrarOrdenPendiente` | `RenglonesOrdenados` → `OrdenSeleccion.Renglones`, `ClaveDePosicion(posicion)` |
+| 4 | `MostrarOrdenPendiente` | `RenglonesOrdenados` → `OrdenSeleccion.Renglones` (ordenados por pasillo, fila y nivel al cargar la orden) |
+| 9.1 | `btnConfirmar_Click` | `CumplirOrden()` → `OrdenesSeleccionAlmacen`, `OrdenSeleccionEntidad.Renglones`, `MercaderiasAlmacen.Mercaderias`, `MercaderiaEntidad.Ubicaciones`, `UbicacionMercaderia.Cantidad` (no guarda nada si falta stock) |
 | 5 · 5.1 | (acción del operario fuera del sistema) | (ninguna) |
 | 6 · 7 · 8 · 8.1 | `btnConfirmar_Click` | `PreguntaConfirmacion` → `OrdenSeleccion.Numero`, `MessageBox.Show(..., YesNo, Question)` |
 | 9 | `btnConfirmar_Click` | `CumplirOrden()` → `OrdenSeleccion.Estado`, `FechaHoraCumplida`, `UsuarioCumplida` |

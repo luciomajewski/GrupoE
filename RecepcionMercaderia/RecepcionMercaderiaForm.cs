@@ -210,10 +210,11 @@ namespace GrupoE.RecepcionMercaderia
             Close();
         }
 
-        // Cancelar o la X de la ventana: cartel con "Sí, descartar cambios" y "No".
+        // Cancelar o la X de la ventana: cartel con "Sí" y "No".
         private void RecepcionMercaderiaForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            if (modelo.ValidarHayClientes() != null)
+            // Solo se pregunta si el operario ya cargó datos (por ejemplo, no después de confirmar una recepción).
+            if (modelo.ValidarHayClientes() != null || !HayDatosCargados())
             {
                 return;
             }
@@ -228,7 +229,7 @@ namespace GrupoE.RecepcionMercaderia
                 MinimizeBox = false
             };
             var labelMensaje = new Label { Text = modelo.MensajeCancelacion, Location = new Point(20, 20), Size = new Size(380, 40) };
-            var buttonDescartar = new Button { Text = "Sí, descartar cambios", Location = new Point(120, 70), Size = new Size(170, 32), DialogResult = DialogResult.Yes };
+            var buttonDescartar = new Button { Text = "Sí", Location = new Point(190, 70), Size = new Size(100, 32), DialogResult = DialogResult.Yes };
             var buttonNoCancelar = new Button { Text = "No", Location = new Point(300, 70), Size = new Size(100, 32), DialogResult = DialogResult.No };
             cartel.Controls.Add(labelMensaje);
             cartel.Controls.Add(buttonDescartar);
@@ -240,6 +241,14 @@ namespace GrupoE.RecepcionMercaderia
                 e.Cancel = true;
             }
             cartel.Dispose();
+        }
+
+        private bool HayDatosCargados()
+        {
+            return comboBoxClieR.SelectedItem != null || comboBoxClieR.Text.Trim() != ""
+                || new[] { textBoxNRem, textBoxTransRem, textBoxNARem, As, textBoxSKURem, textBoxCatnCRem, textBoxCanRem, textBoxObsRem }
+                    .Any(t => t.Text.Trim() != "")
+                || listViewRem.Items.Count > 0;
         }
 
         // Remito: es el recuadro de fondo, no se usa para seleccionar.

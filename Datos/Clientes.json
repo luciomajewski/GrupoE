@@ -38,5 +38,41 @@
     "CodigoDeposito": "GBA",
     "ContratoVigente": false,
     "RemitosRegistrados": []
+  },
+  {
+    "Codigo": "CLI-005",
+    "RazonSocial": "Bodegas del Sol",
+    "CodigoDeposito": "MDZ",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00004-00000301"
+    ]
+  },
+  {
+    "Codigo": "CLI-006",
+    "RazonSocial": "Lácteos Serranos",
+    "CodigoDeposito": "CBA",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00005-00000122"
+    ]
+  },
+  {
+    "Codigo": "CLI-007",
+    "RazonSocial": "Agro Litoral",
+    "CodigoDeposito": "ROS",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00006-00002045"
+    ]
+  },
+  {
+    "Codigo": "CLI-008",
+    "RazonSocial": "Ferretería Federal",
+    "CodigoDeposito": "GBA",
+    "ContratoVigente": true,
+    "RemitosRegistrados": [
+      "00007-00000870"
+    ]
   }
 ]

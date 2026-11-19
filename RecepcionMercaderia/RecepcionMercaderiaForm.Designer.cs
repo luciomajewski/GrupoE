@@ -261,7 +261,7 @@
             ConfRem.Name = "ConfRem";
             ConfRem.Size = new Size(120, 27);
             ConfRem.TabIndex = 34;
-            ConfRem.Text = "Confirmar Recepeción";
+            ConfRem.Text = "Confirmar Recepción";
             ConfRem.UseVisualStyleBackColor = false;
             ConfRem.Click += button5_Click;
             // 
@@ -284,7 +284,7 @@
             textBoxObsRem.Name = "textBoxObsRem";
             textBoxObsRem.Size = new Size(267, 27);
             textBoxObsRem.TabIndex = 42;
-            textBoxObsRem.Text = "Caja con golpes visibles...";
+            textBoxObsRem.PlaceholderText = "Caja con golpes visibles...";
             // 
             // fileSystemWatcher1
             // 

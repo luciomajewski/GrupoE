@@ -414,5 +414,5 @@ internal class RecepcionMercaderiaModelo
     }
 
     // Pasos 2 a 16: el operario presiona Cancelar.
-    public string MensajeCancelacion => "Si selecciona cancelar, los cambios no se guardarán. ¿Desea cancelar?";
+    public string MensajeCancelacion => "No se registró ninguna recepción. ¿Desea salir?";
 }

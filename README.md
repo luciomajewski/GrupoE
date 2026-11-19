@@ -58,7 +58,7 @@ Funcionalidad que los casos de uso y los diagramas ya describen, pero que el có
 | Pantalla | Pendiente | Estado actual del código |
 |---|---|---|
 | General | **Inicio de sesión.** El usuario de cada operación es el operario identificado en el sistema. | Se usa el usuario de Windows (`Environment.UserName`). |
-| Registrar Orden de Preparación | **Cliente logueado.** La orden se registra para el cliente que inició sesión. | Toma el primer cliente con contrato vigente y stock disponible. |
+| Registrar Orden de Preparación | **Cliente logueado.** La orden se registra para el cliente que inició sesión. | Cada vez que se abre la pantalla toma al azar uno de los clientes con contrato vigente y stock disponible. |
 | Registrar Orden de Preparación | **Modalidad Palet cerrado.** Pedido y control de stock en palets. | Responde "La funcionalidad de pallets aún no está implementada". Solo funciona Fulfillment. |
 | Cumplir Orden de Selección | **Generación de órdenes de selección.** El sistema las arma en cada corte a partir de las órdenes de preparación `Pendiente`. | No hay ningún proceso que las genere; se usan las de `Datos/OrdenesSeleccion.json`. |
 | Empaquetar | **Orden tomada por un puesto.** La marca `TomadaPor` se guarda en `OrdenPreparacionEntidad` para que otro puesto no tome la misma orden. | La marca vive solo en memoria de cada pantalla. |

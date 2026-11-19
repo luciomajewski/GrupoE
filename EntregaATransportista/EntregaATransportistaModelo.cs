@@ -37,7 +37,8 @@ internal class EntregaATransportistaModelo
     {
         Reiniciar();
 
-        if (dni == null || dni < 10000000 || dni > 99999999)
+        // Segunda barrera: el formulario ya valida que el DNI tenga 7 u 8 dígitos.
+        if (dni == null || dni < 1000000 || dni > 99999999)
         {
             return "Ingrese un DNI válido";
         }

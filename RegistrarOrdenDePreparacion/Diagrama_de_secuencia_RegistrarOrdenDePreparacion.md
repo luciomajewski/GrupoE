@@ -109,12 +109,14 @@ sequenceDiagram
         Note right of F: textsolonumeros_KeyPress / TextChanged:<br/>el formulario solo deja escribir dígitos
         C->>F: Presiona "Agregar a la Orden"
         F->>F: btnagregar_Click(sender, e)
-        F->>M: AgregarProducto(comboprodretirar.SelectedItem as Producto, cantidad)
-        alt Sin modalidad, producto o cantidad
-            M-->>F: "Error: seleccione ..."
-            F->>MB: Show(error, Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-        else Datos completos
-            Note right of M: Paso 8 · Valida que la cantidad exista en el stock del depósito
+        F->>F: cantidad = int.TryParse(textcantretirar.Text) (int? tipado)
+        alt Validación de datos · No hay modalidad elegida
+            F->>MB: Show("Error: seleccione una modalidad de empaquetado antes de agregar productos", Text,<br/>MessageBoxButtons.OK, MessageBoxIcon.Error)
+        else Validación de datos · Falta depósito o producto, o la cantidad no es mayor a cero
+            F->>MB: Show("Error: seleccione un producto e ingrese una cantidad mayor a cero", Text,<br/>MessageBoxButtons.OK, MessageBoxIcon.Error)
+        else Datos válidos
+            F->>M: AgregarProducto(comboprodretirar.SelectedItem as Producto, cantidad)
+            Note right of M: Paso 8 · Validación de negocio: que la cantidad exista en el stock del depósito<br/>(el modelo conserva los controles de datos como segunda barrera)
             M->>M: DepositoSeleccionado.Stock.Find(Producto == producto)
             alt Palet Cerrado
                 M->>SP: CantidadPalets
@@ -155,6 +157,14 @@ sequenceDiagram
     Note over C,OA: Paso 14 · El cliente confirma la orden
     C->>F: Presiona "Confirmar Orden"
     F->>F: btnconfirmar_Click(sender, e)
+    F->>F: dni = int.TryParse(textDNI.Text) (int? tipado)
+    F->>M: RequiereDatosEtiquetado
+    M-->>F: true si es Fullfilment (regla de negocio: los datos de etiquetado son obligatorios)
+    alt 13.1 · Validación de datos · Falta un campo obligatorio
+        F->>MB: Show("Error: por favor rellene todos los campos antes de completar la orden", Text,<br/>MessageBoxButtons.OK, MessageBoxIcon.Error)
+    else 13.3 · Validación de datos · El DNI no tiene 7 u 8 dígitos
+        F->>MB: Show("Error: el DNI del transportista debe tener 7 u 8 dígitos", Text,<br/>MessageBoxButtons.OK, MessageBoxIcon.Error)
+    else Datos válidos
     F->>M: FechaRetiro = datefecha.Value
     F->>M: NombreDestinatario = textnombre.Text
     F->>M: DireccionDestino = textdireccion.Text
@@ -162,13 +172,11 @@ sequenceDiagram
     F->>M: DniTransportista = dni
     F->>M: EmpresaTransportista = textempresatrans.Text
     F->>M: ValidarOrden()
-    alt 13.1 · Falta un campo obligatorio
-        M-->>F: "Error: por favor rellene todos los campos antes de completar la orden"
-        F->>MB: Show(error, Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-    else 13.2 · La orden no tiene productos
+    Note right of M: Validación de negocio (el modelo conserva el control de campos como segunda barrera)
+    alt 13.2 · La orden no tiene productos
         M-->>F: "Error: la orden de preparación debe contener al menos 1 producto"
         F->>MB: Show(error, Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-    else Datos completos
+    else Orden válida
         M-->>F: null
         F->>M: RegistrarOrden()
         loop Por cada item de ItemsOrden
@@ -222,6 +230,7 @@ sequenceDiagram
         F->>M: FechaRetiro
         M-->>F: DateTime.Today
     end
+    end
 
     %% ---------- Salida ----------
     opt Salida · En cualquier momento
@@ -238,8 +247,8 @@ sequenceDiagram
 | 1 | Constructor y `RegistrarOrdenDePreparacionForm_Load` | `new RegistrarOrdenDePreparacionModelo()` (lee `ClientesAlmacen`, `ProductosAlmacen`, `DepositosAlmacen` y `MercaderiasAlmacen`), `NombreCliente`, `Depositos`, `FechaMinimaRetiro`, `FechaRetiro`, `SeleccionarModalidad(null)`, `RequiereDatosEtiquetado` |
 | 2 · 2.1 · 2.2 | `combodepo_SelectedIndexChanged` | `SeleccionarDeposito(deposito)`, `ProductosDisponibles` |
 | 3 · 4 · 4.1 · 4.2 | `radiomodalidad_CheckedChanged` | `SeleccionarModalidad(modalidad)`, `RequiereDatosEtiquetado` |
-| 5 a 10 · 8.1 | `btnagregar_Click` | `AgregarProducto(producto, cantidad)` → `StockProducto.CantidadPalets` / `CantidadUnidades`, `ItemsOrden`, `UnidadDeCantidad` |
+| 5 a 10 · 8.1 | `btnagregar_Click` | El formulario valida modalidad, producto y cantidad; después `AgregarProducto(producto, cantidad)` → `StockProducto.CantidadPalets` / `CantidadUnidades`, `ItemsOrden`, `UnidadDeCantidad` |
 | 11 a 13 | `textsololetras_KeyPress` / `TextChanged` | `EsCaracterValidoParaNombre(caracter)`, `QuitarCaracteresInvalidosDeNombre(texto)` |
-| 14 · 13.1 · 13.2 | `btnconfirmar_Click` | Asigna `FechaRetiro`, `NombreDestinatario`, `DireccionDestino`, `NombreTransportista`, `DniTransportista`, `EmpresaTransportista` y llama a `ValidarOrden()` |
+| 14 · 13.1 · 13.2 · 13.3 | `btnconfirmar_Click` | El formulario valida los datos (campos obligatorios según `RequiereDatosEtiquetado`, DNI de 7 u 8 dígitos); después asigna `FechaRetiro`, `NombreDestinatario`, `DireccionDestino`, `NombreTransportista`, `DniTransportista`, `EmpresaTransportista` y llama a `ValidarOrden()` |
 | 15 · 15.1 · 15.2 · 15.2.1 · 16 | `btnconfirmar_Click` | `RegistrarOrden()` → `StockProducto`, `new OrdenPreparacionEntidad`, `Renglones.Add`, `MercaderiaEntidad.CantidadComprometida` / `CantidadDisponible`, `OrdenesPreparacion.Add`, `OrdenesPreparacionAlmacen.Guardar()` y `MercaderiasAlmacen.Guardar()` |
 | Salida | `btncancelar_Click` | (ninguna) `Close()` |

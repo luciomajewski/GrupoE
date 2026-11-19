@@ -39,13 +39,17 @@ sequenceDiagram
         F->>F: txtDni_TextChanged(sender, e): deja solo dígitos
         O->>F: Presiona "Buscar"
         F->>F: btnBuscar_Click(sender, e)
+        F->>F: dni = int.TryParse(txtDni.Text) (int? tipado)
+
+        %% ---------- Paso 3: validar DNI (validación de datos del formulario) ----------
+        alt Excepción 3 · Validación de datos · DNI vacío o que no tiene 7 u 8 dígitos
+            F->>MB: Show("Ingrese un DNI válido", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            F-->>O: Vuelve al paso 2 (siguiente vuelta del ciclo)
+        else DNI de 7 u 8 dígitos
         F->>M: Buscar(dni)
         M->>M: Reiniciar()
-
-        %% ---------- Paso 3: validar DNI ----------
-        alt Excepción 3 · DNI vacío o que no tiene 8 dígitos
-            M-->>F: "Ingrese un DNI válido"
-        else Paso 4 · DNI válido: busca las órdenes del transportista
+        Note right of M: El modelo conserva el control del DNI (7 u 8 dígitos) como segunda barrera
+        opt Paso 4 · Busca las órdenes del transportista
             M->>PA: OrdenesPreparacion
             PA-->>M: List<OrdenPreparacionEntidad>
             M->>OEA: OrdenesEntrega
@@ -118,7 +122,7 @@ sequenceDiagram
         M-->>F: true / false
         F->>F: txtTransportista.Text = nombre, lstDetalle con las órdenes, btnGenerarRemito.Enabled
 
-        alt Excepciones 3, 4.1 y 4.2 · Buscar devolvió un error
+        alt Excepciones 4.1 y 4.2 · Buscar devolvió un error
             F->>MB: Show(error, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             F-->>O: No se entrega nada. Vuelve al paso 2 (siguiente vuelta del ciclo)
         else Hay órdenes para entregar
@@ -284,6 +288,7 @@ sequenceDiagram
                 F-->>O: Pantalla lista: siguiente vuelta del ciclo con el próximo transportista (paso 2)
             end
         end
+        end
     end
 
     %% ---------- Cancelar ----------
@@ -347,7 +352,7 @@ sequenceDiagram
 | Paso / excepción | Evento del formulario | Invocaciones |
 |---|---|---|
 | 1 | Constructor | `new EntregaATransportistaModelo()` (`CodigoUsuario = Environment.UserName`) |
-| 2 · 3 | `txtDni_TextChanged`, `btnBuscar_Click` | `Buscar(dni)` → `Reiniciar()`, validación de 8 dígitos |
+| 2 · 3 | `txtDni_TextChanged`, `btnBuscar_Click` | El formulario deja solo dígitos y valida 7 u 8 dígitos; después `Buscar(dni)` → `Reiniciar()` (el modelo conserva el control como segunda barrera) |
 | 4 · 4.1 · 4.2 | `btnBuscar_Click` | `Buscar(dni)` → `OrdenesPreparacionAlmacen`, `OrdenesEntregaAlmacen`, `RemitosEntregaAlmacen`, `new OrdenPreparacion` / `new OrdenEntrega` / `new RemitoEntrega`, `OrdenPreparacionEntidad` (DniTransportista, NombreTransportista, CodigoDeposito), `RemitoEntregaEntidad` (Estado, OrdenesEntrega), `OrdenEntregaEntidad` (NumeroOrdenPreparacion, Estado, Numero) |
 | 5 · Excepción 5 | `btnBuscar_Click`, `txtDni_TextChanged` | `TransportistaNombre`, `OrdenesAEntregar`, `OrdenEntrega` (NumeroOrdenPreparacion, CantidadPaquetes), `PuedeGenerarRemito`, `Remito`, `Reiniciar()` |
 | 6 | (acción del operario) | (ninguna) |

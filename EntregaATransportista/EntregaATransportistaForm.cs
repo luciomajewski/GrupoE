@@ -16,6 +16,13 @@ namespace GrupoE.EntregaATransportista
         {
             int? dni = int.TryParse(txtDni.Text, out int dniIngresado) ? dniIngresado : null;
 
+            // Validación de datos: el DNI tiene que tener 7 u 8 dígitos.
+            if (txtDni.Text.Length < 7 || txtDni.Text.Length > 8 || dni == null)
+            {
+                MessageBox.Show("Ingrese un DNI válido", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string? error = modelo.Buscar(dni);
 
             // Si el transportista está autorizado pero sin órdenes, el nombre queda a la vista.

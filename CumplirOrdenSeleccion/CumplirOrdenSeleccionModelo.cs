@@ -20,7 +20,9 @@ internal class CumplirOrdenSeleccionModelo
         // Operario identificado en el sistema: el usuario de Windows con el que se abrió el programa.
         UsuarioActual = Environment.UserName;
 
-        // Órdenes de selección guardadas. Las posiciones se muestran como "A-01-1" (pasillo, fila y nivel).
+        // Órdenes de selección guardadas. Los renglones quedan ordenados por posición (pasillo, fila y nivel)
+        // comparando los datos de la posición, sin convertir texto: a menor largo, menor valor ("2" < "10").
+        // Las posiciones se muestran como "A-01-1".
         OrdenesSeleccion = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion
             .Select(o => new OrdenSeleccion
             {
@@ -29,7 +31,11 @@ internal class CumplirOrdenSeleccionModelo
                 Estado = o.Estado == Almacenes.EstadoOrdenSeleccionEnum.Cumplida ? EstadoOrdenSeleccion.Cumplida : EstadoOrdenSeleccion.Pendiente,
                 FechaHoraCumplida = o.FechaHoraCumplida,
                 UsuarioCumplida = o.UsuarioCumplida,
-                Renglones = o.Renglones.Select(r => new RenglonOrdenSeleccion
+                Renglones = o.Renglones
+                    .OrderBy(r => r.Posicion.Pasillo.Length).ThenBy(r => r.Posicion.Pasillo, StringComparer.Ordinal)
+                    .ThenBy(r => r.Posicion.Fila.Length).ThenBy(r => r.Posicion.Fila, StringComparer.Ordinal)
+                    .ThenBy(r => r.Posicion.Nivel.Length).ThenBy(r => r.Posicion.Nivel, StringComparer.Ordinal)
+                    .Select(r => new RenglonOrdenSeleccion
                 {
                     Cliente = r.CodigoCliente,
                     Posicion = $"{r.Posicion.Pasillo}-{r.Posicion.Fila}-{r.Posicion.Nivel}",
@@ -80,9 +86,10 @@ internal class CumplirOrdenSeleccionModelo
     // Paso 3
     public string NumeroOrdenActual => OrdenActual?.Numero.ToString() ?? "-";
 
-    // Paso 4: renglones de la orden ordenados por posición (sector, posición y fila) de menor a mayor.
+    // Paso 4: renglones de la orden ordenados por posición (pasillo, fila y nivel) de menor a mayor.
+    // Ya quedan ordenados al cargar la orden.
     public List<RenglonOrdenSeleccion> RenglonesOrdenados =>
-        OrdenActual?.Renglones.OrderBy(r => ClaveDePosicion(r.Posicion)).ToList() ?? new List<RenglonOrdenSeleccion>();
+        OrdenActual?.Renglones.ToList() ?? new List<RenglonOrdenSeleccion>();
 
     // Paso 7
     public string PreguntaConfirmacion =>
@@ -94,6 +101,28 @@ internal class CumplirOrdenSeleccionModelo
         if (OrdenActual == null)
         {
             return "No hay una orden de selección para confirmar";
+        }
+
+        // Validación de negocio: cada posición tiene que tener stock suficiente para su renglón.
+        // Si en alguna no alcanza, no se guarda nada y la orden sigue Pendiente.
+        var ordenAValidar = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion.First(o => o.Numero == OrdenActual.Numero);
+        foreach (var renglonAValidar in ordenAValidar.Renglones)
+        {
+            var ubicacionAValidar = Almacenes.MercaderiasAlmacen.Mercaderias
+                .Where(m => m.CodigoCliente == renglonAValidar.CodigoCliente && m.Sku == renglonAValidar.Sku
+                            && m.CodigoDeposito == ordenAValidar.CodigoDeposito)
+                .SelectMany(m => m.Ubicaciones)
+                .FirstOrDefault(u => u.Posicion.Pasillo == renglonAValidar.Posicion.Pasillo
+                                     && u.Posicion.Fila == renglonAValidar.Posicion.Fila
+                                     && u.Posicion.Nivel == renglonAValidar.Posicion.Nivel);
+            int disponible = ubicacionAValidar?.Cantidad ?? 0;
+            if (disponible < renglonAValidar.Cantidad)
+            {
+                return $"No se puede cumplir la orden de selección N° {OrdenActual.Numero}: en la posición " +
+                       $"{renglonAValidar.Posicion.Pasillo}-{renglonAValidar.Posicion.Fila}-{renglonAValidar.Posicion.Nivel} " +
+                       $"hay {disponible} unidades de {renglonAValidar.Sku} y la orden pide {renglonAValidar.Cantidad}. " +
+                       "Avise al Jefe de Almacén. La orden sigue Pendiente";
+            }
         }
 
         // Paso 9
@@ -152,18 +181,7 @@ internal class CumplirOrdenSeleccionModelo
         Almacenes.MercaderiasAlmacen.Guardar();
         Almacenes.OrdenesPreparacionAlmacen.Guardar();
 
-        // Paso 11
+        // Paso 12
         return $"Orden de selección N° {OrdenActual.Numero} cumplida";
-    }
-
-    // Convierte "A-01-2" en (1, 1, 2) para ordenar por número y no como texto.
-    // El pasillo es una letra (A = 1, B = 2, ...); fila y nivel son números.
-    private (int Sector, int Posicion, int Fila) ClaveDePosicion(string posicion)
-    {
-        var partes = posicion.Split('-');
-        int pasillo = int.TryParse(partes[0], out int numero)
-            ? numero
-            : partes[0].ToUpper().Aggregate(0, (total, letra) => total * 26 + (letra - 'A' + 1));
-        return (pasillo, int.Parse(partes[1]), int.Parse(partes[2]));
     }
 }

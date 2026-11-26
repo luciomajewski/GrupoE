@@ -26,6 +26,9 @@ sequenceDiagram
     participant UM as ubicacion : UbicacionMercaderia
     participant PA as OrdenesPreparacionAlmacen
     participant OPE as ordenPreparacion : OrdenPreparacionEntidad
+    participant OPP as preparacion : OrdenPreparacionEntidad
+    participant RP as renglon : RenglonOrdenPreparacion
+    participant RSE as existente : RenglonOrdenSeleccion
 
     %% ---------- Paso 1: abrir la pantalla ----------
     Note over O,OPE: Paso 1 · El operario abre la pantalla
@@ -34,8 +37,8 @@ sequenceDiagram
     M->>M: UsuarioActual = Environment.UserName
     M->>OA: OrdenesSeleccion
     OA-->>M: List<OrdenSeleccionEntidad>
-    M->>M: OrdenesSeleccion = new OrdenSeleccion(Numero, CodigoDeposito, Estado, FechaHoraCumplida, UsuarioCumplida,<br/>Renglones = renglones.OrderBy(Posicion.Pasillo, Posicion.Fila, Posicion.Nivel)<br/>.Select(new RenglonOrdenSeleccion(CodigoCliente, Posicion, Sku, Descripcion, Cantidad))) por cada orden
-    Note right of M: Ordena comparando pasillo, fila y nivel de la posición, sin convertir texto a número
+    M->>M: OrdenesSeleccion = ordenes.Select(ConvertirOrden).ToList()
+    Note right of M: ConvertirOrden(o) = new OrdenSeleccion(Numero, CodigoDeposito, Estado, FechaHoraCumplida, UsuarioCumplida,<br/>Renglones = OrdenarPorPosicion(o.Renglones, Posicion)<br/>.Select(new RenglonOrdenSeleccion(CodigoCliente, Posicion, Sku, Descripcion, Cantidad)))<br/>OrdenarPorPosicion compara pasillo, fila y nivel sin convertir texto a número
     M->>M: Inventario = new List<ItemInventario>()
     F->>F: CumplirOrdenSeleccionForm_Shown(sender, e)
 
@@ -45,6 +48,88 @@ sequenceDiagram
         %% ---------- Paso 2: buscar la orden pendiente ----------
         Note over O,OPE: Paso 2 · El sistema toma la orden de selección Pendiente de número más bajo
         F->>M: BuscarOrdenPendiente()
+
+        %% ---------- Desencadenante: corte ----------
+        Note over O,RSE: Desencadenante · Antes del paso 2, si ya pasó un horario de corte, el sistema genera las órdenes de selección
+        M->>M: EjecutarCorteSiCorresponde()
+        M->>M: corte = UltimoCorteProgramado(DateTime.Now)
+        Note right of M: Último horario de HorariosCorte (08:00 y 14:00) que ya pasó:<br/>hoy o, antes de las 08:00, el de ayer a las 14:00
+        opt Corte nuevo (ultimoCorteEjecutado < corte)
+            M->>M: ultimoCorteEjecutado = corte
+            M->>M: GenerarOrdenesSeleccion()
+            M->>OA: OrdenesSeleccion
+            OA-->>M: ordenesSeleccion
+            M->>PA: OrdenesPreparacion.Where(Estado == Pendiente).OrderBy(FechaRetiro).ThenBy(Numero)
+            PA-->>M: pendientes
+            loop Por cada depósito (pendientes.GroupBy(CodigoDeposito))
+                M->>OA: OrdenesSeleccion.Where(Estado == Pendiente, CodigoDeposito == deposito).SelectMany(Renglones)
+                OA-->>M: renglones de las órdenes de selección pendientes del depósito
+                M->>M: reservado[ClaveReserva(CodigoCliente, Sku, Posicion)] += Cantidad, por cada renglón
+                create participant NOS as nueva : OrdenSeleccionEntidad
+                M->>NOS: new OrdenSeleccionEntidad(CodigoDeposito = deposito, Estado = Pendiente)
+                loop Por cada preparacion del depósito
+                    M->>M: reservadoConEsta = new Dictionary(reservado), renglonesDeEsta = new List<RenglonOrdenSeleccion>(), alcanza = true
+                    M->>OPP: Renglones
+                    OPP-->>M: List<RenglonOrdenPreparacion>
+                    loop Por cada renglon (mientras alcanza)
+                        M->>RP: Sku, Cantidad, Producto
+                        RP-->>M: SKU, cantidad pedida y descripción
+                        M->>MA: Mercaderias.FirstOrDefault(CodigoCliente == preparacion.CodigoCliente, Sku == renglon.Sku, CodigoDeposito == deposito)
+                        MA-->>M: mercaderia (o null)
+                        M->>ME: Ubicaciones (si mercaderia no es null)
+                        ME-->>M: List<UbicacionMercaderia> (vacía si no hay mercaderia)
+                        M->>M: falta = renglon.Cantidad, ubicaciones = OrdenarPorPosicion(mercaderia.Ubicaciones, Posicion)
+                        loop Por cada ubicacion (mientras falta > 0)
+                            M->>UM: Posicion, Cantidad
+                            UM-->>M: posición y unidades en guarda
+                            M->>M: clave = ClaveReserva(preparacion.CodigoCliente, renglon.Sku, ubicacion.Posicion)<br/>libre = ubicacion.Cantidad - reservadoConEsta[clave]
+                            opt libre > 0
+                                M->>M: tomar = Math.Min(libre, falta)
+                                M->>M: renglonesDeEsta.Add(new RenglonOrdenSeleccion(CodigoCliente = preparacion.CodigoCliente, Sku = renglon.Sku,<br/>Posicion = ubicacion.Posicion, Cantidad = tomar, Descripcion = renglon.Producto))
+                                M->>M: reservadoConEsta[clave] += tomar, falta -= tomar
+                            end
+                        end
+                        opt falta > 0 · No hay stock libre en las posiciones
+                            M->>M: alcanza = false
+                        end
+                    end
+                    alt alcanza == false
+                        Note over M,OPP: La orden de preparación no entra en este corte y sigue Pendiente para el próximo
+                    else Alcanza el stock para toda la orden de preparación
+                        loop Por cada r de renglonesDeEsta
+                            M->>NOS: Renglones.FirstOrDefault(CodigoCliente == r.CodigoCliente, Sku == r.Sku, Posicion == r.Posicion)
+                            NOS-->>M: existente (o null)
+                            alt No existe
+                                M->>NOS: Renglones.Add(r)
+                            else Ya hay un renglón con el mismo cliente, SKU y posición
+                                M->>RSE: Cantidad += r.Cantidad
+                            end
+                        end
+                        M->>M: reservado = reservadoConEsta
+                        M->>OPP: Numero
+                        OPP-->>M: número de la orden de preparación
+                        M->>NOS: OrdenesPreparacion.Add(preparacion.Numero)
+                        M->>OPP: Estado = EnPreparacion
+                    end
+                end
+                M->>NOS: OrdenesPreparacion
+                NOS-->>M: List<int> números de orden de preparación
+                opt nueva.OrdenesPreparacion.Count > 0
+                    M->>NOS: Numero = ordenesSeleccion.Max(Numero) + 1
+                    M->>OA: OrdenesSeleccion.Add(nueva)
+                    M->>M: generadas.Add(nueva)
+                end
+            end
+            opt generadas.Count > 0
+                M->>OA: Guardar()
+                Note right of OA: Escribe Datos/OrdenesSeleccion.json
+                M->>PA: Guardar()
+                Note right of PA: Escribe Datos/OrdenesPreparacion.json
+            end
+            M->>M: OrdenesSeleccion.Add(ConvertirOrden(nueva)), por cada orden generada
+        end
+        Note right of M: ultimoCorteEjecutado es estático: vale mientras el programa está abierto.<br/>Si se reabre el programa, el último corte vuelve a correr
+
         M->>M: OrdenActual = OrdenesSeleccion.Where(Estado == Pendiente).OrderBy(Numero).FirstOrDefault()
         M->>M: Inventario.Clear()
         M->>MA: Mercaderias
@@ -198,7 +283,8 @@ sequenceDiagram
 
 | Paso / excepción | Evento o método del formulario | Invocaciones |
 |---|---|---|
-| 1 | Constructor y `CumplirOrdenSeleccionForm_Shown` | `new CumplirOrdenSeleccionModelo()` (lee `OrdenesSeleccionAlmacen` y arma `OrdenSeleccion` / `RenglonOrdenSeleccion`) |
+| 1 | Constructor y `CumplirOrdenSeleccionForm_Shown` | `new CumplirOrdenSeleccionModelo()` (lee `OrdenesSeleccionAlmacen` y arma `OrdenSeleccion` / `RenglonOrdenSeleccion` con `ConvertirOrden`) |
+| Desencadenante (corte) | `MostrarOrdenPendiente` | `BuscarOrdenPendiente()` → `EjecutarCorteSiCorresponde()` → `UltimoCorteProgramado(DateTime.Now)` y, si el corte es nuevo, `GenerarOrdenesSeleccion()` → `OrdenesPreparacionAlmacen.OrdenesPreparacion`, `OrdenPreparacionEntidad.Renglones` / `Numero` / `Estado = EnPreparacion`, `MercaderiasAlmacen.Mercaderias`, `MercaderiaEntidad.Ubicaciones`, `new OrdenSeleccionEntidad`, `Renglones.Add`, `OrdenesSeleccion.Add`, `Guardar()` de los 2 almacenes; después `OrdenesSeleccion.Add(ConvertirOrden(nueva))` |
 | 2 · 2.1 | `MostrarOrdenPendiente` (inicia cada vuelta del ciclo) | `BuscarOrdenPendiente()` → `MercaderiasAlmacen.Mercaderias`, `DepositoActual` (→ `OrdenesSeleccionAlmacen` y `OrdenSeleccionEntidad.CodigoDeposito`), arma `Inventario` |
 | 3 | `MostrarOrdenPendiente` | `NumeroOrdenActual`, `Fecha`, `HayOrdenPendiente` |
 | 4 | `MostrarOrdenPendiente` | `RenglonesOrdenados` → `OrdenSeleccion.Renglones` (ordenados por pasillo, fila y nivel al cargar la orden) |

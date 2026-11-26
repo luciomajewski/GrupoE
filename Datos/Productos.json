@@ -2,19 +2,19 @@
   {
     "CodigoCliente": "CLI-001",
     "Sku": "AND-1001",
-    "Descripcion": "Yerba mate 1 kg",
+    "Descripcion": "Resma papel A4 500 hojas",
     "StockMinimoContratado": 50
   },
   {
     "CodigoCliente": "CLI-001",
     "Sku": "AND-1002",
-    "Descripcion": "Aceite girasol 1,5 L",
+    "Descripcion": "Cuaderno universitario 80 hojas",
     "StockMinimoContratado": null
   },
   {
     "CodigoCliente": "CLI-001",
     "Sku": "AND-1003",
-    "Descripcion": "Arroz largo fino 1 kg",
+    "Descripcion": "Caja de lapiceras x 50",
     "StockMinimoContratado": 30
   },
   {
@@ -50,37 +50,37 @@
   {
     "CodigoCliente": "CLI-005",
     "Sku": "BDS-6001",
-    "Descripcion": "Vino Malbec 750 ml",
+    "Descripcion": "Juego de vasos x 6",
     "StockMinimoContratado": 40
   },
   {
     "CodigoCliente": "CLI-005",
     "Sku": "BDS-6002",
-    "Descripcion": "Aceite de oliva 500 ml",
+    "Descripcion": "Sartén antiadherente 24 cm",
     "StockMinimoContratado": null
   },
   {
     "CodigoCliente": "CLI-006",
     "Sku": "LSE-7001",
-    "Descripcion": "Dulce de leche 400 g",
+    "Descripcion": "Escoba de cerdas plásticas",
     "StockMinimoContratado": 30
   },
   {
     "CodigoCliente": "CLI-006",
     "Sku": "LSE-7002",
-    "Descripcion": "Queso cremoso 1 kg",
+    "Descripcion": "Balde plástico 10 L",
     "StockMinimoContratado": null
   },
   {
     "CodigoCliente": "CLI-007",
     "Sku": "AGL-8001",
-    "Descripcion": "Alimento balanceado 15 kg",
+    "Descripcion": "Manguera de jardín 15 m",
     "StockMinimoContratado": 20
   },
   {
     "CodigoCliente": "CLI-007",
     "Sku": "AGL-8002",
-    "Descripcion": "Semillas de girasol 1 kg",
+    "Descripcion": "Maceta plástica 30 cm",
     "StockMinimoContratado": null
   },
   {

@@ -52,6 +52,10 @@
             Descripción = new ColumnHeader();
             CantcR = new ColumnHeader();
             CantR = new ColumnHeader();
+            PalletCol = new ColumnHeader();
+            checkBoxPalletCliente = new CheckBox();
+            buttonNuevoPallet = new Button();
+            labelPalletActual = new Label();
             buttonQuitIRem = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
@@ -337,7 +341,7 @@
             // 
             // listViewRem
             // 
-            listViewRem.Columns.AddRange(new ColumnHeader[] { SkuCodigo, Descripción, CantcR, CantR });
+            listViewRem.Columns.AddRange(new ColumnHeader[] { SkuCodigo, Descripción, CantcR, CantR, PalletCol });
             listViewRem.Location = new Point(18, 309);
             listViewRem.Name = "listViewRem";
             listViewRem.Size = new Size(566, 119);
@@ -366,6 +370,44 @@
             CantR.Text = "Cantidad remito";
             CantR.Width = 100;
             // 
+            // PalletCol
+            // 
+            PalletCol.Text = "Pallet";
+            PalletCol.Width = 110;
+            // 
+            // checkBoxPalletCliente
+            // 
+            checkBoxPalletCliente.AutoSize = true;
+            checkBoxPalletCliente.Location = new Point(617, 187);
+            checkBoxPalletCliente.Name = "checkBoxPalletCliente";
+            checkBoxPalletCliente.Size = new Size(191, 24);
+            checkBoxPalletCliente.TabIndex = 49;
+            checkBoxPalletCliente.Text = "Pallet armado por el cliente";
+            checkBoxPalletCliente.UseVisualStyleBackColor = true;
+            checkBoxPalletCliente.CheckedChanged += checkBoxPalletCliente_CheckedChanged;
+            // 
+            // buttonNuevoPallet
+            // 
+            buttonNuevoPallet.BackColor = SystemColors.ButtonFace;
+            buttonNuevoPallet.Enabled = false;
+            buttonNuevoPallet.Location = new Point(617, 225);
+            buttonNuevoPallet.Margin = new Padding(2, 3, 2, 3);
+            buttonNuevoPallet.Name = "buttonNuevoPallet";
+            buttonNuevoPallet.Size = new Size(120, 27);
+            buttonNuevoPallet.TabIndex = 50;
+            buttonNuevoPallet.Text = "Nuevo pallet";
+            buttonNuevoPallet.UseVisualStyleBackColor = false;
+            buttonNuevoPallet.Click += buttonNuevoPallet_Click;
+            // 
+            // labelPalletActual
+            // 
+            labelPalletActual.AutoSize = true;
+            labelPalletActual.Location = new Point(617, 272);
+            labelPalletActual.Name = "labelPalletActual";
+            labelPalletActual.Size = new Size(140, 20);
+            labelPalletActual.TabIndex = 51;
+            labelPalletActual.Text = "Pallet: carga suelta";
+            // 
             // buttonQuitIRem
             // 
             buttonQuitIRem.BackColor = SystemColors.ButtonFace;
@@ -385,6 +427,9 @@
             BackColor = SystemColors.ControlLight;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(825, 720);
+            Controls.Add(labelPalletActual);
+            Controls.Add(buttonNuevoPallet);
+            Controls.Add(checkBoxPalletCliente);
             Controls.Add(buttonQuitIRem);
             Controls.Add(listViewRem);
             Controls.Add(DetMercRRem);
@@ -457,5 +502,9 @@
         private Button buttonQuitIRem;
         private ColumnHeader CantcR;
         private ColumnHeader CantR;
+        private ColumnHeader PalletCol;
+        private CheckBox checkBoxPalletCliente;
+        private Button buttonNuevoPallet;
+        private Label labelPalletActual;
     }
 }

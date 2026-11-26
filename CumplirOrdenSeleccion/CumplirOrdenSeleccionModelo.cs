@@ -110,9 +110,11 @@ internal class CumplirOrdenSeleccionModelo
     {
         var generadas = new List<Almacenes.OrdenSeleccionEntidad>();
         var ordenesSeleccion = Almacenes.OrdenesSeleccionAlmacen.OrdenesSeleccion;
+        // Primero las de palet cerrado, así los pallets completos no se desarman antes para fulfillment.
         var pendientes = Almacenes.OrdenesPreparacionAlmacen.OrdenesPreparacion
             .Where(p => p.Estado == Almacenes.EstadoOrdenPreparacionEnum.Pendiente)
-            .OrderBy(p => p.FechaRetiro).ThenBy(p => p.Numero)
+            .OrderBy(p => p.Modalidad == Almacenes.ModalidadEmpaquetadoEnum.PaletCerrado ? 0 : 1)
+            .ThenBy(p => p.FechaRetiro).ThenBy(p => p.Numero)
             .ToList();
 
         foreach (var depositoPendientes in pendientes.GroupBy(p => p.CodigoDeposito))
@@ -148,26 +150,33 @@ internal class CumplirOrdenSeleccionModelo
                     var mercaderia = Almacenes.MercaderiasAlmacen.Mercaderias.FirstOrDefault(m =>
                         m.CodigoCliente == preparacion.CodigoCliente && m.Sku == renglon.Sku && m.CodigoDeposito == deposito);
                     int falta = renglon.Cantidad;
+                    bool paletCerrado = preparacion.Modalidad == Almacenes.ModalidadEmpaquetadoEnum.PaletCerrado;
 
                     // Se toma de las posiciones en el orden del recorrido; si una no alcanza, se sigue con la próxima.
+                    // Palet cerrado: solo pallets completos (con CodigoPallet) y enteros, sin nada reservado.
+                    // Fulfillment: primero los pallets ya desarmados, para no desconsolidar otros sin necesidad.
                     var ubicaciones = mercaderia == null
                         ? new List<Almacenes.UbicacionMercaderia>()
-                        : OrdenarPorPosicion(mercaderia.Ubicaciones, u => u.Posicion).ToList();
+                        : paletCerrado
+                            ? OrdenarPorPosicion(mercaderia.Ubicaciones.Where(u => u.CodigoPallet != null && EsPalletDeUnSoloSku(u.CodigoPallet)), u => u.Posicion).ToList()
+                            : OrdenarPorPosicion(mercaderia.Ubicaciones.Where(u => u.CodigoPallet == null), u => u.Posicion)
+                                .Concat(OrdenarPorPosicion(mercaderia.Ubicaciones.Where(u => u.CodigoPallet != null), u => u.Posicion))
+                                .ToList();
                     foreach (var ubicacion in ubicaciones)
                     {
-                        if (falta == 0)
+                        if (falta <= 0)
                         {
                             break;
                         }
 
                         string clave = ClaveReserva(preparacion.CodigoCliente, renglon.Sku, ubicacion.Posicion);
                         int libre = ubicacion.Cantidad - reservadoConEsta.GetValueOrDefault(clave);
-                        if (libre <= 0)
+                        if (libre <= 0 || (paletCerrado && libre < ubicacion.Cantidad))
                         {
                             continue;
                         }
 
-                        int tomar = Math.Min(libre, falta);
+                        int tomar = paletCerrado ? ubicacion.Cantidad : Math.Min(libre, falta);
                         renglonesDeEsta.Add(new Almacenes.RenglonOrdenSeleccion
                         {
                             CodigoCliente = preparacion.CodigoCliente,
@@ -185,7 +194,8 @@ internal class CumplirOrdenSeleccionModelo
                         falta -= tomar;
                     }
 
-                    if (falta > 0)
+                    // A palet cerrado los pallets tienen que sumar justo las unidades que comprometió la orden.
+                    if (falta != 0)
                     {
                         alcanza = false;
                         break;
@@ -234,6 +244,14 @@ internal class CumplirOrdenSeleccionModelo
         }
 
         return generadas;
+    }
+
+    // Un pallet puede salir a palet cerrado si tiene un solo SKU: si su código está en una sola ubicación.
+    private static bool EsPalletDeUnSoloSku(string codigoPallet)
+    {
+        return Almacenes.MercaderiasAlmacen.Mercaderias
+            .SelectMany(m => m.Ubicaciones)
+            .Count(u => u.CodigoPallet == codigoPallet) == 1;
     }
 
     private static string ClaveReserva(string cliente, string sku, Almacenes.Posicion posicion)
@@ -357,10 +375,23 @@ internal class CumplirOrdenSeleccionModelo
                 continue;
             }
 
+            string? codigoPallet = ubicacion.CodigoPallet;
             ubicacion.Cantidad -= renglonEntidad.Cantidad;
             if (ubicacion.Cantidad <= 0)
             {
                 mercaderia.Ubicaciones.Remove(ubicacion);
+            }
+
+            // Si a un pallet se le sacan unidades y algo queda en la posición (de este SKU o de otro SKU
+            // del mismo pallet), queda desconsolidado y ya no puede salir a palet cerrado.
+            if (codigoPallet != null)
+            {
+                foreach (var restoDelPallet in Almacenes.MercaderiasAlmacen.Mercaderias
+                             .SelectMany(m => m.Ubicaciones)
+                             .Where(u => u.CodigoPallet == codigoPallet))
+                {
+                    restoDelPallet.CodigoPallet = null;
+                }
             }
             mercaderia.CantidadFisica = mercaderia.Ubicaciones.Sum(u => u.Cantidad);
             mercaderia.CantidadComprometida = Math.Max(0, mercaderia.CantidadComprometida - renglonEntidad.Cantidad);

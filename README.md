@@ -36,7 +36,7 @@ Reglas de diseño que respeta el código:
 2. Los archivos de `Datos/` se copian siempre al directorio de salida (`bin/Debug/net10.0-windows/Datos/`). La aplicación lee y guarda **esa copia**: cada compilación la vuelve a dejar igual a la del repositorio.
 3. Al cerrar la aplicación, `Program.cs` guarda todos los almacenes.
 
-Hay clientes en los cuatro depósitos: Bodegas del Sol solo en Mendoza, Lácteos Serranos solo en Córdoba, Agro Litoral en Rosario y Córdoba, y Ferretería Federal en Gran Buenos Aires, Rosario y Mendoza. El `CodigoDeposito` del cliente es su depósito principal (donde se recibe mercadería); los demás depósitos surgen de dónde tiene stock. El stock de su depósito principal está respaldado por una orden de recepción `Cumplida` (1057 a 1060) con su remito.
+Hay clientes en los cuatro depósitos: Bazar del Sol solo en Mendoza, Limpieza Serrana solo en Córdoba, Jardinería Litoral en Rosario y Córdoba, y Ferretería Federal en Gran Buenos Aires, Rosario y Mendoza. El `CodigoDeposito` del cliente es su depósito principal (donde se recibe mercadería); los demás depósitos surgen de dónde tiene stock. El stock de su depósito principal está respaldado por una orden de recepción `Cumplida` (1057 a 1060) con su remito.
 
 Los datos de prueba incluyen selecciones pendientes en los cuatro depósitos, órdenes listas para empaquetar y transportistas con órdenes listas para retirar (por ejemplo, DNI `31555777`, `33222444`, `29444666`, `35111222` y `32777888`).
 

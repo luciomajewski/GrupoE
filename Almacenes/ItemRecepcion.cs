@@ -6,6 +6,7 @@ internal class ItemRecepcion
     public int CantidadContada { get; set; }
     public int CantidadRemito { get; set; }
     public List<AsignacionUbicacion> Asignaciones { get; set; } = new();
+    public string? CodigoPallet { get; set; }
     public int CantidadAUbicar { get; set; } // Derivado
     public string Descripcion { get; set; } = string.Empty; // Derivado
     public int Diferencia { get; set; } // Derivado

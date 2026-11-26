@@ -52,8 +52,9 @@ internal class EmpaquetarPedidoModelo
         return tipoPedido == TipoPedido.Fulfillment ? "Fulfillment" : "Palé cerrado";
     }
 
-    // Pasos 8 y 9: registra la orden de entrega "Pendiente" y deja la orden de preparación
-    // "Preparada" con fecha, hora y usuario, liberándola. Devuelve null si no hay orden con productos.
+    // Pasos 8 a 10: registra la orden de entrega "Pendiente", deja la orden de preparación "Preparada"
+    // con fecha, hora y usuario, liberándola, y registra el servicio a facturar.
+    // Devuelve null si no hay orden con productos.
     public OrdenEntrega? ConfirmarEmpaquetado()
     {
         if (OrdenActual == null || OrdenActual.Renglones.Count == 0)
@@ -93,8 +94,32 @@ internal class EmpaquetarPedidoModelo
         preparacionEntidad.Estado = Almacenes.EstadoOrdenPreparacionEnum.Preparada;
         preparacionEntidad.FechaPreparada = fechaHora;
         preparacionEntidad.PreparadaPor = Usuario;
+
+        // Paso 10: al cerrar la orden de preparación nace el derecho a cobro de Pampazon por el servicio
+        // (modalidad y unidades preparadas), pendiente de facturar.
+        var serviciosAFacturar = Almacenes.ServiciosAFacturarAlmacen.ServiciosAFacturar;
+        var servicio = new Almacenes.ServicioAFacturarEntidad
+        {
+            Numero = serviciosAFacturar.Count > 0 ? serviciosAFacturar.Max(s => s.Numero) + 1 : 1,
+            NumeroOrdenPreparacion = preparacionEntidad.Numero,
+            CodigoCliente = preparacionEntidad.CodigoCliente,
+            CodigoDeposito = preparacionEntidad.CodigoDeposito,
+            FechaHora = fechaHora,
+            Modalidad = preparacionEntidad.Modalidad,
+            Estado = Almacenes.EstadoServicioAFacturarEnum.PendienteDeFacturar,
+            FechaHoraFacturado = null,
+            Usuario = Usuario
+        };
+        foreach (var renglon in preparacionEntidad.Renglones)
+        {
+            servicio.Detalle.Add(new Almacenes.RenglonServicioAFacturar { Sku = renglon.Sku, Cantidad = renglon.Cantidad });
+        }
+        servicio.CantidadUnidades = servicio.Detalle.Sum(d => d.Cantidad);
+        serviciosAFacturar.Add(servicio);
+
         Almacenes.OrdenesEntregaAlmacen.Guardar();
         Almacenes.OrdenesPreparacionAlmacen.Guardar();
+        Almacenes.ServiciosAFacturarAlmacen.Guardar();
 
         OrdenActual.Estado = EstadoOrdenPreparacion.Preparada;
         OrdenActual.FechaPreparada = ahora;

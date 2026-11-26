@@ -1,0 +1,186 @@
+[
+  {
+    "Numero": 6001,
+    "NumeroOrdenPreparacion": 2006,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-03T15:30:00",
+    "Modalidad": "PaletCerrado",
+    "Detalle": [
+      {
+        "Sku": "TXP-3002",
+        "Cantidad": 20
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 20
+  },
+  {
+    "Numero": 6002,
+    "NumeroOrdenPreparacion": 2004,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-07T14:40:00",
+    "Modalidad": "PaletCerrado",
+    "Detalle": [
+      {
+        "Sku": "AND-1001",
+        "Cantidad": 8
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 8
+  },
+  {
+    "Numero": 6003,
+    "NumeroOrdenPreparacion": 2005,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-08T11:00:00",
+    "Modalidad": "Fulfillment",
+    "Detalle": [
+      {
+        "Sku": "ELS-2001",
+        "Cantidad": 4
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 4
+  },
+  {
+    "Numero": 6004,
+    "NumeroOrdenPreparacion": 2014,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T10:00:00",
+    "Modalidad": "Fulfillment",
+    "Detalle": [
+      {
+        "Sku": "AND-1003",
+        "Cantidad": 12
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 12
+  },
+  {
+    "Numero": 6005,
+    "NumeroOrdenPreparacion": 2015,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T10:15:00",
+    "Modalidad": "PaletCerrado",
+    "Detalle": [
+      {
+        "Sku": "TXP-3001",
+        "Cantidad": 40
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 40
+  },
+  {
+    "Numero": 6006,
+    "NumeroOrdenPreparacion": 2016,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T10:30:00",
+    "Modalidad": "Fulfillment",
+    "Detalle": [
+      {
+        "Sku": "ELS-2002",
+        "Cantidad": 10
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 10
+  },
+  {
+    "Numero": 6007,
+    "NumeroOrdenPreparacion": 2017,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T10:45:00",
+    "Modalidad": "Fulfillment",
+    "Detalle": [
+      {
+        "Sku": "TXP-3002",
+        "Cantidad": 15
+      },
+      {
+        "Sku": "TXP-3001",
+        "Cantidad": 10
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 25
+  },
+  {
+    "Numero": 6008,
+    "NumeroOrdenPreparacion": 2018,
+    "CodigoCliente": "CLI-001",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T11:00:00",
+    "Modalidad": "PaletCerrado",
+    "Detalle": [
+      {
+        "Sku": "AND-1003",
+        "Cantidad": 30
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 30
+  },
+  {
+    "Numero": 6009,
+    "NumeroOrdenPreparacion": 2019,
+    "CodigoCliente": "CLI-002",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T11:15:00",
+    "Modalidad": "PaletCerrado",
+    "Detalle": [
+      {
+        "Sku": "ELS-2002",
+        "Cantidad": 20
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 20
+  },
+  {
+    "Numero": 6010,
+    "NumeroOrdenPreparacion": 2020,
+    "CodigoCliente": "CLI-003",
+    "CodigoDeposito": "GBA",
+    "FechaHora": "2026-11-10T11:30:00",
+    "Modalidad": "Fulfillment",
+    "Detalle": [
+      {
+        "Sku": "TXP-3001",
+        "Cantidad": 8
+      }
+    ],
+    "Estado": "PendienteDeFacturar",
+    "FechaHoraFacturado": null,
+    "Usuario": "operario",
+    "CantidadUnidades": 8
+  }
+]

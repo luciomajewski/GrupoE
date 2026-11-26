@@ -22,7 +22,7 @@ sequenceDiagram
     participant OC as orden : OrdenPreparacionEntidad
     participant OPE as preparacionEntidad : OrdenPreparacionEntidad
     participant OEA as OrdenesEntregaAlmacen
-    participant SFA as ServiciosFacturadosAlmacen
+    participant SFA as ServiciosAFacturarAlmacen
 
     %% ---------- Paso 1: abrir la pantalla ----------
     Note over O,SFA: Paso 1 · El operario abre la pantalla
@@ -138,27 +138,28 @@ sequenceDiagram
 
             %% ---------- Paso 10: servicio facturado ----------
             Note over M,SFA: Paso 10 · Registra el servicio facturado de la orden (derecho a cobro)
-            M->>SFA: ServiciosFacturados
-            SFA-->>M: List<ServicioFacturadoEntidad> (para calcular Max(Numero) + 1)
+            M->>SFA: ServiciosAFacturar
+            SFA-->>M: List<ServicioAFacturarEntidad> (para calcular Max(Numero) + 1)
             M->>OPE: CodigoCliente
             OPE-->>M: código del cliente
             M->>OPE: CodigoDeposito
             OPE-->>M: código del depósito
             M->>OPE: Modalidad
             OPE-->>M: PaletCerrado / Fulfillment
-            create participant SFE as servicio : ServicioFacturadoEntidad
-            M->>SFE: new ServicioFacturadoEntidad(Numero = Max(Numero) + 1, NumeroOrdenPreparacion, CodigoCliente, CodigoDeposito,<br/>FechaHora = fechaHora, Modalidad, Estado = PendienteDeFacturar, FechaHoraFacturado = null, Usuario)
+            create participant SFE as servicio : ServicioAFacturarEntidad
+            M->>SFE: new ServicioAFacturarEntidad(Numero = Max(Numero) + 1, NumeroOrdenPreparacion, CodigoCliente, CodigoDeposito,<br/>FechaHora = fechaHora, Modalidad, Estado = PendienteDeFacturar, FechaHoraFacturado = null, Usuario)
             loop Por cada renglon de preparacionEntidad.Renglones
-                M->>SFE: Detalle.Add(new RenglonServicioFacturado(renglon.Sku, renglon.Cantidad))
+                M->>SFE: Detalle.Add(new RenglonServicioAFacturar(renglon.Sku, renglon.Cantidad))
             end
-            M->>SFA: ServiciosFacturados.Add(servicio)
+            M->>SFE: CantidadUnidades = Detalle.Sum(Cantidad)
+            M->>SFA: ServiciosAFacturar.Add(servicio)
 
             M->>OEA: Guardar()
             Note right of OEA: Escribe Datos/OrdenesEntrega.json
             M->>OPA: Guardar()
             Note right of OPA: Escribe Datos/OrdenesPreparacion.json
             M->>SFA: Guardar()
-            Note right of SFA: Escribe Datos/ServiciosFacturados.json
+            Note right of SFA: Escribe Datos/ServiciosAFacturar.json
             M->>OP: Estado = Preparada
             M->>OP: FechaPreparada = ahora
             M->>OP: PreparadaPor = Usuario
@@ -220,7 +221,7 @@ sequenceDiagram
 | 5 · 6 · 7 · 7.1 | `buttonConfIEmp_Click` | `OrdenActual`, `OrdenPreparacion.Numero`, `MessageBox.Show(..., YesNo, Question)` |
 | 8 | `buttonConfIEmp_Click` | `ConfirmarEmpaquetado()` → `OrdenesEntregaAlmacen.OrdenesEntrega`, `new OrdenEntrega`, `OrdenesPreparacionAlmacen.OrdenesPreparacion.First`, `OrdenPreparacionEntidad` (Renglones, NombreTransportista, DniTransportista), `new OrdenEntregaEntidad`, `OrdenesEntrega.Add` |
 | 9 | `buttonConfIEmp_Click` | `ConfirmarEmpaquetado()` → `OrdenPreparacionEntidad` (Estado, FechaPreparada, PreparadaPor, TomadaPor), `OrdenPreparacion` (Estado, FechaPreparada, PreparadaPor, TomadaPor) |
-| 10 | `buttonConfIEmp_Click` | `ConfirmarEmpaquetado()` → `ServiciosFacturadosAlmacen.ServiciosFacturados`, `OrdenPreparacionEntidad` (CodigoCliente, CodigoDeposito, Modalidad), `new ServicioFacturadoEntidad`, `Detalle.Add(new RenglonServicioFacturado)`, `ServiciosFacturados.Add`, `Guardar()` de los 3 almacenes |
+| 10 | `buttonConfIEmp_Click` | `ConfirmarEmpaquetado()` → `ServiciosAFacturarAlmacen.ServiciosAFacturar`, `OrdenPreparacionEntidad` (CodigoCliente, CodigoDeposito, Modalidad), `new ServicioAFacturarEntidad`, `Detalle.Add(new RenglonServicioAFacturar)`, `ServiciosAFacturar.Add`, `Guardar()` de los 3 almacenes |
 | 11 · 12 | (acciones manuales del operario) | (ninguna) |
 | 13 | `buttonConfIEmp_Click` | `OrdenEntrega.Numero`, `MessageBox.Show(...)`, `EmpaquetarPedidoForm_Load` (inicia la siguiente vuelta del ciclo) |
 | Cierre de pantalla | `EmpaquetarPedidoForm_FormClosing` | `OrdenActual`, `OrdenPreparacion.Numero`, `MessageBox.Show(..., YesNo, Question, Button2)`, `LiberarOrdenActual()` → `OrdenPreparacionEntidad.TomadaPor = null`, `OrdenesPreparacionAlmacen.Guardar()` |

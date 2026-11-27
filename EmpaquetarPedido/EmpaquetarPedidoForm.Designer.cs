@@ -40,21 +40,24 @@
             // Prodaprep
             // 
             Prodaprep.AutoSize = true;
-            Prodaprep.Location = new Point(16, 111);
+            Prodaprep.Location = new Point(20, 84);
             Prodaprep.Margin = new Padding(2, 0, 2, 0);
             Prodaprep.Name = "Prodaprep";
+            Prodaprep.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             Prodaprep.Size = new Size(179, 25);
-            Prodaprep.TabIndex = 3;
+            Prodaprep.TabIndex = 1;
             Prodaprep.Text = "Productos a preparar";
             // 
             // listViewProdPrep
             // 
             listViewProdPrep.Columns.AddRange(new ColumnHeader[] { Producto, Cantidad, Tipo_de_Pedido });
-            listViewProdPrep.Location = new Point(16, 189);
+            listViewProdPrep.Location = new Point(20, 116);
             listViewProdPrep.Margin = new Padding(2, 4, 2, 4);
             listViewProdPrep.Name = "listViewProdPrep";
-            listViewProdPrep.Size = new Size(675, 499);
-            listViewProdPrep.TabIndex = 4;
+            listViewProdPrep.GridLines = true;
+            listViewProdPrep.FullRowSelect = true;
+            listViewProdPrep.Size = new Size(680, 470);
+            listViewProdPrep.TabIndex = 2;
             listViewProdPrep.UseCompatibleStateImageBehavior = false;
             listViewProdPrep.View = View.Details;
             // listViewProdPrep.SelectedIndexChanged += listView1_SelectedIndexChanged;
@@ -67,34 +70,34 @@
             // Cantidad
             // 
             Cantidad.Text = "Cantidad";
-            Cantidad.Width = 140;
+            Cantidad.Width = 100;
             // 
             // Tipo_de_Pedido
             // 
-            Tipo_de_Pedido.Text = "Tipo_de_pedido";
-            Tipo_de_Pedido.Width = 140;
+            Tipo_de_Pedido.Text = "Tipo de pedido";
+            Tipo_de_Pedido.Width = 160;
             // 
             // buttonConfIEmp
             // 
-            buttonConfIEmp.BackColor = SystemColors.ControlLight;
-            buttonConfIEmp.Location = new Point(16, 696);
+            buttonConfIEmp.BackColor = SystemColors.Control;
+            buttonConfIEmp.Location = new Point(440, 604);
             buttonConfIEmp.Margin = new Padding(2, 4, 2, 4);
             buttonConfIEmp.Name = "buttonConfIEmp";
-            buttonConfIEmp.Size = new Size(690, 64);
-            buttonConfIEmp.TabIndex = 24;
+            buttonConfIEmp.Size = new Size(260, 50);
+            buttonConfIEmp.TabIndex = 3;
             buttonConfIEmp.Text = "Confirmar ingreso";
-            buttonConfIEmp.UseVisualStyleBackColor = false;
+            buttonConfIEmp.UseVisualStyleBackColor = true;
             buttonConfIEmp.Click += buttonConfIEmp_Click;
             // 
             // OrdenPrepNro
             // 
             OrdenPrepNro.AutoSize = true;
-            OrdenPrepNro.Font = new Font("Segoe UI", 15F);
-            OrdenPrepNro.Location = new Point(398, 34);
+            OrdenPrepNro.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            OrdenPrepNro.Location = new Point(20, 20);
             OrdenPrepNro.Margin = new Padding(4, 0, 4, 0);
             OrdenPrepNro.Name = "OrdenPrepNro";
             OrdenPrepNro.Size = new Size(318, 41);
-            OrdenPrepNro.TabIndex = 25;
+            OrdenPrepNro.TabIndex = 0;
             OrdenPrepNro.Text = "[Orden de prep. Nro...]";
             // 
             // EmpaquetarPedidoForm
@@ -102,14 +105,17 @@
             AccessibleName = "";
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(722, 815);
+            ClientSize = new Size(720, 676);
             Controls.Add(OrdenPrepNro);
             Controls.Add(buttonConfIEmp);
             Controls.Add(listViewProdPrep);
             Controls.Add(Prodaprep);
             Margin = new Padding(2, 4, 2, 4);
             Name = "EmpaquetarPedidoForm";
-            Text = "Empaquetar_Pedido_y_Generar_Orden_de_Entrega_Form";
+            StartPosition = FormStartPosition.CenterScreen;
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Text = "Empaquetar pedido y generar orden de entrega";
             FormClosing += EmpaquetarPedidoForm_FormClosing;
             Load += EmpaquetarPedidoForm_Load;
             ResumeLayout(false);

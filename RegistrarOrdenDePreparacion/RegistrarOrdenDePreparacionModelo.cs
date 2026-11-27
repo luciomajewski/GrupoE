@@ -7,8 +7,10 @@ namespace GrupoE.RegistrarOrdenDePreparacion;
 
 internal class RegistrarOrdenDePreparacionModelo
 {
-    public string NombreCliente { get; }
-    public List<Deposito> Depositos { get; }
+    public string NombreCliente { get; private set; } = "";
+    // Clientes que se pueden elegir: con contrato vigente y stock disponible en Mercaderias.json.
+    public List<string> Clientes { get; }
+    public List<Deposito> Depositos { get; } = new();
     public Deposito? DepositoSeleccionado { get; private set; }
     public ModalidadEmpaquetado? Modalidad { get; private set; }
     public List<ItemOrden> ItemsOrden { get; } = new();
@@ -22,22 +24,39 @@ internal class RegistrarOrdenDePreparacionModelo
 
     public RegistrarOrdenDePreparacionModelo()
     {
-        // Mientras no haya login, cada vez que se abre la pantalla se toma al azar uno de los clientes
-        // de Clientes.json con contrato vigente y stock disponible en Mercaderias.json.
-        var clientesHabilitados = Almacenes.ClientesAlmacen.Clientes.Where(c => c.ContratoVigente
+        // Mientras no haya login, el cliente se elige de una lista. Al abrir la pantalla queda elegido
+        // uno al azar de los clientes con contrato vigente y stock disponible.
+        Clientes = Almacenes.ClientesAlmacen.Clientes.Where(c => c.ContratoVigente
             && Almacenes.MercaderiasAlmacen.Mercaderias.Any(m => m.CodigoCliente == c.Codigo && m.CantidadDisponible > 0))
+            .Select(c => c.RazonSocial)
             .ToList();
-        var clienteEntidad = clientesHabilitados.Count == 0
-            ? null
-            : clientesHabilitados[Random.Shared.Next(clientesHabilitados.Count)];
-        NombreCliente = clienteEntidad?.RazonSocial ?? "";
-        Depositos = new List<Deposito>();
-        if (clienteEntidad == null)
+        if (Clientes.Count > 0)
         {
-            return;
+            SeleccionarCliente(Clientes[Random.Shared.Next(Clientes.Count)]);
+        }
+    }
+
+    // Cambia el cliente de la orden: carga sus depósitos y productos, y la orden empieza de cero.
+    // Devuelve el mensaje a mostrar, o null si no había nada cargado.
+    public string? SeleccionarCliente(string? nombreCliente)
+    {
+        if (nombreCliente == null || nombreCliente == NombreCliente)
+        {
+            return null;
         }
 
+        var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.FirstOrDefault(c => c.RazonSocial == nombreCliente);
+        if (clienteEntidad == null)
+        {
+            return null;
+        }
+
+        bool habiaOrden = ItemsOrden.Count > 0;
+        NombreCliente = clienteEntidad.RazonSocial;
         codigoCliente = clienteEntidad.Codigo;
+        DepositoSeleccionado = null;
+        ItemsOrden.Clear();
+        Depositos.Clear();
 
         // Los pallets no tienen una cantidad fija de unidades (cada uno tiene las que se contaron al recibirlo):
         // UnidadesPorPalet queda en 0 y las unidades disponibles se cargan en UnidadesSueltas.
@@ -65,9 +84,11 @@ internal class RegistrarOrdenDePreparacionModelo
                 Depositos.Add(new Deposito { Nombre = depositoEntidad.Nombre, Stock = stock });
             }
         }
+
+        return habiaOrden ? "Se cambió el cliente, la orden actual ha sido reiniciada" : null;
     }
 
-    private readonly string codigoCliente = "";
+    private string codigoCliente = "";
 
     // Pallets completos (con CodigoPallet) que el cliente puede pedir a palet cerrado, en el orden en que se toman
     // (por posición). Se descartan los que ya tienen unidades en una orden de selección pendiente, los que ya pidieron

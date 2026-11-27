@@ -45,7 +45,8 @@
     "CodigoDeposito": "MDZ",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00004-00000301"
+      "00004-00000301",
+      "00004-00000310"
     ]
   },
   {
@@ -54,7 +55,8 @@
     "CodigoDeposito": "CBA",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00005-00000122"
+      "00005-00000122",
+      "00005-00000130"
     ]
   },
   {
@@ -63,7 +65,8 @@
     "CodigoDeposito": "ROS",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00006-00002045"
+      "00006-00002045",
+      "00006-00002050"
     ]
   },
   {

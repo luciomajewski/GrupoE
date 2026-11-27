@@ -1,0 +1,36 @@
+- Iniciar el sistema
+- Presionar "2. Cumplir orden de selección"
+- Verificar: Orden de selección: 1002
+- Verificar: Fecha: fecha del día (dd/MM/yy)
+- Verificar: Mercadería a bajar:
+    -A-01-4 | ELS-2001 | Licuadora 600 W | 5
+- Presionar "Confirmar entrega a Preparación"
+- Verificar: mensaje "¿Confirma que entregó a Preparación toda la mercadería de la orden de selección N° 1002?"
+- Presionar "No"
+- Verificar: Orden de selección: 1002
+- Presionar "Confirmar entrega a Preparación"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de selección N° 1002 cumplida"
+- Presionar "Aceptar"
+- Verificar: Orden de selección: 1003
+- Verificar: Mercadería a bajar:
+    -A-01-2 | AND-1001 | Resma papel A4 500 hojas | 10
+    -A-01-4 | ELS-2001 | Licuadora 600 W | 6
+- Presionar "Confirmar entrega a Preparación"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de selección N° 1003 cumplida"
+- Presionar "Aceptar"
+- Verificar: Orden de selección: 1004
+- Cerrar la pantalla
+- Finalizar
+- Verificar:
+    -OrdenesSeleccion.json:
+        -Registro 1002: Estado Cumplida, FechaHoraCumplida del día, UsuarioCumplida del operario
+        -Registro 1003: Estado Cumplida, FechaHoraCumplida del día, UsuarioCumplida del operario
+        -Nuevo registro: Numero 1014, CodigoDeposito GBA, Estado Pendiente, OrdenesPreparacion [2001], Renglones: AND-1001 A-01-1 Cantidad 6 y AND-1001 A-01-2 Cantidad 4
+    -OrdenesPreparacion.json:
+        -Registro 2001: Estado EnPreparacion
+        -Registros 2002, 2007 y 2008: OrdenSeleccionCumplida true
+    -Mercaderias.json:
+        -ELS-2001 en GBA: A-01-4 Cantidad 7, CantidadFisica 7, CantidadComprometida 5, CantidadDisponible 2
+        -AND-1001 en GBA: A-01-2 Cantidad 10 y CodigoPallet null, CantidadFisica 28, CantidadComprometida 25, CantidadDisponible 3

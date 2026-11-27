@@ -1,0 +1,34 @@
+- Iniciar el sistema
+- Presionar "4. Entrega a transportista"
+- Verificar: "Generar remito", "Remito firmado" y "Confirmar despacho" están deshabilitados.
+- DNI: 123456
+- Presionar "Buscar"
+- Verificar: mensaje "Ingrese un DNI válido"
+- Presionar "Aceptar"
+- DNI: 31555777
+- Presionar "Buscar"
+- Verificar: Transportista: Jorge Pereyra
+- Verificar: Detalle de la entrega:
+    -2014 | 12
+    -2015 | 40
+- Presionar "Generar remito"
+- Verificar: vista previa del remito N° 5003, original y copia.
+- Cerrar la vista previa
+- Verificar: mensaje "Remito N° 5003 generado. Entregue el original y solicite la firma de la copia"
+- Presionar "Aceptar"
+- Marcar "Remito firmado"
+- Presionar "Confirmar despacho"
+- Verificar: mensaje "¿Confirma el despacho de 2 órdenes al transportista Jorge Pereyra con el remito N° 5003?"
+- Presionar "Sí"
+- Verificar: mensaje "Despacho confirmado. Remito N° 5003"
+- Presionar "Aceptar"
+- Verificar: DNI, Transportista y Detalle de la entrega están vacíos.
+- Cerrar la pantalla
+- Finalizar
+- Verificar:
+    -RemitosEntrega.json:
+        -Nuevo registro: Numero 5003, CodigoDeposito GBA, NombreTransportista Jorge Pereyra, DniTransportista 31555777, OrdenesEntrega [3004, 3005], Estado Firmado, FechaHoraCumplido del día
+    -OrdenesEntrega.json:
+        -Registros 3004 y 3005: Estado Despachada, FechaHoraDespacho del día
+    -OrdenesPreparacion.json:
+        -Registros 2014 y 2015: Estado Cumplida

@@ -1,0 +1,41 @@
+- Iniciar el sistema
+- Presionar "3. Empaquetar pedido"
+- Verificar: Orden de prep. N° 2003
+- Verificar: Productos a preparar:
+    -AND-1002 | 6 | Fulfillment
+- Presionar "Confirmar ingreso"
+- Verificar: mensaje "¿Confirma que la orden de preparación N° 2003 quedó empaquetada completa y desea generar la orden de entrega?"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de entrega N° 3011 generada"
+- Presionar "Aceptar"
+- Verificar: Orden de prep. N° 2011
+- Verificar: Productos a preparar:
+    -AND-1002 | 5 | Fulfillment
+- Presionar "Confirmar ingreso"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de entrega N° 3012 generada"
+- Presionar "Aceptar"
+- Verificar: Orden de prep. N° 2012
+- Verificar: Productos a preparar:
+    -ELS-2001 | 3 | Palé cerrado
+- Presionar "Confirmar ingreso"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de entrega N° 3013 generada"
+- Presionar "Aceptar"
+- Verificar: Orden de prep. N° 2013
+- Cerrar la pantalla
+- Verificar: mensaje "¿Desea salir? La orden N° 2013 quedará disponible para otro puesto"
+- Presionar "Sí"
+- Finalizar
+- Verificar:
+    -OrdenesEntrega.json:
+        -Nuevo registro: Numero 3011, NumeroOrdenPreparacion 2003, CantidadPaquetes 6, Estado Pendiente
+        -Nuevo registro: Numero 3012, NumeroOrdenPreparacion 2011, CantidadPaquetes 5, Estado Pendiente
+        -Nuevo registro: Numero 3013, NumeroOrdenPreparacion 2012, CantidadPaquetes 3, Estado Pendiente
+    -OrdenesPreparacion.json:
+        -Registros 2003, 2011 y 2012: Estado Preparada, FechaPreparada del día, PreparadaPor del operario
+        -Registro 2013: Estado EnPreparacion
+    -ServiciosAFacturar.json:
+        -Nuevo registro: Numero 6011, NumeroOrdenPreparacion 2003, CodigoCliente CLI-001, CodigoDeposito GBA, Modalidad Fulfillment, Detalle: AND-1002 Cantidad 6, Estado PendienteDeFacturar
+        -Nuevo registro: Numero 6012, NumeroOrdenPreparacion 2011, CodigoCliente CLI-001, CodigoDeposito GBA, Modalidad Fulfillment, Detalle: AND-1002 Cantidad 5, Estado PendienteDeFacturar
+        -Nuevo registro: Numero 6013, NumeroOrdenPreparacion 2012, CodigoCliente CLI-002, CodigoDeposito GBA, Modalidad PaletCerrado, Detalle: ELS-2001 Cantidad 3, Estado PendienteDeFacturar

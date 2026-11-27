@@ -1,0 +1,44 @@
+- Iniciar el sistema
+- Presionar "1. Registrar orden de preparación"
+- Cliente: Bazar del Sol
+- Depósito: Mendoza
+- Modalidad de empaquetado: Palet cerrado
+- Verificar: Datos para el etiquetado no está visible.
+- Producto a retirar: Sartén antiadherente 24 cm
+- Cantidad: 2
+- Presionar "Agregar a la orden"
+- Verificar: mensaje "Error: Stock insuficiente"
+- Presionar "Aceptar"
+- Cantidad: 1
+- Presionar "Agregar a la orden"
+- Verificar: la orden muestra BDS-6002 | Sartén antiadherente 24 cm | 1 palets
+- Nombre: Martin Sosa
+- DNI: 35444555
+- Empresa de transporte: Andes Logistica
+- Presionar "Confirmar orden"
+- Verificar: mensaje "Orden de preparación guardada con éxito"
+- Presionar "Aceptar"
+- Depósito: Mendoza
+- Modalidad de empaquetado: Fulfillment
+- Verificar: Datos para el etiquetado está visible.
+- Producto a retirar: Juego de vasos x 6
+- Cantidad: 5
+- Presionar "Agregar a la orden"
+- Verificar: la orden muestra BDS-6001 | Juego de vasos x 6 | 5 unidades
+- Nombre: Martin Sosa
+- DNI: 35444555
+- Empresa de transporte: Andes Logistica
+- Nombre del destinatario: Laura Diaz
+- Dirección de destino: San Martin 450, Mendoza
+- Presionar "Confirmar orden"
+- Verificar: mensaje "Orden de preparación guardada con éxito"
+- Presionar "Aceptar"
+- Cerrar la pantalla
+- Finalizar
+- Verificar:
+    -OrdenesPreparacion.json:
+        -Nuevo registro: Numero 2033, CodigoCliente CLI-005, CodigoDeposito MDZ, Modalidad PaletCerrado, Estado Pendiente, DniTransportista 35444555, Renglones: BDS-6002 Cantidad 12
+        -Nuevo registro: Numero 2034, CodigoCliente CLI-005, CodigoDeposito MDZ, Modalidad Fulfillment, Estado Pendiente, NombreDestinatario Laura Diaz, DniTransportista 35444555, Renglones: BDS-6001 Cantidad 5
+    -Mercaderias.json:
+        -BDS-6002 en MDZ: CantidadComprometida 18, CantidadDisponible 18
+        -BDS-6001 en MDZ: CantidadComprometida 29, CantidadDisponible 55

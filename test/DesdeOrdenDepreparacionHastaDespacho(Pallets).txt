@@ -1,0 +1,102 @@
+===== INICIO =====
+- Abrir el archivo GrupoE.slnx con Visual Studio
+- Menú Build > Rebuild Solution (Compilar > Recompilar solución)
+- Presionar F5
+- Verificar: se abre la ventana "Pampazon S.A. - Gestión de depósito".
+
+===== PANTALLA 1 de 4: REGISTRAR ORDEN DE PREPARACIÓN =====
+- Presionar "1. Registrar orden de preparación"
+- Cliente: Bazar del Sol
+- Depósito: Mendoza
+- Modalidad de empaquetado: marcar "Palet cerrado"
+- Producto a retirar: Sartén antiadherente 24 cm
+- Cantidad: 2
+- Presionar "Agregar a la orden"
+- Verificar: mensaje "Error: Stock insuficiente"
+- Presionar "Aceptar"
+- Cantidad: 1
+- Presionar "Agregar a la orden"
+- Verificar: la lista muestra BDS-6002 | Sartén antiadherente 24 cm | 1 palets
+- Nombre: Martin Sosa
+- DNI: 35444555
+- Empresa de transporte: Andes Logistica
+- Presionar "Confirmar orden"
+- Verificar: mensaje "Orden de preparación guardada con éxito"
+- Presionar "Aceptar"
+- Cerrar la ventana "Registrar orden de preparación" con la X
+
+===== PANTALLA 2 de 4: CUMPLIR ORDEN DE SELECCIÓN =====
+- Presionar "2. Cumplir orden de selección"
+- Verificar: Orden de selección: 1002
+- Repetir 9 veces (órdenes 1002, 1003, 1004, 1005, 1009, 1010, 1011, 1012 y 1013):
+    - Presionar "Confirmar entrega a Preparación"
+    - Presionar "Sí"
+    - Presionar "Aceptar"
+- Verificar: Orden de selección: 1014
+- Verificar: Mercadería a bajar:
+    - A-01-4 | BDS-6002 | Sartén antiadherente 24 cm | 12
+- Presionar "Confirmar entrega a Preparación"
+- Verificar: mensaje "¿Confirma que entregó a Preparación toda la mercadería de la orden de selección N° 1014?"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de selección N° 1014 cumplida"
+- Presionar "Aceptar"
+- Verificar: Orden de selección: 1015
+- Cerrar la ventana "Cumplir orden de selección" con la X
+
+===== PANTALLA 3 de 4: EMPAQUETAR PEDIDO =====
+- Presionar "3. Empaquetar pedido"
+- Verificar: Orden de prep. N° 2002
+- Repetir 21 veces (órdenes 2002, 2003, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031 y 2032):
+    - Presionar "Confirmar ingreso"
+    - Presionar "Sí"
+    - Presionar "Aceptar"
+- Verificar: Orden de prep. N° 2033
+- Verificar: Productos a preparar:
+    - BDS-6002 | 12 | Palé cerrado
+- Presionar "Confirmar ingreso"
+- Verificar: mensaje "¿Confirma que la orden de preparación N° 2033 quedó empaquetada completa y desea generar la orden de entrega?"
+- Presionar "Sí"
+- Verificar: mensaje "Orden de entrega N° 3032 generada"
+- Presionar "Aceptar"
+- Verificar: mensaje "No hay órdenes para preparar"
+- Presionar "Aceptar"
+- Verificar: Sin órdenes para preparar
+- Cerrar la ventana "Empaquetar pedido y generar orden de entrega" con la X
+
+===== PANTALLA 4 de 4: ENTREGA A TRANSPORTISTA =====
+- Presionar "4. Entrega a transportista"
+- DNI: 35444555
+- Presionar "Buscar"
+- Verificar: Transportista: Martin Sosa
+- Verificar: Detalle de la entrega:
+    - 2033 | 12
+- Presionar "Generar remito"
+- Verificar: vista previa del remito N° 5003, original y copia.
+- Cerrar la vista previa con la X
+- Verificar: mensaje "Remito N° 5003 generado. Entregue el original y solicite la firma de la copia"
+- Presionar "Aceptar"
+- Marcar "Remito firmado"
+- Presionar "Confirmar despacho"
+- Verificar: mensaje "¿Confirma el despacho de 1 órdenes al transportista Martin Sosa con el remito N° 5003?"
+- Presionar "Sí"
+- Verificar: mensaje "Despacho confirmado. Remito N° 5003"
+- Presionar "Aceptar"
+- Cerrar la ventana "Entrega a transportista" con la X
+
+===== FIN =====
+- Cerrar la ventana "Pampazon S.A. - Gestión de depósito" con la X
+- Finalizar
+- Abrir la carpeta GrupoE\bin\Debug\net10.0-windows\Datos
+- Verificar:
+    - OrdenesPreparacion.json:
+        - Registro 2033: CodigoCliente CLI-005, CodigoDeposito MDZ, Modalidad PaletCerrado, Renglones: BDS-6002 Cantidad 12, Estado Cumplida
+    - OrdenesSeleccion.json:
+        - Registro 1014: CodigoDeposito MDZ, OrdenesPreparacion [2033], Renglones: BDS-6002 A-01-4 Cantidad 12, Estado Cumplida
+    - Mercaderias.json:
+        - BDS-6002 en MDZ: ya no tiene la ubicación A-01-4 (pallet PAL-000014), CantidadFisica 18, CantidadComprometida 0, CantidadDisponible 18
+    - OrdenesEntrega.json:
+        - Nuevo registro: Numero 3032, NumeroOrdenPreparacion 2033, CantidadPaquetes 12, Estado Despachada
+    - ServiciosAFacturar.json:
+        - Nuevo registro: Numero 6032, NumeroOrdenPreparacion 2033, CodigoCliente CLI-005, CodigoDeposito MDZ, Modalidad PaletCerrado, Detalle: BDS-6002 Cantidad 12, Estado PendienteDeFacturar
+    - RemitosEntrega.json:
+        - Nuevo registro: Numero 5003, NombreTransportista Martin Sosa, DniTransportista 35444555, OrdenesEntrega [3032], Estado Firmado

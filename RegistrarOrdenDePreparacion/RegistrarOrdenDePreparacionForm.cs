@@ -12,8 +12,6 @@ namespace GrupoE.RegistrarOrdenDePreparacion
 
         private void RegistrarOrdenDePreparacionForm_Load(object? sender, EventArgs e)
         {
-            labtemp.Text = modelo.NombreCliente;
-
             combodepo.DisplayMember = nameof(Deposito.Nombre);
             combodepo.Items.Clear();
             combodepo.Items.AddRange(modelo.Depositos.ToArray());
@@ -21,10 +19,31 @@ namespace GrupoE.RegistrarOrdenDePreparacion
             comboprodretirar.DisplayMember = nameof(RegistrarOrdenDePreparacion.Producto.Nombre);
             comboprodretirar.Items.Clear();
 
+            // Lista de clientes: queda elegido el que eligió el modelo al abrir la pantalla.
+            combocliente.Items.Clear();
+            combocliente.Items.AddRange(modelo.Clientes.ToArray());
+            combocliente.SelectedItem = modelo.NombreCliente;
+
             datefecha.MinDate = modelo.FechaMinimaRetiro;
             datefecha.Value = modelo.FechaRetiro;
 
             radiomodalidad_CheckedChanged(sender, e);
+        }
+
+        private void combocliente_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            string? mensaje = modelo.SeleccionarCliente(combocliente.SelectedItem as string);
+
+            // Depósitos y productos del cliente elegido; la orden empieza de cero.
+            combodepo.Items.Clear();
+            combodepo.Items.AddRange(modelo.Depositos.ToArray());
+            comboprodretirar.Items.Clear();
+            listordenact.Items.Clear();
+
+            if (mensaje != null)
+            {
+                MessageBox.Show(mensaje, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void combodepo_SelectedIndexChanged(object? sender, EventArgs e)

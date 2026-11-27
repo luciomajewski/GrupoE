@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            lblTitulo = new Label();
+            lblSubtitulo = new Label();
+            lblEntrada = new Label();
+            lblSalida = new Label();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -36,93 +40,150 @@
             button7 = new Button();
             SuspendLayout();
             // 
-            // button1
+            // lblTitulo
             // 
-            button1.BackColor = Color.FromArgb(192, 255, 192);
-            button1.Location = new Point(58, 79);
-            button1.Margin = new Padding(4, 4, 4, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 88);
-            button1.TabIndex = 0;
-            button1.Text = "empaquetar pedido y generar orden...";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(33, 37, 41);
+            lblTitulo.Location = new Point(28, 24);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Text = "Pampazon S.A.";
             // 
-            // button2
+            // lblSubtitulo
             // 
-            button2.BackColor = Color.FromArgb(192, 255, 192);
-            button2.Location = new Point(316, 76);
-            button2.Margin = new Padding(4, 4, 4, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 91);
-            button2.TabIndex = 1;
-            button2.Text = "Registrar orden preparacion";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            lblSubtitulo.AutoSize = true;
+            lblSubtitulo.Font = new Font("Segoe UI", 9.75F);
+            lblSubtitulo.ForeColor = Color.FromArgb(108, 117, 125);
+            lblSubtitulo.Location = new Point(32, 68);
+            lblSubtitulo.Name = "lblSubtitulo";
+            lblSubtitulo.Text = "Gestión de depósito: elija la operación a realizar";
             // 
-            // button3
+            // lblEntrada
             // 
-            button3.BackColor = Color.FromArgb(192, 255, 192);
-            button3.Location = new Point(561, 71);
-            button3.Margin = new Padding(4, 4, 4, 4);
-            button3.Name = "button3";
-            button3.Size = new Size(122, 102);
-            button3.TabIndex = 2;
-            button3.Text = "Ingreso Stock";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+            lblEntrada.AutoSize = true;
+            lblEntrada.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblEntrada.ForeColor = Color.FromArgb(13, 110, 253);
+            lblEntrada.Location = new Point(32, 116);
+            lblEntrada.Name = "lblEntrada";
+            lblEntrada.Text = "ENTRADA DE MERCADERÍA";
             // 
-            // button4
+            // lblSalida
             // 
-            button4.BackColor = Color.FromArgb(192, 255, 192);
-            button4.Location = new Point(58, 406);
-            button4.Margin = new Padding(4, 4, 4, 4);
-            button4.Name = "button4";
-            button4.Size = new Size(152, 78);
-            button4.TabIndex = 3;
-            button4.Text = "Cumplir orden de selección";
-            button4.UseVisualStyleBackColor = false;
-            button4.Click += button4_Click;
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.FromArgb(192, 255, 192);
-            button5.Location = new Point(316, 396);
-            button5.Margin = new Padding(4, 4, 4, 4);
-            button5.Name = "button5";
-            button5.Size = new Size(140, 98);
-            button5.TabIndex = 4;
-            button5.Text = "Entrega Transportista";
-            button5.UseVisualStyleBackColor = false;
-            button5.Click += button5_Click;
+            lblSalida.AutoSize = true;
+            lblSalida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblSalida.ForeColor = Color.FromArgb(13, 110, 253);
+            lblSalida.Location = new Point(344, 116);
+            lblSalida.Name = "lblSalida";
+            lblSalida.Text = "SALIDA DE MERCADERÍA";
             // 
             // button7
             // 
-            button7.BackColor = Color.FromArgb(192, 255, 192);
-            button7.Location = new Point(735, 79);
+            button7.Font = new Font("Segoe UI", 10F);
+            button7.Location = new Point(32, 148);
             button7.Margin = new Padding(4, 4, 4, 4);
             button7.Name = "button7";
-            button7.Size = new Size(136, 92);
-            button7.TabIndex = 6;
-            button7.Text = "Recepción Mercadería";
-            button7.UseVisualStyleBackColor = false;
+            button7.Size = new Size(280, 52);
+            button7.TabIndex = 0;
+            button7.Text = "1.  Recepción de mercadería";
+            button7.TextAlign = ContentAlignment.MiddleLeft;
+            button7.Padding = new Padding(12, 0, 0, 0);
+            button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
+            // 
+            // button3
+            // 
+            button3.Font = new Font("Segoe UI", 10F);
+            button3.Location = new Point(32, 212);
+            button3.Margin = new Padding(4, 4, 4, 4);
+            button3.Name = "button3";
+            button3.Size = new Size(280, 52);
+            button3.TabIndex = 1;
+            button3.Text = "2.  Ingreso a stock";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.Padding = new Padding(12, 0, 0, 0);
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button2
+            // 
+            button2.Font = new Font("Segoe UI", 10F);
+            button2.Location = new Point(344, 148);
+            button2.Margin = new Padding(4, 4, 4, 4);
+            button2.Name = "button2";
+            button2.Size = new Size(280, 52);
+            button2.TabIndex = 2;
+            button2.Text = "1.  Registrar orden de preparación";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.Padding = new Padding(12, 0, 0, 0);
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button4
+            // 
+            button4.Font = new Font("Segoe UI", 10F);
+            button4.Location = new Point(344, 212);
+            button4.Margin = new Padding(4, 4, 4, 4);
+            button4.Name = "button4";
+            button4.Size = new Size(280, 52);
+            button4.TabIndex = 3;
+            button4.Text = "2.  Cumplir orden de selección";
+            button4.TextAlign = ContentAlignment.MiddleLeft;
+            button4.Padding = new Padding(12, 0, 0, 0);
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 10F);
+            button1.Location = new Point(344, 276);
+            button1.Margin = new Padding(4, 4, 4, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(280, 52);
+            button1.TabIndex = 4;
+            button1.Text = "3.  Empaquetar pedido";
+            button1.TextAlign = ContentAlignment.MiddleLeft;
+            button1.Padding = new Padding(12, 0, 0, 0);
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button5
+            // 
+            button5.Font = new Font("Segoe UI", 10F);
+            button5.Location = new Point(344, 340);
+            button5.Margin = new Padding(4, 4, 4, 4);
+            button5.Name = "button5";
+            button5.Size = new Size(280, 52);
+            button5.TabIndex = 5;
+            button5.Text = "4.  Entrega a transportista";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.Padding = new Padding(12, 0, 0, 0);
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            BackColor = Color.White;
+            ClientSize = new Size(656, 420);
             Controls.Add(button7);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Controls.Add(lblSalida);
+            Controls.Add(lblEntrada);
+            Controls.Add(lblSubtitulo);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4, 4, 4, 4);
+            MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Pampazon S.A. - Gestión de depósito";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -133,5 +194,9 @@
         private Button button4;
         private Button button5;
         private Button button7;
+        private Label lblTitulo;
+        private Label lblSubtitulo;
+        private Label lblEntrada;
+        private Label lblSalida;
     }
 }

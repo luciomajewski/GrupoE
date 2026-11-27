@@ -71,14 +71,18 @@ namespace GrupoE.IngresoStock
             }
 
             var orden = new OrdenRecepcion(ordenEntidad.Numero, clienteEntidad.RazonSocial, EstadoOrdenRecepcion.PendienteDeUbicacion,
-                ordenEntidad.Items.Select(i => new ItemOrdenRecepcion(i.Sku, i.Descripcion, i.CantidadContada)).ToList());
+                ordenEntidad.Items.Select(i => new ItemOrdenRecepcion(i.Sku,
+                    i.CodigoPallet == null ? i.Descripcion : $"{i.Descripcion} (pallet {i.CodigoPallet})",
+                    i.CantidadContada)).ToList());
 
             // Paso 6. Lo que ya se ubicó en un ingreso anterior no se vuelve a ubicar.
+            // Cada ítem de la pantalla es el ítem de la orden en la misma posición de la lista
+            // (un SKU puede venir en varios pallets del cliente).
             ordenActual = orden;
-            foreach (ItemOrdenRecepcion item in orden.Items)
+            for (int i = 0; i < orden.Items.Count; i++)
             {
-                int yaUbicada = ordenEntidad.Items.First(i => i.Sku == item.Sku).Asignaciones.Sum(a => a.Cantidad);
-                item.CantidadAUbicar = item.CantidadRecepcionada - yaUbicada;
+                int yaUbicada = ordenEntidad.Items[i].Asignaciones.Sum(a => a.Cantidad);
+                orden.Items[i].CantidadAUbicar = orden.Items[i].CantidadRecepcionada - yaUbicada;
             }
             Ubicaciones.Clear();
             UbicacionSeleccionada = null;
@@ -187,8 +191,12 @@ namespace GrupoE.IngresoStock
             var clienteEntidad = Almacenes.ClientesAlmacen.Clientes.First(c => c.Codigo == ordenEntidad.CodigoCliente);
 
             // Paso 13: el stock suma en cada posición y la orden guarda dónde quedó cada SKU.
+            // Pallets que arma Pampazon en este ingreso, por posición (las líneas sueltas que van a la misma
+            // posición forman un solo pallet).
+            var palletsArmados = new Dictionary<string, string>();
             foreach (AsignacionUbicacion ubicacion in Ubicaciones)
             {
+                var itemEntidad = ordenEntidad.Items[ordenActual!.Items.IndexOf(ubicacion.Item)];
                 var mercaderia = Almacenes.MercaderiasAlmacen.Mercaderias.FirstOrDefault(m => m.CodigoCliente == clienteEntidad.Codigo
                     && m.Sku == ubicacion.Item.Sku && m.CodigoDeposito == clienteEntidad.CodigoDeposito);
                 if (mercaderia == null)
@@ -206,9 +214,11 @@ namespace GrupoE.IngresoStock
                     u.Posicion.Pasillo == ubicacion.Pasillo && u.Posicion.Fila == ubicacion.Fila && u.Posicion.Nivel == ubicacion.Nivel);
                 if (enPosicion == null)
                 {
+                    // Todo se guarda en pallets: cada posición nueva es un pallet completo y lleva su código.
                     enPosicion = new Almacenes.UbicacionMercaderia
                     {
-                        Posicion = new Almacenes.Posicion { Pasillo = ubicacion.Pasillo, Fila = ubicacion.Fila, Nivel = ubicacion.Nivel }
+                        Posicion = new Almacenes.Posicion { Pasillo = ubicacion.Pasillo, Fila = ubicacion.Fila, Nivel = ubicacion.Nivel },
+                        CodigoPallet = CodigoPalletPara(itemEntidad, ubicacion, palletsArmados)
                     };
                     mercaderia.Ubicaciones.Add(enPosicion);
                 }
@@ -216,7 +226,6 @@ namespace GrupoE.IngresoStock
                 mercaderia.CantidadFisica = mercaderia.Ubicaciones.Sum(u => u.Cantidad);
                 mercaderia.CantidadDisponible = mercaderia.CantidadFisica - mercaderia.CantidadComprometida;
 
-                var itemEntidad = ordenEntidad.Items.First(i => i.Sku == ubicacion.Item.Sku);
                 var asignacion = itemEntidad.Asignaciones.FirstOrDefault(a =>
                     a.EnPosicion.Pasillo == ubicacion.Pasillo && a.EnPosicion.Fila == ubicacion.Fila && a.EnPosicion.Nivel == ubicacion.Nivel);
                 if (asignacion == null)
@@ -242,6 +251,52 @@ namespace GrupoE.IngresoStock
             // Paso 16
             Restablecer();
             return "Mercadería ingresada a stock con éxito";
+        }
+
+        // Código del pallet que queda en la posición. Si la línea vino en un pallet armado por el cliente, se guarda
+        // con el ID que le dio Recepción (todas sus líneas van a la misma posición). Si vino suelta, o el pallet
+        // del cliente se repartió en otra posición, Pampazon arma el pallet en la descarga: ID = último + 1.
+        private static string CodigoPalletPara(Almacenes.ItemRecepcion itemEntidad, AsignacionUbicacion ubicacion,
+            Dictionary<string, string> palletsArmados)
+        {
+            string posicion = $"{ubicacion.Pasillo}-{ubicacion.Fila}-{ubicacion.Nivel}";
+
+            if (itemEntidad.CodigoPallet != null)
+            {
+                bool enOtraPosicion = Almacenes.MercaderiasAlmacen.Mercaderias
+                    .SelectMany(m => m.Ubicaciones)
+                    .Any(u => u.CodigoPallet == itemEntidad.CodigoPallet
+                              && $"{u.Posicion.Pasillo}-{u.Posicion.Fila}-{u.Posicion.Nivel}" != posicion);
+                if (!enOtraPosicion)
+                {
+                    return itemEntidad.CodigoPallet;
+                }
+            }
+
+            if (!palletsArmados.TryGetValue(posicion, out string? codigo))
+            {
+                codigo = SiguienteCodigoPallet();
+                palletsArmados[posicion] = codigo;
+            }
+            return codigo;
+        }
+
+        // ID del pallet: el último usado + 1 (en stock y en las órdenes de recepción).
+        private static string SiguienteCodigoPallet()
+        {
+            var codigos = Almacenes.MercaderiasAlmacen.Mercaderias
+                .SelectMany(m => m.Ubicaciones).Select(u => u.CodigoPallet)
+                .Concat(Almacenes.OrdenesRecepcionAlmacen.OrdenesRecepcion.SelectMany(o => o.Items).Select(i => i.CodigoPallet));
+
+            int ultimo = 0;
+            foreach (string? codigo in codigos)
+            {
+                if (codigo != null && codigo.StartsWith("PAL-") && int.TryParse(codigo.Substring(4), out int numero) && numero > ultimo)
+                {
+                    ultimo = numero;
+                }
+            }
+            return $"PAL-{ultimo + 1:D6}";
         }
 
         #endregion

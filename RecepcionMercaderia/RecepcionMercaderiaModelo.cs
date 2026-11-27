@@ -99,11 +99,9 @@ internal class RecepcionMercaderiaModelo
         }
 
         ClienteSeleccionado = cliente;
-        foreach (ItemRecepcion item in Items)
-        {
-            LiberarPosicion(item);
-        }
         Items.Clear();
+        // El pallet es de un solo cliente: si cambia el cliente, la carga vuelve a empezar como carga suelta.
+        PalletActual = null;
 
         // Posiciones del depósito del cliente. Una posición está ocupada si tiene mercadería ubicada.
         Posiciones.Clear();
@@ -175,8 +173,70 @@ internal class RecepcionMercaderiaModelo
         return $"El remito N° {formateado} ya fue registrado para el cliente {ClienteSeleccionado.RazonSocial}";
     }
 
-    // Pasos 8 a 10. El código puede ser el SKU (recepción por ítem) o el código de pallet del producto
-    // (recepción en pallet cerrado: las cantidades se cuentan en pallets).
+    #region Pallets armados por el cliente
+
+    // Pallet armado por el cliente que se está cargando. null: lo que se carga es carga suelta
+    // (Pampazon arma los pallets en la descarga, al ubicar la mercadería en Ingreso a Stock).
+    public string? PalletActual { get; private set; }
+
+    public bool HayPalletDelCliente => PalletActual != null;
+
+    public string TextoPalletActual => PalletActual == null ? "Pallet: carga suelta" : $"Pallet: {PalletActual}";
+
+    // Casilla "Pallet armado por el cliente": al marcarla se abre un pallet con su ID; al desmarcarla,
+    // lo que sigue se carga como carga suelta.
+    public void IndicarPalletDelCliente(bool armadoPorElCliente)
+    {
+        if (!armadoPorElCliente)
+        {
+            PalletActual = null;
+            return;
+        }
+
+        PalletActual ??= SiguienteCodigoPallet();
+    }
+
+    // Botón "Nuevo pallet": cierra el pallet actual y abre el siguiente que baja del camión.
+    // Devuelve el error a mostrar, o null si se abrió el pallet.
+    public string? NuevoPallet()
+    {
+        if (PalletActual == null)
+        {
+            return "Marque \"Pallet armado por el cliente\" para cargar un pallet del cliente";
+        }
+
+        if (!Items.Any(i => i.CodigoPallet == PalletActual))
+        {
+            return $"El pallet {PalletActual} todavía no tiene mercadería. Cargue su contenido antes de pasar al siguiente";
+        }
+
+        PalletActual = SiguienteCodigoPallet();
+        return null;
+    }
+
+    // ID del pallet: el último usado + 1 (en stock, en las órdenes de recepción y en esta recepción).
+    private string SiguienteCodigoPallet()
+    {
+        var codigos = Almacenes.MercaderiasAlmacen.Mercaderias
+            .SelectMany(m => m.Ubicaciones).Select(u => u.CodigoPallet)
+            .Concat(Almacenes.OrdenesRecepcionAlmacen.OrdenesRecepcion.SelectMany(o => o.Items).Select(i => i.CodigoPallet))
+            .Concat(Items.Select(i => i.CodigoPallet));
+
+        int ultimo = 0;
+        foreach (string? codigo in codigos)
+        {
+            if (codigo != null && codigo.StartsWith("PAL-") && int.TryParse(codigo.Substring(4), out int numero) && numero > ultimo)
+            {
+                ultimo = numero;
+            }
+        }
+        return $"PAL-{ultimo + 1:D6}";
+    }
+
+    #endregion
+
+    // Pasos 8 a 10. Se carga el SKU con lo contado (sin abrir los paquetes si es un pallet del cliente).
+    // La línea queda en el pallet actual o, si no hay pallet del cliente, como carga suelta.
     // Devuelve el error a mostrar, o null si el ítem se agregó al detalle.
     public string? AgregarItem(string codigo, string textoContada, string textoRemito)
     {
@@ -194,15 +254,15 @@ internal class RecepcionMercaderiaModelo
             return "Complete SKU/ Código, Cant. Contada y Cant. Remito para agregar el ítem.";
         }
 
-        // Los códigos de pallet (PAL-...) todavía no se aceptan: solo se recibe por SKU.
+        // El ID del pallet lo asigna el sistema: en este campo va el SKU de cada producto del pallet.
         if (codigo.StartsWith("PAL-"))
         {
             CodigoInvalido = true;
-            return "La funcionalidad de pallets aún no está implementada";
+            return "Ingrese el SKU de cada producto del pallet. Para cargar un pallet armado por el cliente marque \"Pallet armado por el cliente\"";
         }
 
         // Excepción 10.1.
-        Producto? producto = ClienteSeleccionado.Productos.Find(p => p.Sku == codigo || p.CodigoPallet == codigo);
+        Producto? producto = ClienteSeleccionado.Productos.Find(p => p.Sku == codigo);
         if (producto == null)
         {
             CodigoInvalido = true;
@@ -217,25 +277,35 @@ internal class RecepcionMercaderiaModelo
             return "Ingrese cantidades enteras: la del remito mayor a cero y la contada mayor o igual a cero";
         }
 
-        // Excepción 10.3.
-        if (Items.Find(i => i.Producto == producto) != null)
+        // Excepción 10.3: el mismo SKU no se repite en el mismo pallet (ni en la carga suelta);
+        // sí puede venir en varios pallets.
+        if (Items.Find(i => i.Producto == producto && i.CodigoPallet == PalletActual) != null)
         {
-            return $"El SKU {producto.Sku} ya fue agregado. Quítelo para volver a cargarlo";
+            return PalletActual == null
+                ? $"El SKU {producto.Sku} ya fue agregado. Quítelo para volver a cargarlo"
+                : $"El SKU {producto.Sku} ya fue agregado al pallet {PalletActual}. Quítelo para volver a cargarlo";
         }
 
         // Cada ítem con unidades contadas recibe una posición libre; con cantidad contada 0 queda sin posición.
+        // Las líneas de un mismo pallet del cliente van juntas a la misma posición.
         Posicion? posicion = null;
         if (contada > 0)
         {
-            posicion = Posiciones.Find(p => !p.Ocupada);
+            posicion = PalletActual == null
+                ? null
+                : Items.Find(i => i.CodigoPallet == PalletActual && i.Posicion != null)?.Posicion;
             if (posicion == null)
             {
-                return "No hay posiciones libres en el depósito para ubicar esta mercadería. Avise al jefe de Almacenamiento.";
+                posicion = Posiciones.Find(p => !p.Ocupada);
+                if (posicion == null)
+                {
+                    return "No hay posiciones libres en el depósito para ubicar esta mercadería. Avise al jefe de Almacenamiento.";
+                }
+                posicion.Ocupada = true;
             }
-            posicion.Ocupada = true;
         }
 
-        Items.Add(new ItemRecepcion(producto, producto.CodigoPallet == codigo, contada, remito, posicion));
+        Items.Add(new ItemRecepcion(producto, PalletActual, contada, remito, posicion));
         return null;
     }
 
@@ -257,9 +327,10 @@ internal class RecepcionMercaderiaModelo
         return null;
     }
 
+    // La posición se libera solo si ninguna otra línea (del mismo pallet) la sigue usando.
     private void LiberarPosicion(ItemRecepcion item)
     {
-        if (item.Posicion != null)
+        if (item.Posicion != null && !Items.Any(i => i != item && i.Posicion == item.Posicion))
         {
             item.Posicion.Ocupada = false;
         }
@@ -384,6 +455,7 @@ internal class RecepcionMercaderiaModelo
                 Sku = item.Producto.Sku,
                 CantidadContada = item.CantidadContada,
                 CantidadRemito = item.CantidadRemito,
+                CodigoPallet = item.CodigoPallet,
                 CantidadAUbicar = item.CantidadContada,
                 Descripcion = item.Producto.Descripcion,
                 Diferencia = item.Diferencia
@@ -403,6 +475,7 @@ internal class RecepcionMercaderiaModelo
         // Las posiciones quedan ocupadas; se limpia la recepción para cargar la próxima.
         ClienteSeleccionado = null;
         Items.Clear();
+        PalletActual = null;
         NumeroRemito = "";
         FechaRemito = DateTime.Today;
         Transportista = "";

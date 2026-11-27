@@ -17,7 +17,7 @@
       {
         "Sku": "AND-1001",
         "Cantidad": 10,
-        "Producto": "Yerba mate 1 kg"
+        "Producto": "Resma papel A4 500 hojas"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -65,7 +65,7 @@
       {
         "Sku": "AND-1002",
         "Cantidad": 6,
-        "Producto": "Aceite girasol 1,5 L"
+        "Producto": "Cuaderno universitario 80 hojas"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -89,7 +89,7 @@
       {
         "Sku": "AND-1001",
         "Cantidad": 8,
-        "Producto": "Yerba mate 1 kg"
+        "Producto": "Resma papel A4 500 hojas"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -185,7 +185,7 @@
       {
         "Sku": "AND-1001",
         "Cantidad": 10,
-        "Producto": "Yerba mate 1 kg"
+        "Producto": "Resma papel A4 500 hojas"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -209,12 +209,12 @@
       {
         "Sku": "AND-1001",
         "Cantidad": 15,
-        "Producto": "Yerba mate 1 kg"
+        "Producto": "Resma papel A4 500 hojas"
       },
       {
         "Sku": "AND-1002",
         "Cantidad": 8,
-        "Producto": "Aceite girasol 1,5 L"
+        "Producto": "Cuaderno universitario 80 hojas"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -262,7 +262,7 @@
       {
         "Sku": "AND-1002",
         "Cantidad": 5,
-        "Producto": "Aceite girasol 1,5 L"
+        "Producto": "Cuaderno universitario 80 hojas"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -310,12 +310,12 @@
       {
         "Sku": "AND-1001",
         "Cantidad": 4,
-        "Producto": "Yerba mate 1 kg"
+        "Producto": "Resma papel A4 500 hojas"
       },
       {
         "Sku": "AND-1002",
         "Cantidad": 3,
-        "Producto": "Aceite girasol 1,5 L"
+        "Producto": "Cuaderno universitario 80 hojas"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -339,7 +339,7 @@
       {
         "Sku": "AND-1003",
         "Cantidad": 12,
-        "Producto": "Arroz largo fino 1 kg"
+        "Producto": "Caja de lapiceras x 50"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -440,7 +440,7 @@
       {
         "Sku": "AND-1003",
         "Cantidad": 30,
-        "Producto": "Arroz largo fino 1 kg"
+        "Producto": "Caja de lapiceras x 50"
       }
     ],
     "OrdenSeleccionCumplida": true,
@@ -512,7 +512,7 @@
       {
         "Sku": "AND-1003",
         "Cantidad": 15,
-        "Producto": "Arroz largo fino 1 kg"
+        "Producto": "Caja de lapiceras x 50"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -589,12 +589,12 @@
       {
         "Sku": "AGL-8001",
         "Cantidad": 12,
-        "Producto": "Alimento balanceado 15 kg"
+        "Producto": "Manguera de jardín 15 m"
       },
       {
         "Sku": "AGL-8002",
         "Cantidad": 10,
-        "Producto": "Semillas de girasol 1 kg"
+        "Producto": "Maceta plástica 30 cm"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -642,7 +642,7 @@
       {
         "Sku": "LSE-7001",
         "Cantidad": 18,
-        "Producto": "Dulce de leche 400 g"
+        "Producto": "Escoba de cerdas plásticas"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -666,7 +666,7 @@
       {
         "Sku": "AGL-8001",
         "Cantidad": 7,
-        "Producto": "Alimento balanceado 15 kg"
+        "Producto": "Manguera de jardín 15 m"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -690,7 +690,7 @@
       {
         "Sku": "LSE-7002",
         "Cantidad": 9,
-        "Producto": "Queso cremoso 1 kg"
+        "Producto": "Balde plástico 10 L"
       }
     ],
     "OrdenSeleccionCumplida": false,
@@ -714,12 +714,12 @@
       {
         "Sku": "BDS-6001",
         "Cantidad": 24,
-        "Producto": "Vino Malbec 750 ml"
+        "Producto": "Juego de vasos x 6"
       },
       {
         "Sku": "BDS-6002",
         "Cantidad": 6,
-        "Producto": "Aceite de oliva 500 ml"
+        "Producto": "Sartén antiadherente 24 cm"
       }
     ],
     "OrdenSeleccionCumplida": false,

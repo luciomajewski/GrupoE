@@ -10,7 +10,8 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 18
+        "Cantidad": 18,
+        "CodigoPallet": null
       },
       {
         "Posicion": {
@@ -18,7 +19,8 @@
           "Fila": "01",
           "Nivel": "2"
         },
-        "Cantidad": 20
+        "Cantidad": 20,
+        "CodigoPallet": "PAL-000001"
       }
     ],
     "CantidadComprometida": 35,
@@ -36,7 +38,8 @@
           "Fila": "01",
           "Nivel": "3"
         },
-        "Cantidad": 16
+        "Cantidad": 16,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 8,
@@ -54,7 +57,8 @@
           "Fila": "01",
           "Nivel": "4"
         },
-        "Cantidad": 18
+        "Cantidad": 18,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 16,
@@ -72,7 +76,8 @@
           "Fila": "02",
           "Nivel": "1"
         },
-        "Cantidad": 58
+        "Cantidad": 58,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 15,
@@ -90,7 +95,8 @@
           "Fila": "02",
           "Nivel": "2"
         },
-        "Cantidad": 30
+        "Cantidad": 30,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 8,
@@ -108,7 +114,8 @@
           "Fila": "02",
           "Nivel": "3"
         },
-        "Cantidad": 62
+        "Cantidad": 62,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 20,
@@ -126,7 +133,8 @@
           "Fila": "02",
           "Nivel": "4"
         },
-        "Cantidad": 65
+        "Cantidad": 65,
+        "CodigoPallet": null
       }
     ],
     "CantidadComprometida": 12,
@@ -144,7 +152,8 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 40
+        "Cantidad": 40,
+        "CodigoPallet": "PAL-000002"
       }
     ],
     "CantidadComprometida": 6,
@@ -162,7 +171,8 @@
           "Fila": "01",
           "Nivel": "2"
         },
-        "Cantidad": 25
+        "Cantidad": 25,
+        "CodigoPallet": "PAL-000003"
       }
     ],
     "CantidadComprometida": 4,
@@ -180,12 +190,31 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 50
+        "Cantidad": 50,
+        "CodigoPallet": "PAL-000004"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 40,
+        "CodigoPallet": "PAL-000017"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 40,
+        "CodigoPallet": "PAL-000018"
       }
     ],
     "CantidadComprometida": 12,
-    "CantidadFisica": 50,
-    "CantidadDisponible": 38
+    "CantidadFisica": 130,
+    "CantidadDisponible": 118
   },
   {
     "CodigoCliente": "CLI-007",
@@ -198,12 +227,22 @@
           "Fila": "01",
           "Nivel": "2"
         },
-        "Cantidad": 35
+        "Cantidad": 35,
+        "CodigoPallet": "PAL-000005"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "B",
+          "Fila": "01",
+          "Nivel": "1"
+        },
+        "Cantidad": 25,
+        "CodigoPallet": "PAL-000019"
       }
     ],
     "CantidadComprometida": 10,
-    "CantidadFisica": 35,
-    "CantidadDisponible": 25
+    "CantidadFisica": 60,
+    "CantidadDisponible": 50
   },
   {
     "CodigoCliente": "CLI-008",
@@ -216,7 +255,8 @@
           "Fila": "02",
           "Nivel": "1"
         },
-        "Cantidad": 30
+        "Cantidad": 30,
+        "CodigoPallet": "PAL-000006"
       }
     ],
     "CantidadComprometida": 8,
@@ -234,12 +274,22 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 45
+        "Cantidad": 45,
+        "CodigoPallet": "PAL-000007"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 30,
+        "CodigoPallet": "PAL-000015"
       }
     ],
     "CantidadComprometida": 18,
-    "CantidadFisica": 45,
-    "CantidadDisponible": 27
+    "CantidadFisica": 75,
+    "CantidadDisponible": 57
   },
   {
     "CodigoCliente": "CLI-006",
@@ -252,12 +302,22 @@
           "Fila": "01",
           "Nivel": "2"
         },
-        "Cantidad": 28
+        "Cantidad": 28,
+        "CodigoPallet": "PAL-000008"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 20,
+        "CodigoPallet": "PAL-000016"
       }
     ],
     "CantidadComprometida": 9,
-    "CantidadFisica": 28,
-    "CantidadDisponible": 19
+    "CantidadFisica": 48,
+    "CantidadDisponible": 39
   },
   {
     "CodigoCliente": "CLI-007",
@@ -270,7 +330,8 @@
           "Fila": "02",
           "Nivel": "1"
         },
-        "Cantidad": 20
+        "Cantidad": 20,
+        "CodigoPallet": "PAL-000009"
       }
     ],
     "CantidadComprometida": 7,
@@ -288,12 +349,22 @@
           "Fila": "01",
           "Nivel": "1"
         },
-        "Cantidad": 60
+        "Cantidad": 60,
+        "CodigoPallet": "PAL-000010"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "3"
+        },
+        "Cantidad": 24,
+        "CodigoPallet": "PAL-000013"
       }
     ],
     "CantidadComprometida": 24,
-    "CantidadFisica": 60,
-    "CantidadDisponible": 36
+    "CantidadFisica": 84,
+    "CantidadDisponible": 60
   },
   {
     "CodigoCliente": "CLI-005",
@@ -306,12 +377,22 @@
           "Fila": "01",
           "Nivel": "2"
         },
-        "Cantidad": 24
+        "Cantidad": 24,
+        "CodigoPallet": "PAL-000011"
+      },
+      {
+        "Posicion": {
+          "Pasillo": "A",
+          "Fila": "01",
+          "Nivel": "4"
+        },
+        "Cantidad": 12,
+        "CodigoPallet": "PAL-000014"
       }
     ],
     "CantidadComprometida": 6,
-    "CantidadFisica": 24,
-    "CantidadDisponible": 18
+    "CantidadFisica": 36,
+    "CantidadDisponible": 30
   },
   {
     "CodigoCliente": "CLI-008",
@@ -324,7 +405,8 @@
           "Fila": "02",
           "Nivel": "1"
         },
-        "Cantidad": 15
+        "Cantidad": 15,
+        "CodigoPallet": "PAL-000012"
       }
     ],
     "CantidadComprometida": 5,

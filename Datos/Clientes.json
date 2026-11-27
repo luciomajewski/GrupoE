@@ -41,29 +41,32 @@
   },
   {
     "Codigo": "CLI-005",
-    "RazonSocial": "Bodegas del Sol",
+    "RazonSocial": "Bazar del Sol",
     "CodigoDeposito": "MDZ",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00004-00000301"
+      "00004-00000301",
+      "00004-00000310"
     ]
   },
   {
     "Codigo": "CLI-006",
-    "RazonSocial": "Lácteos Serranos",
+    "RazonSocial": "Limpieza Serrana",
     "CodigoDeposito": "CBA",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00005-00000122"
+      "00005-00000122",
+      "00005-00000130"
     ]
   },
   {
     "Codigo": "CLI-007",
-    "RazonSocial": "Agro Litoral",
+    "RazonSocial": "Jardinería Litoral",
     "CodigoDeposito": "ROS",
     "ContratoVigente": true,
     "RemitosRegistrados": [
-      "00006-00002045"
+      "00006-00002045",
+      "00006-00002050"
     ]
   },
   {

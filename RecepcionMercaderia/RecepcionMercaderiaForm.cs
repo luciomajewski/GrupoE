@@ -66,6 +66,7 @@ namespace GrupoE.RecepcionMercaderia
 
             modelo.SeleccionarCliente(nuevo);
             listViewRem.Items.Clear();
+            MostrarPalletActual();
         }
 
         // N° Remito: solo números; el guion se agrega solo después del 5° número.
@@ -137,13 +138,40 @@ namespace GrupoE.RecepcionMercaderia
             listViewRem.Items.Clear();
             foreach (ItemRecepcion item in modelo.Items)
             {
-                listViewRem.Items.Add(new ListViewItem(new[] { item.Codigo, item.Descripcion, item.CantidadContada.ToString(), item.CantidadRemito.ToString() }));
+                listViewRem.Items.Add(new ListViewItem(new[] { item.Codigo, item.Descripcion, item.CantidadContada.ToString(), item.CantidadRemito.ToString(), item.Pallet }));
             }
 
             textBoxSKURem.Clear();
             textBoxCatnCRem.Clear();
             textBoxCanRem.Clear();
             textBoxSKURem.Focus();
+        }
+
+        // Casilla "Pallet armado por el cliente".
+        private void checkBoxPalletCliente_CheckedChanged(object? sender, EventArgs e)
+        {
+            modelo.IndicarPalletDelCliente(checkBoxPalletCliente.Checked);
+            MostrarPalletActual();
+        }
+
+        // Botón "Nuevo pallet": el siguiente pallet del cliente que baja del camión.
+        private void buttonNuevoPallet_Click(object? sender, EventArgs e)
+        {
+            string? error = modelo.NuevoPallet();
+            if (error != null)
+            {
+                MessageBox.Show(error, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            MostrarPalletActual();
+        }
+
+        private void MostrarPalletActual()
+        {
+            checkBoxPalletCliente.Checked = modelo.HayPalletDelCliente;
+            buttonNuevoPallet.Enabled = modelo.HayPalletDelCliente;
+            labelPalletActual.Text = modelo.TextoPalletActual;
         }
 
         // Excepción paso 11: quita el ítem seleccionado.
@@ -202,6 +230,7 @@ namespace GrupoE.RecepcionMercaderia
             textBoxCanRem.Clear();
             textBoxObsRem.Clear();
             listViewRem.Items.Clear();
+            MostrarPalletActual();
         }
 
         // La pregunta de Cancelar se hace al cerrar la pantalla (RecepcionMercaderiaForm_FormClosing).

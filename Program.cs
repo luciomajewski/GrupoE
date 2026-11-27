@@ -23,6 +23,7 @@ namespace GrupoE
             Almacenes.OrdenesSeleccionAlmacen.Guardar();
             Almacenes.OrdenesEntregaAlmacen.Guardar();
             Almacenes.RemitosEntregaAlmacen.Guardar();
+            Almacenes.ServiciosAFacturarAlmacen.Guardar();
         }
     }
 }

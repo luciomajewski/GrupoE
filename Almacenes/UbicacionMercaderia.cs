@@ -4,4 +4,5 @@ internal class UbicacionMercaderia
 {
     public Posicion Posicion { get; set; } = new();
     public int Cantidad { get; set; }
+    public string? CodigoPallet { get; set; }
 }

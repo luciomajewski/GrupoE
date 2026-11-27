@@ -33,35 +33,39 @@
             // lblOrdenTitulo
             // 
             lblOrdenTitulo.AutoSize = true;
-            lblOrdenTitulo.Location = new Point(20, 20);
+            lblOrdenTitulo.Location = new Point(16, 16);
             lblOrdenTitulo.Name = "lblOrdenTitulo";
+            lblOrdenTitulo.ForeColor = Color.FromArgb(108, 117, 125);
             lblOrdenTitulo.Size = new Size(108, 15);
-            lblOrdenTitulo.TabIndex = 6;
+            lblOrdenTitulo.TabIndex = 0;
             lblOrdenTitulo.Text = "Orden de selección";
             // 
             // lblOrden
             // 
             lblOrden.AutoSize = true;
-            lblOrden.Location = new Point(20, 42);
+            lblOrden.Location = new Point(16, 34);
             lblOrden.Name = "lblOrden";
+            lblOrden.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblOrden.Size = new Size(33, 15);
-            lblOrden.TabIndex = 5;
+            lblOrden.TabIndex = 1;
             lblOrden.Text = "[nro]";
             // 
             // lblFechaTitulo
             // 
             lblFechaTitulo.AutoSize = true;
-            lblFechaTitulo.Location = new Point(240, 20);
+            lblFechaTitulo.Location = new Point(240, 16);
             lblFechaTitulo.Name = "lblFechaTitulo";
+            lblFechaTitulo.ForeColor = Color.FromArgb(108, 117, 125);
             lblFechaTitulo.Size = new Size(38, 15);
-            lblFechaTitulo.TabIndex = 4;
+            lblFechaTitulo.TabIndex = 2;
             lblFechaTitulo.Text = "Fecha";
             // 
             // lblFecha
             // 
             lblFecha.AutoSize = true;
-            lblFecha.Location = new Point(240, 42);
+            lblFecha.Location = new Point(240, 34);
             lblFecha.Name = "lblFecha";
+            lblFecha.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblFecha.Size = new Size(96, 15);
             lblFecha.TabIndex = 3;
             lblFecha.Text = "dd/MM/yy [hoy]";
@@ -69,10 +73,11 @@
             // lblMercaderia
             // 
             lblMercaderia.AutoSize = true;
-            lblMercaderia.Location = new Point(20, 80);
+            lblMercaderia.Location = new Point(16, 80);
             lblMercaderia.Name = "lblMercaderia";
+            lblMercaderia.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblMercaderia.Size = new Size(104, 15);
-            lblMercaderia.TabIndex = 2;
+            lblMercaderia.TabIndex = 4;
             lblMercaderia.Text = "Mercadería a bajar";
             // 
             // lvMercaderia
@@ -80,40 +85,40 @@
             lvMercaderia.Columns.AddRange(new ColumnHeader[] { colPosicion, colSKU, colDescripcion, colCantidad });
             lvMercaderia.FullRowSelect = true;
             lvMercaderia.GridLines = true;
-            lvMercaderia.Location = new Point(20, 102);
+            lvMercaderia.Location = new Point(16, 100);
             lvMercaderia.MultiSelect = false;
             lvMercaderia.Name = "lvMercaderia";
-            lvMercaderia.Size = new Size(645, 330);
-            lvMercaderia.TabIndex = 1;
+            lvMercaderia.Size = new Size(652, 316);
+            lvMercaderia.TabIndex = 5;
             lvMercaderia.UseCompatibleStateImageBehavior = false;
             lvMercaderia.View = View.Details;
             // 
             // colPosicion
             // 
             colPosicion.Text = "Posición";
-            colPosicion.Width = 120;
+            colPosicion.Width = 110;
             // 
             // colSKU
             // 
             colSKU.Text = "SKU";
-            colSKU.Width = 120;
+            colSKU.Width = 110;
             // 
             // colDescripcion
             // 
             colDescripcion.Text = "Descripción";
-            colDescripcion.Width = 280;
+            colDescripcion.Width = 300;
             // 
             // colCantidad
             // 
             colCantidad.Text = "Cantidad";
-            colCantidad.Width = 100;
+            colCantidad.Width = 90;
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(20, 450);
+            btnConfirmar.Location = new Point(436, 432);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(645, 35);
-            btnConfirmar.TabIndex = 0;
+            btnConfirmar.Size = new Size(232, 34);
+            btnConfirmar.TabIndex = 6;
             btnConfirmar.Text = "Confirmar entrega a Preparación";
             btnConfirmar.UseVisualStyleBackColor = true;
             btnConfirmar.Click += btnConfirmar_Click;
@@ -122,7 +127,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(684, 505);
+            ClientSize = new Size(684, 482);
             Controls.Add(btnConfirmar);
             Controls.Add(lvMercaderia);
             Controls.Add(lblMercaderia);
